@@ -15,7 +15,7 @@ const Footer = () => {
             <div className="footer-content-wrap">
               <div className="footer-content-top">
                 <div className="footer-brand">
-                  <a
+                  <Link
                     href="/"
                     aria-current="page"
                     className="footer-brand_logo-wrap w-nav-brand w--current"
@@ -32,7 +32,7 @@ const Footer = () => {
                         Courchevel Media
                       </span>
                     </div>
-                  </a>
+                  </Link>
                   <div className="footer-brand_paragraph">
                     <div className="text-weight-medium">
                       <div className="text-white">{t("footer.text")}</div>

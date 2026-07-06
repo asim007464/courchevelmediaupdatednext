@@ -445,6 +445,7 @@ const peopleData = [
                 {filteredData.map(function (elem, index) {
                   return (
                     <div
+                      key={elem.name || index}
                       role="listitem"
                       style={{
                         height: "900px",

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import Watsappbtn from "./Watsappbtn.jsx";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useLanguage } from "@/context/LanguageProvider";
@@ -20,7 +21,7 @@ const Navbar = () => {
     >
       <div className="container-navbar">
         <div className="navbar_brand-wrap">
-          <a
+          <Link
             href="/"
             className="flex items-center navbarlogo gap-0 text-[24px]"
           >
@@ -30,7 +31,7 @@ const Navbar = () => {
               alt=""
             />
             <span className="text-white"> Courchevel Media</span>
-          </a>
+          </Link>
         </div>
         <nav role="navigation" className="navbar-menu w-nav-menu">
           <a href="#service" className="navbar-menu_link">

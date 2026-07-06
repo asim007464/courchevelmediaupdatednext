@@ -1,8 +1,8 @@
+"use client";
+
 import React, { useEffect } from "react";
 import Swiper from "swiper";
 import { Navigation } from "swiper/modules";
-
-Swiper.use([Navigation]);
 
 const Testimonials = () => {
   useEffect(() => {
@@ -10,6 +10,7 @@ const Testimonials = () => {
     var Webflow = window.Webflow || [];
     Webflow.push(function () {
       const caseStudiesSwiper = new Swiper(".swiper-case-studies", {
+        modules: [Navigation],
         init: false,
         autoHeight: true,
         centeredSlides: true,

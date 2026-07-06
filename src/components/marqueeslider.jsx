@@ -391,7 +391,7 @@ const peopleData = [
   const marqueeWrapperRef = useRef(null);
   const itemRefs = useRef([]);
   const autoResumeTimer = useRef(null);
-  const animationStartTime = useRef(Date.now());
+  const animationStartTime = useRef(0);
   const pausedAt = useRef(0);
 
   const [isUserInteracting, setIsUserInteracting] = useState(false);
@@ -631,7 +631,7 @@ const peopleData = [
     animationStartTime.current = Date.now();
     pausedAt.current = 0;
     mainActiveIndexRef.current = 0;
-    setMainActiveIndex(0);
+    requestAnimationFrame(() => setMainActiveIndex(0));
   }, [activeTab]);
 
 

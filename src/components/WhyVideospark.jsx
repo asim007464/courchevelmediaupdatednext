@@ -28,7 +28,7 @@ const WhyVideospark = () => {
                   <div className="text-weight-medium">
                     <div className="text-size-medium text-[white]">
                       After working with discerning clients and understanding
-                      the unique challenges of ski photography, we've developed
+                      the unique challenges of ski photography, we&apos;ve developed
                       a service that ensures every moment on the slopes is
                       captured with unmatched excellence.
                     </div>

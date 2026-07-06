@@ -6,43 +6,64 @@ import {
   useContext,
   useEffect,
   useMemo,
-  useState,
+  useSyncExternalStore,
 } from "react";
 import { DEFAULT_LOCALE, getLanguage } from "@/lib/languages";
 import { translations } from "@/lib/translations";
 
 const LanguageContext = createContext(null);
+const LOCALE_STORAGE_KEY = "courchevel-locale";
+const LOCALE_CHANGE_EVENT = "courchevel-locale-change";
 
 function getNestedValue(object, path) {
   return path.split(".").reduce((acc, part) => acc?.[part], object);
 }
 
+function readStoredLocale() {
+  if (typeof window === "undefined") return DEFAULT_LOCALE;
+  const saved = window.localStorage.getItem(LOCALE_STORAGE_KEY);
+  return saved && translations[saved] ? saved : DEFAULT_LOCALE;
+}
+
+function subscribeToLocale(onStoreChange) {
+  if (typeof window === "undefined") return () => {};
+
+  const handler = () => onStoreChange();
+  window.addEventListener(LOCALE_CHANGE_EVENT, handler);
+  window.addEventListener("storage", handler);
+
+  return () => {
+    window.removeEventListener(LOCALE_CHANGE_EVENT, handler);
+    window.removeEventListener("storage", handler);
+  };
+}
+
+function getServerLocaleSnapshot() {
+  return DEFAULT_LOCALE;
+}
+
+function persistLocale(code) {
+  if (!translations[code]) return;
+  window.localStorage.setItem(LOCALE_STORAGE_KEY, code);
+  window.dispatchEvent(new Event(LOCALE_CHANGE_EVENT));
+}
+
 export function LanguageProvider({ children }) {
-  const [locale, setLocaleState] = useState(DEFAULT_LOCALE);
-  const [ready, setReady] = useState(false);
+  const locale = useSyncExternalStore(
+    subscribeToLocale,
+    readStoredLocale,
+    getServerLocaleSnapshot
+  );
 
   useEffect(() => {
-    const saved = window.localStorage.getItem("courchevel-locale");
-    if (saved && translations[saved]) {
-      setLocaleState(saved);
-    }
-    setReady(true);
-  }, []);
-
-  useEffect(() => {
-    if (!ready) return;
-
     const language = getLanguage(locale);
-    window.localStorage.setItem("courchevel-locale", locale);
     document.documentElement.lang = locale;
     document.documentElement.dir = "ltr";
     document.body.dataset.textDir = language.dir;
-  }, [locale, ready]);
+  }, [locale]);
 
   const setLocale = useCallback((code) => {
-    if (translations[code]) {
-      setLocaleState(code);
-    }
+    persistLocale(code);
   }, []);
 
   const t = useCallback(
@@ -61,10 +82,10 @@ export function LanguageProvider({ children }) {
       locale,
       setLocale,
       t,
-      ready,
+      ready: true,
       language: getLanguage(locale),
     }),
-    [locale, setLocale, t, ready]
+    [locale, setLocale, t]
   );
 
   return (

@@ -384,7 +384,7 @@ const Marqueeslider = () => {
   const marqueeWrapperRef = useRef(null);
   const itemRefs = useRef([]);
   const autoResumeTimer = useRef(null);
-  const animationStartTime = useRef(Date.now());
+  const animationStartTime = useRef(0);
   const pausedAt = useRef(0);
 
 // Replace the existing useEffect that tracks animation progress with this improved version
@@ -524,7 +524,7 @@ const handleMainDotClick = (targetIndex) => {
   useEffect(() => {
     animationStartTime.current = Date.now();
     pausedAt.current = 0;
-    setMainActiveIndex(0);
+    requestAnimationFrame(() => setMainActiveIndex(0));
   }, [activeTab]);
 
   return (
