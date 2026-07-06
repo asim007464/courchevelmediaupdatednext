@@ -1,0 +1,21 @@
+.stories-tabs_tab-link-inner-bg {
+    background: radial-gradient(19635.01% 62.97% at 55.79% 50%,
+            #2a2536 0%,
+            #1e1b26 100%);
+    box-shadow: 0px 4px 0px 0px rgba(0, 0, 0, 0.15) inset;
+}
+
+.stories-tabs_tab-link.w-tab-link.w--current,
+.stories-tabs_tab-link.cc-selected {
+    background: radial-gradient(82.95% 82.95% at 50% 17.05%,
+            rgba(231, 94, 75, 0.6) 0%,
+            rgba(164, 73, 255, 0.6) 100%);
+}
+
+.stories-tabs_tab-link.w-tab-link.w--current .stories-tabs_tab-link-inner-bg,
+.stories-tabs_tab-link.cc-selected .stories-tabs_tab-link-inner-bg {
+    top: 2px;
+    right: 2px;
+    bottom: 2px;
+    left: 2px;
+}

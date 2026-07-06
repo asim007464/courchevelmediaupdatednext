@@ -1,0 +1,82 @@
+.sectionservice {
+  background-image: url("/images/termspage.webp");
+  background-position: center;
+  width: 100%;
+  padding: 250px 0px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: rgba(0, 0, 0, 0.624);
+  background-blend-mode: color;
+  background-attachment: fixed;
+}
+
+.Termscontent h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: white;
+  max-width: 1000px;
+  margin-top: 30px;
+}
+.Termscontent ul {
+  padding-left: 20px;
+}
+.Termscontent h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: white;
+  max-width: 1000px;
+  margin-top: 30px;
+}
+.Termscontent h4 {
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+  max-width: 1000px;
+  margin-top: 30px;
+}
+.Termscontent p,
+.Termscontent ul {
+  color: white;
+  margin-top: 10px;
+  max-width: 1000px;
+}
+.Termscontent li {
+  margin-top: 10px;
+  list-style-type: disc;
+}
+.privacylist li {
+  list-style: none;
+}
+.serviceagrelist {
+  padding-left: 40px;
+  margin: 0 !important;
+}
+.eventslist {
+  margin-top: 0 !important;
+}
+.mainheadingterms {
+  font-size: 35px !important;
+}
+@media (max-width: 600px) {
+  .Termscontent h1 {
+    font-size: 21px;
+    font-weight: 700;
+    color: white;
+    max-width: 1000px;
+    margin-top: 30px;
+  }
+  .mainheadingterms {
+    font-size: 28px !important;
+  }
+  .Termscontent ul {
+    padding-left: 15px;
+  }
+}
+
+.page-back-btn,
+.page-back-btn:hover,
+.page-back-btn:focus,
+.page-back-btn:visited,
+.page-back-btn i {
+  text-decoration: none !important;
+}

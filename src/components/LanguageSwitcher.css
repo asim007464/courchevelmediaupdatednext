@@ -1,0 +1,108 @@
+.language-switcher {
+  position: relative;
+  z-index: 1000;
+}
+
+.language-switcher__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  text-decoration: none !important;
+  line-height: 1;
+}
+
+.language-switcher__trigger:hover {
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.language-switcher__menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  min-width: 220px;
+  padding: 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 0.75rem;
+  background: #1a1a1a;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+}
+
+.language-switcher__option {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: #fff;
+  font-size: 0.95rem;
+  text-align: left;
+  cursor: pointer;
+  text-decoration: none !important;
+}
+
+.language-switcher__option:hover,
+.language-switcher__option.is-active {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.language-switcher__flag {
+  width: 1.35rem;
+  height: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.language-switcher__flag-img {
+  width: 20px;
+  height: 15px;
+  object-fit: cover;
+  border-radius: 2px;
+  display: block;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+.language-switcher__globe {
+  font-size: 0.95rem;
+  color: #fff;
+  opacity: 0.95;
+}
+
+.language-switcher__flag--trigger .language-switcher__flag-img,
+.language-switcher__flag--trigger .language-switcher__globe {
+  display: block;
+}
+
+.language-switcher__label {
+  flex: 1;
+}
+
+.language-switcher__check {
+  color: #fff;
+  font-size: 0.85rem;
+}
+
+.language-switcher__chevron {
+  font-size: 0.7rem;
+  opacity: 0.8;
+}
+
+@media (max-width: 767px) {
+  .language-switcher__menu {
+    right: auto;
+    left: 0;
+  }
+}

@@ -1,0 +1,5 @@
+.home-brand img {
+  filter: brightness(1); /* Adjust the brightness (0.5 is half brightness) */
+  transition: filter 0.3s ease-in-out;
+  color: #25d36842;
+}

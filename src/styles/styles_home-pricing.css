@@ -1,0 +1,5 @@
+.card-pricing_label {
+    background: #0074ED;
+    border: 1px solid #303030;
+    box-shadow: 0.5px 0.5px 0 0 rgba(102, 61, 255, 0.90), -0.5px -0.5px 0 0 rgba(102, 61, 255, 0.90), 0.5px -0.5px 0 0 rgba(102, 61, 255, 0.90), -0.5px 0.5px 0 0 rgba(102, 61, 255, 0.90), 0 1px 1px 1px rgba(255, 255, 255, 0.20) inset, 0 1px 1px 0 rgba(39, 11, 148, 0.25);
+}

@@ -1,0 +1,217 @@
+.image-container {
+  position: relative;
+  width: 100%;
+}
+
+.testimonial-image {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.testimonial-image:first-child {
+  opacity: 1;
+}
+
+.image-container:hover .testimonial-image {
+  opacity: 0; /* Hide all images on hover */
+}
+
+.image-container:hover .testimonial-image:nth-child(1) {
+  opacity: 1;
+  animation: cycle-images 4s infinite;
+}
+
+@keyframes cycle-images {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.image-container:hover .testimonial-image:nth-child(2) {
+  animation-delay: 1s;
+  animation: cycle-images 4s infinite;
+}
+
+.image-container:hover .testimonial-image:nth-child(3) {
+  animation-delay: 2s;
+  animation: cycle-images 4s infinite;
+}
+.sliderasim .slick-arrow {
+  display: none !important;
+  font-size: 45px !important;
+}
+
+button {
+  /* background-color: red !important; */
+}
+.sliderasim ul li {
+  /* background-color: rgba(255, 255, 255, 0.199); */
+  border-radius: 50%;
+}
+.sliderasim ul li button {
+  border-radius: 50%;
+  /* color: red !important; */
+  /* background-color: red !important; */
+}
+
+.slick-prev:before,
+.slick-next:before {
+  display: none !important;
+  font-size: 35px !important;
+}
+.slick-dots li button:before {
+  color: rgb(255, 255, 255) !important;
+}
+.slick-prev {
+  display: none !important;
+  z-index: 20;
+  left: -15px !important;
+}
+
+.slick-next {
+  z-index: 20;
+  right: -1px !important;
+}
+.btnsslider {
+  background-color: rgba(255, 255, 255, 0.295);
+}
+
+.circlemain {
+  position: absolute;
+  bottom: -110px;
+  left: 40%;
+  width: 100%;
+  height: 20vh;
+  z-index: 100;
+}
+.spancircle {
+  margin: 0 5px;
+  background-color: rgb(124, 124, 124);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  top: -15px;
+}
+.spancircle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: gray;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+
+.spancircle.active-circle {
+  background-color: white;
+  transform: scale(1.2);
+}
+.active {
+  border-bottom: 1px solid #d3d3d3 !important;
+}
+
+/* Custom styling for slick-carousel dots */
+.slick-dots {
+  bottom: -36px !important; /* Adjust vertical position if needed */
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  gap: 14px !important; /* Reduced gap between dots */
+}
+
+.slick-dots li {
+  position: relative;
+  display: inline-block;
+  width: 10px !important; /* Increased dot size */
+  height: 10px !important; /* Increased dot size */
+  margin: 0 !important; /* Remove default margin */
+  padding: 0;
+  cursor: pointer;
+}
+
+.slick-dots li button {
+  font-size: 0;
+  line-height: 0;
+  display: block;
+  width: 12px !important; /* Match container size */
+  height: 12px !important; /* Match container size */
+  padding: 0 !important;
+  cursor: pointer;
+  color: transparent;
+  border: 0;
+  outline: none;
+  background: rgba(255, 255, 255, 0.4) !important; /* Semi-transparent white */
+  border-radius: 50% !important; /* Make dots circular */
+  transition: all 0.3s ease !important; /* Smooth transition */
+}
+
+.slick-dots li button:hover,
+.slick-dots li button:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.6) !important; /* Lighter on hover */
+  transform: scale(1.1) !important; /* Slight scale effect on hover */
+}
+
+.slick-dots li.slick-active button {
+  background: #ffffff !important; /* Full white for active dot */
+  transform: scale(1.2) !important; /* Make active dot slightly larger */
+}
+
+/* Remove default slick dot styling */
+.slick-dots li button:before {
+  content: '' !important;
+  display: none !important;
+}
+
+/* Alternative style with border for better visibility */
+.slick-dots.bordered li button {
+  border: 2px solid rgba(255, 255, 255, 0.5) !important;
+  background: transparent !important;
+}
+
+.slick-dots.bordered li.slick-active button {
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+/* Smaller dots variation */
+.slick-dots.small li {
+  width: 12px !important;
+  height: 12px !important;
+}
+
+.slick-dots.small li button {
+  width: 12px !important;
+  height: 12px !important;
+}
+
+/* Larger dots variation */
+.slick-dots.large li {
+  width: 20px !important;
+  height: 20px !important;
+}
+
+.slick-dots.large li button {
+  width: 20px !important;
+  height: 20px !important;
+}

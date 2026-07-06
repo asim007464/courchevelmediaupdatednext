@@ -1,0 +1,27 @@
+.gs-tabs_tab-link-line-grey {
+    background: radial-gradient(1191935.56% 65.62% at 34.53% 67.97%,
+            rgba(255, 255, 255, 0.7) 0%,
+            rgba(255, 255, 255, 0.05) 100%);
+}
+
+.gs-tabs_tab-link-line-gradient {
+    background: radial-gradient(100% 100% at 50% 0%,
+            #9b3224 4.17%,
+            #e75e4b 52.59%,
+            #a449ff 100%);
+}
+
+.gs-tabs_tab-link.w-tab-link.w--current .card-gs-tab-number {
+    background: radial-gradient(100% 100% at 50% 0%,
+            #9b3224 4.17%,
+            #e75e4b 52.59%,
+            #a449ff 100%);
+}
+
+@media screen and (max-width: 767px) {
+    .gs-tabs_tab-link.w-tab-link.w--current .card-gs-tab-number {
+        background: radial-gradient(19635.01% 62.97% at 55.79% 50%,
+                #2a2536 0%,
+                #1e1b26 100%);
+    }
+}
