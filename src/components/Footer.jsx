@@ -18,7 +18,7 @@ const Footer = () => {
                   <Link
                     href="/"
                     aria-current="page"
-                    className="footer-brand_logo-wrap w-nav-brand w--current"
+                    className="footer-brand_logo-wrap w-nav-brand w--current no-underline"
                   >
                     <div className="footer-brand_logo flex gap-[20px] mb-10">
                       <img

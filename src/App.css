@@ -7212,6 +7212,18 @@ background-clip: text;
 .navbarlogo img {
   height: 80px;
 }
+
+.navbarlogo,
+.navbarlogo:hover,
+.navbarlogo:focus,
+.navbarlogo:visited,
+.footer-brand_logo-wrap,
+.footer-brand_logo-wrap:hover,
+.footer-brand_logo-wrap:focus,
+.footer-brand_logo-wrap:visited {
+  text-decoration: none !important;
+}
+
 @media (max-width: 600px) {
   .navbarlogo img {
     height: 50px !important;

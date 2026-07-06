@@ -23,7 +23,7 @@ const Navbar = () => {
         <div className="navbar_brand-wrap">
           <Link
             href="/"
-            className="flex items-center navbarlogo gap-0 text-[24px]"
+            className="flex items-center navbarlogo w-nav-brand gap-0 text-[24px] no-underline"
           >
             <img
               style={{ height: "60px" }}
