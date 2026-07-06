@@ -4,12 +4,12 @@
   "description": "Courchevel Media - Luxury ski photography and videography (Next.js)",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint"
   },
   "engines": {
-    "node": ">=20.9.0"
+    "node": "20.x"
   },
   "dependencies": {
     "next": "16.2.10",
