@@ -66,6 +66,14 @@ export const defaultMetadata = {
   alternates: {
     canonical: SITE_URL,
   },
+  icons: {
+    icon: [
+      { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+    shortcut: "/favicon-32x32.png",
+    apple: "/favicon-48x48.png",
+  },
   verification: {
     google: "7zq_33SyYybf2b-HcSrTEBplEaXcWYNERmjzVz2CGEg",
   },

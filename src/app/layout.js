@@ -36,7 +36,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" dir="ltr" className={`${manrope.variable} w-mod-js`}>
       <head>
-        <link rel="icon" href="/favicon-32x32.png" type="image/png" />
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
