@@ -10,6 +10,7 @@ export const ar = {
     reviews: "المراجعات",
     pricing: "الباقات",
     faqs: "الأسئلة",
+    blogs: "المدونة",
   },
   hero: {
     titleBefore: "إجازتك على التزلج",

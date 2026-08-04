@@ -84,6 +84,7 @@ export const en = {
     reviews: "Reviews",
     pricing: "Packages",
     faqs: "FAQs",
+    blogs: "Blogs",
   },
   hero: {
     titleBefore: "Your ski",

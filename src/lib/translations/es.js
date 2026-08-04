@@ -10,6 +10,7 @@ export const es = {
     reviews: "Reseñas",
     pricing: "Paquetes",
     faqs: "Preguntas",
+    blogs: "Blog",
   },
   hero: {
     titleBefore: "Tus vacaciones de ski",

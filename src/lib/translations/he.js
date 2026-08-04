@@ -10,6 +10,7 @@ export const he = {
     reviews: "ביקורות",
     pricing: "חבילות",
     faqs: "שאלות",
+    blogs: "בלוג",
   },
   hero: {
     titleBefore: "חופשת הסקי שלך",

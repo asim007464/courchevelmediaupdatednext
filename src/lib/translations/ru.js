@@ -10,6 +10,7 @@ export const ru = {
     reviews: "Отзывы",
     pricing: "Пакеты",
     faqs: "FAQ",
+    blogs: "Блог",
   },
   hero: {
     titleBefore: "Ваш ski-отдых",

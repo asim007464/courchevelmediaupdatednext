@@ -6,12 +6,12 @@ import LanguageSwitcher from "./LanguageSwitcher";
 import { useLanguage } from "@/context/LanguageProvider";
 
 const NAV_LINKS = [
-  { href: "#service", labelKey: "nav.service" },
-  { href: "#portfolio", labelKey: "nav.portfolio" },
-  { href: "#process", labelKey: "nav.process" },
-  { href: "#reviews", labelKey: "nav.reviews" },
-  { href: "#pricing", labelKey: "nav.pricing" },
-  { href: "#faqs", labelKey: "nav.faqs" },
+  { href: "/#service", labelKey: "nav.service" },
+  { href: "/#portfolio", labelKey: "nav.portfolio" },
+  { href: "/#process", labelKey: "nav.process" },
+  { href: "/#reviews", labelKey: "nav.reviews" },
+  { href: "/#pricing", labelKey: "nav.pricing" },
+  { href: "/#faqs", labelKey: "nav.faqs" },
 ];
 
 const getNavbarOffset = () => {
@@ -54,8 +54,16 @@ const Navbar = () => {
   const { t } = useLanguage();
 
   const handleNavClick = (event, href) => {
+    if (!href.includes("#")) return;
+
+    const hash = `#${href.split("#")[1]}`;
+    const onHome =
+      window.location.pathname === "/" || window.location.pathname === "";
+
+    if (!onHome) return;
+
     event.preventDefault();
-    scrollToSection(href);
+    scrollToSection(hash);
   };
 
   return (
@@ -80,16 +88,22 @@ const Navbar = () => {
           </Link>
         </div>
         <nav role="navigation" className="navbar-menu w-nav-menu">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="navbar-menu_link"
-              onClick={(event) => handleNavClick(event, link.href)}
-            >
-              {t(link.labelKey)}
-            </a>
-          ))}
+          {NAV_LINKS.map((link) =>
+            link.type === "page" ? (
+              <Link key={link.href} href={link.href} className="navbar-menu_link">
+                {t(link.labelKey)}
+              </Link>
+            ) : (
+              <a
+                key={link.href}
+                href={link.href}
+                className="navbar-menu_link"
+                onClick={(event) => handleNavClick(event, link.href)}
+              >
+                {t(link.labelKey)}
+              </a>
+            )
+          )}
         </nav>
         <div className="navbar_cta-wrap">
           <LanguageSwitcher />

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { getImageSrc } from "@/lib/getImageSrc";
 import { useLanguage } from "@/context/LanguageProvider";
 
@@ -509,56 +510,59 @@ export default function SelectedWork() {
         </div>
       </div>
 
-      {lightboxItem ? (
-        <div
-          className="selected-work-lightbox"
-          role="dialog"
-          aria-modal="true"
-          aria-label={lightboxItem.alt}
-          onClick={closeLightbox}
-        >
-          <button
-            type="button"
-            className="selected-work-lightbox__close"
-            onClick={closeLightbox}
-            aria-label="Close image"
-          >
-            ×
-          </button>
-          <button
-            type="button"
-            className="selected-work-lightbox__nav selected-work-lightbox__nav--prev"
-            onClick={(event) => {
-              event.stopPropagation();
-              showPrevious();
-            }}
-            aria-label="Previous image"
-          >
-            ‹
-          </button>
-          <div
-            className="selected-work-lightbox__frame"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <img
-              src={getImageSrc(lightboxItem.src)}
-              alt={lightboxItem.alt}
-              className="selected-work-lightbox__image"
-            />
-          </div>
-          <button
-            type="button"
-            className="selected-work-lightbox__nav selected-work-lightbox__nav--next"
-            onClick={(event) => {
-              event.stopPropagation();
-              showNext();
-            }}
-            aria-label="Next image"
-          >
-            ›
-          </button>
-        </div>
-      ) : null}
+      {lightboxItem && typeof document !== "undefined"
+        ? createPortal(
+            <div
+              className="selected-work-lightbox"
+              role="dialog"
+              aria-modal="true"
+              aria-label={lightboxItem.alt}
+              onClick={closeLightbox}
+            >
+              <button
+                type="button"
+                className="selected-work-lightbox__close"
+                onClick={closeLightbox}
+                aria-label="Close image"
+              >
+                ×
+              </button>
+              <button
+                type="button"
+                className="selected-work-lightbox__nav selected-work-lightbox__nav--prev"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  showPrevious();
+                }}
+                aria-label="Previous image"
+              >
+                ‹
+              </button>
+              <div
+                className="selected-work-lightbox__frame"
+                onClick={(event) => event.stopPropagation()}
+              >
+                <img
+                  src={getImageSrc(lightboxItem.src)}
+                  alt={lightboxItem.alt}
+                  className="selected-work-lightbox__image"
+                />
+              </div>
+              <button
+                type="button"
+                className="selected-work-lightbox__nav selected-work-lightbox__nav--next"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  showNext();
+                }}
+                aria-label="Next image"
+              >
+                ›
+              </button>
+            </div>,
+            document.body
+          )
+        : null}
     </section>
   );
 }
