@@ -68,13 +68,13 @@ export const defaultMetadata = {
   },
   icons: {
     icon: [
-      { url: "/brand-icon-192.png", sizes: "192x192", type: "image/png" },
-      { url: "/brand-icon-96.png", sizes: "96x96", type: "image/png" },
-      { url: "/brand-icon-48.png", sizes: "48x48", type: "image/png" },
-      { url: "/favicon.ico", sizes: "48x48", type: "image/x-icon" },
+      { url: "/cm-icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/cm-icon-96.png", sizes: "96x96", type: "image/png" },
+      { url: "/cm-icon-48.png", sizes: "48x48", type: "image/png" },
+      { url: "/cm-favicon.ico", sizes: "48x48", type: "image/x-icon" },
     ],
-    shortcut: "/favicon.ico",
-    apple: [{ url: "/brand-icon-192.png", sizes: "192x192", type: "image/png" }],
+    shortcut: "/cm-favicon.ico",
+    apple: [{ url: "/cm-icon-192.png", sizes: "192x192", type: "image/png" }],
   },
   verification: {
     google: "7zq_33SyYybf2b-HcSrTEBplEaXcWYNERmjzVz2CGEg",

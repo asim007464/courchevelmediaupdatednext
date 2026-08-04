@@ -20,15 +20,14 @@ const Footer = () => {
                     aria-current="page"
                     className="footer-brand_logo-wrap w-nav-brand w--current no-underline"
                   >
-                    <div className="footer-brand_logo flex gap-[20px] mb-10">
+                    <div className="footer-brand_logo-row">
                       <img
                         src="/images/reallogoofwebsite.webp"
                         loading="lazy"
                         alt=""
-                        style={{ width: "100px", height: "100px" }}
-                        className="relative top-[-40px]"
+                        className="footer-brand_logo-image"
                       />
-                      <span className="text-white text-[25px] relative top-[-20px]">
+                      <span className="footer-brand_logo-text">
                         Courchevel Media
                       </span>
                     </div>

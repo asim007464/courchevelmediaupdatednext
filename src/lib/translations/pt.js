@@ -8,7 +8,7 @@ export const pt = {
     portfolio: "Portfólio",
     process: "Processo",
     reviews: "Avaliações",
-    pricing: "Preços",
+    pricing: "Pacotes",
     faqs: "Perguntas",
   },
   hero: {
@@ -21,6 +21,7 @@ export const pt = {
   },
   common: {
     whatsapp: "Whatsapp",
+    contactUs: "Fale Conosco",
     loadMore: "Carregar mais",
     ski: "Ski",
     events: "Eventos",

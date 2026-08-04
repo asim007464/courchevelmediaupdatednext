@@ -46,7 +46,7 @@
 }
 
 .home-hero_video-wrap {
-  filter: drop-shadow(0px 1px 28px rgba(255, 255, 255, 0.15));
+  filter: none;
 }
 
 .video-tabs_menu > *:first-child {
@@ -58,6 +58,11 @@
 }
 
 @media screen and (max-width: 767px) {
+  .home-hero_video-wrap .video-timeline,
+  .home-hero_video-wrap .home-hero_video-button {
+    opacity: 1;
+  }
+
   .video-tabs_menu::before,
   .video-tabs_menu::after {
     content: "";

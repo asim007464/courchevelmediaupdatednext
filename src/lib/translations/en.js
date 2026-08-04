@@ -82,12 +82,12 @@ export const en = {
     portfolio: "Portfolio",
     process: "Process",
     reviews: "Reviews",
-    pricing: "Pricing",
+    pricing: "Packages",
     faqs: "FAQs",
   },
   hero: {
     titleBefore: "Your ski",
-    titleMiddle: "liday",
+    titleMiddle: " holiday",
     titleGradient: ", captured like cinema.",
     subtitle:
       "Exclusive photo and video service capturing your Courchevel experience with discretion and cinematic detail.",
@@ -95,17 +95,24 @@ export const en = {
   },
   common: {
     whatsapp: "Whatsapp",
+    contactUs: "Contact Us",
     loadMore: "Load More",
     ski: "Ski",
     events: "Events",
   },
   portfolio: {
-    title: "Our",
-    titleGradient: " Portfolio",
+    title: "Selected",
+    titleGradient: "Work",
+    subtitle: "A glimpse into the moments we've had the privilege to capture.",
+    skiTab: "Ski Holidays",
+    eventsTab: "Private Events",
+    dragHint: "Drag to explore more",
+    swipeHint: "Swipe to explore more",
   },
   faq: {
     title: "Have a",
     titleGradient: "Question?",
+    subtitle: "Everything you may want to know before your experience.",
     items: faqs,
   },
   ready: {
@@ -114,39 +121,41 @@ export const en = {
     text: "Availability is limited during the season. Send us a message today to reserve your filmmaker in Courchevel.",
   },
   process: {
-    title: "How We",
-    titleGradient: "Capture Your Adventure",
+    title: "Simple process,",
+    titleGradient: "unforgettable results.",
+    subtitle: "We make it easy from the first message to the final delivery.",
     steps: [
       {
-        title: "Effortless Setup",
-        text: "We adapt to your plans and schedule, making the start of your experience smooth and simple.",
+        title: "Planning",
+        text: "We adapt everything around your holiday, understanding your plans, preferences and priorities before we meet.",
       },
       {
-        title: "Discreet Capturing",
-        text: "Your moments are filmed and photographed naturally, with cinematic precision, creating memories that feel as real as when they happened.",
+        title: "Capturing",
+        text: "Enjoy your day while we work discreetly in the background, capturing the moments that matter most.",
       },
       {
-        title: "Fast Delivery",
-        text: "Professionally edited content delivered quickly, giving you timeless memories to relive and share.",
+        title: "Delivery",
+        text: "Your professionally edited photos and film are carefully selected and delivered within days.",
       },
     ],
   },
   solution: {
-    title: "We capture",
-    titleGradient: "the extraordinary",
-    subtitle: "Exclusive winter experiences, perfectly captured",
+    title: "Private",
+    titleGradient: "Photography & Filmmaking",
+    subtitle:
+      "A professional photography and filmmaking experience, designed around your holiday from start to finish.",
     cards: [
       {
-        title: "Tailored Experiences",
-        text: "Whether it's a family holiday or an important event, we blend into your itinerary, ensuring that every unique moment is captured with personalized attention.",
+        title: "Tailored to Your Holiday",
+        text: "Every day on the mountain is different. We adapt to your plans, your pace, and your priorities, capturing the moments that matter without ever interrupting the experience.",
+      },
+      {
+        title: "Cinematic Storytelling",
+        text: "Every moment is captured with the attention and creativity it deserves. From intimate family moments to breathtaking aerial perspectives, we create photographs and films you'll be proud to share and revisit.",
       },
       {
         title: "Discretion and Privacy",
-        text: "Your privacy is our priority. We work discreetly, ensuring that your experience remains private and undisturbed.",
-      },
-      {
-        title: "Cinematic Excellence",
-        text: "With high-resolution cameras and drones, we capture your ski adventures from breathtaking angles, creating stunning visual stories.",
+        text: "Whether you're travelling with family, friends or colleagues, we work quietly in the background so you can stay present while every important moment is naturally captured.",
       },
     ],
   },
@@ -183,7 +192,7 @@ export const en = {
   trusted: {
     title: "Trusted by",
     subtitle:
-      "Leading international brands, Courchevel's elite, and families who value discretion.",
+      "International brands, leading venues, and private families who value discretion.",
   },
   reviews: {
     title: "What",
@@ -196,13 +205,14 @@ export const en = {
     readMore: "Read more",
   },
   pricing: {
-    title: "Our",
-    titleGradient: " packages",
+    title: "Choose Your",
+    titleGradient: "Experience",
+    subtitle:
+      "Whether you're looking to capture a single day or your entire holiday, each experience is tailored to your plans and delivered with the same attention to detail.",
     from: "From",
     mostPopular: "Most Popular",
-    availabilityNote:
-      "Availability is very limited. Reserve early to secure your date.",
-    bookNow: "BOOK NOW",
+    availabilityNote: "",
+    bookNow: "Book Now",
     getInTouch: "Get in Touch",
     tabs: {
       ski: "Ski",
@@ -211,67 +221,73 @@ export const en = {
     packages: {
       tab1: [
         {
-          title: "Half-Day Package",
-          price: "750 €",
+          title: "Half Experience",
+          price: "€1,000",
           description:
-            "A focused 4-hour shoot capturing the essence of your ski experience. Includes drone, photography, video, and edit.",
+            "Four hours of photography and filmmaking, designed to capture the highlights of your day on the mountain.",
           features: [
-            "35+ Pictures",
-            "Skiing Video Clips",
-            "1 min Memories Video Recap",
-            "Drone Shots",
+            "Up to four hours of coverage",
+            "Professionally curated photo gallery",
+            "Individual cinematic ski clips",
+            "Highlight film (up to one minute)",
+            "Drone footage, when conditions allow",
           ],
         },
         {
-          title: "Full Day Package",
-          price: "1200 €",
+          title: "Full Experience",
+          price: "€1,500",
           description:
-            "From the slopes to après-ski, a complete cinematic story of your day. Includes drone, photography, video, and full edit delivered within days.",
+            "A complete day of photography and filmmaking, from your first runs on the slopes to après-ski.",
           features: [
-            "50+ Pictures",
-            "Skiing Video Clips",
-            "2 min Memories Video Recap",
-            "Breathtaking Drone Shots",
-            "Apres-ski Moments",
-            "Exclusive Souvenirs",
+            "From first lift to après-ski",
+            "Professionally curated photo gallery",
+            "Individual cinematic ski clips",
+            "Highlight film (up to two minutes)",
+            "Drone footage, when conditions allow",
+            "Après-ski coverage",
           ],
         },
         {
-          title: "Full Day Cinema Experience",
-          price: "4500 €",
+          title: "Signature Experience",
+          price: "€15,000",
           description:
-            "An exclusive cinematic production of your Courchevel holiday. Designed for those who want their time on the slopes remembered with the same artistry as a Hollywood film.",
+            "A private production team dedicated exclusively to documenting every unforgettable moment of your holiday, from arrival to departure.",
           features: [
-            "Magazine-quality photography",
-            "Hollywood-grade cinematic cameras",
-            "Bespoke recap film of your day",
-            "Aerial and drone perspectives",
-            "Après-ski highlights",
-            "Exclusive keepsakes",
+            "Dedicated photographer & filmmaker throughout your stay",
+            "From private jet arrival to your final evening",
+            "Skiing, family moments and lifestyle",
+            "Après-ski, dinners and private events",
+            "Creative planning before your arrival",
+            "A bespoke cinematic film of your holiday",
           ],
+          ctaLabel: "By enquiry only",
         },
       ],
       tab2: [
         {
-          title: "Private Events",
-          price: "950 €",
+          title: "Private Event",
+          price: "€950",
           description:
-            "Discreet coverage of your evening or private celebration. Tailored to your schedule and style, with photography and film designed to capture the atmosphere without intrusion.",
+            "Discreet photography and filmmaking for private celebrations, dinners and special occasions, tailored to your schedule.",
           features: [
-            "Elegant photography and video highlights",
-            "Coverage adapted to your event's flow",
-            "Optional extended hours for longer evenings",
+            "Photography & filmmaking coverage",
+            "Professionally curated photo gallery",
+            "Highlight film",
+            "Tailored to your event",
+            "Delivery within days",
           ],
         },
         {
-          title: "DJ Party",
-          price: "1350 €",
+          title: "DJ Event",
+          price: "€1,500",
           description:
-            "High-energy filming and photography of your DJ event, transformed into cinematic recaps and powerful visuals ready to share.",
+            "High-energy photography and filmmaking, capturing the atmosphere, crowd and unforgettable moments of your event.",
           features: [
             "Dynamic event photography",
-            "Cinematic video recap",
-            "Aerial and drone perspectives for unique angles",
+            "Professionally curated photo gallery",
+            "Individual cinematic event clips",
+            "Highlight aftermovie",
+            "Drone footage, when conditions allow",
           ],
         },
       ],

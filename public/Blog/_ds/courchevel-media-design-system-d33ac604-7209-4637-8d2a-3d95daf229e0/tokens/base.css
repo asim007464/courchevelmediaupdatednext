@@ -1,0 +1,5 @@
+*{box-sizing:border-box}
+body{background:var(--surface-page);color:var(--text-primary);font-family:var(--font-sans);margin:0}
+a{color:var(--blue-300);text-decoration:none}
+a:hover{color:var(--blue-500)}
+.gradient-text{background:var(--accent-gradient);-webkit-background-clip:text;background-clip:text;color:transparent}

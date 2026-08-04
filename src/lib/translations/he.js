@@ -8,7 +8,7 @@ export const he = {
     portfolio: "תיק עבודות",
     process: "תהליך",
     reviews: "ביקורות",
-    pricing: "מחירים",
+    pricing: "חבילות",
     faqs: "שאלות",
   },
   hero: {
@@ -21,6 +21,7 @@ export const he = {
   },
   common: {
     whatsapp: "Whatsapp",
+    contactUs: "צרו קשר",
     loadMore: "טען עוד",
     ski: "Ski",
     events: "אירועים",

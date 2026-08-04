@@ -9,20 +9,10 @@ const ReadySection = () => {
 
   return (
     <>
-      <section className="section">
+      <section className="section ready-section">
         <div className="padding-section-xsmall">
           <div className="container-large">
             <div className="card card-cta">
-              <div className=" flex flex-col justify-center items-center">
-                <img
-                  src="/images/reallogoofwebsite.webp"
-                  loading="lazy"
-                  alt=""
-                  style={{ width: "50px", height: "50px" }}
-                  className=""
-                />
-                <span className="">Courchevel Media</span>
-              </div>
               <div className="card-cta_title">
                 <div className="section-heading">
                   <div className="text-color-white">

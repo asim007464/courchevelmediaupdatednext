@@ -8,7 +8,7 @@ export const ru = {
     portfolio: "Портфолио",
     process: "Процесс",
     reviews: "Отзывы",
-    pricing: "Цены",
+    pricing: "Пакеты",
     faqs: "FAQ",
   },
   hero: {
@@ -21,6 +21,7 @@ export const ru = {
   },
   common: {
     whatsapp: "Whatsapp",
+    contactUs: "Связаться с нами",
     loadMore: "Загрузить ещё",
     ski: "Ski",
     events: "События",

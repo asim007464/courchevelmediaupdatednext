@@ -1,176 +1,167 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Watsappbtn from "./Watsappbtn.jsx";
 import { FaPause, FaPlay } from "react-icons/fa";
 import { useLanguage } from "@/context/LanguageProvider";
 
 const Hero = () => {
   const { t } = useLanguage();
-  useEffect(() => {
-    // Ensure Webflow is defined globally
-    window.Webflow = window.Webflow || [];
+  const [activeTab, setActiveTab] = useState("Tab 1");
+  const [playingVideoId, setPlayingVideoId] = useState(null);
+  const videoOneRef = useRef(null);
+  const videoTwoRef = useRef(null);
+  const timelineOneRef = useRef(null);
+  const timelineTwoRef = useRef(null);
+  const playPromiseRef = useRef(null);
 
-    // Define the function to be pushed
-    const initHeroVideos = () => {
-      const video1 = document.querySelector("#hero-video-tab-1 video");
-      const video2 = document.querySelector("#hero-video-tab-2 video");
+  const safelyPause = async (video) => {
+    if (!video) return;
 
-      if (video1) {
-        video1.muted = false;
-        // Clear existing sources first
-        while (video1.firstChild) {
-          video1.removeChild(video1.firstChild);
-        }
-        // Create and append source element
-        const source1 = document.createElement('source');
-        source1.src = "https://courchevelmedia.com/videos/output-ski.webm";
-        source1.type = "video/webm";
-        video1.appendChild(source1);
-        // Load the new source
-        video1.load();
-        video1.pause();
-
-        const btn1 = document.querySelector('button[aria-controls="e917d018-81a7-83a6-e048-6ab832f8484c-video"]');
-        if (btn1) {
-          const pauseSpan = btn1.querySelector('.pause-button');
-          const playSpan = btn1.querySelector('.video-button-icon:not(.pause-button)');
-          if (pauseSpan) pauseSpan.setAttribute('hidden', '');
-          if (playSpan) playSpan.removeAttribute('hidden');
-        }
+    const pendingPlay = playPromiseRef.current;
+    if (pendingPlay) {
+      try {
+        await pendingPlay;
+      } catch {
+        // Ignore AbortError from interrupted play requests.
       }
+      playPromiseRef.current = null;
+    }
 
-      if (video2) {
-        video2.muted = false;
-        // Clear existing sources first
-        while (video2.firstChild) {
-          video2.removeChild(video2.firstChild);
-        }
-        // Create and append source element
-        const source2 = document.createElement('source');
-        source2.src = "https://courchevelmedia.com/videos/output-events.webm";
-        source2.type = "video/webm";
-        video2.appendChild(source2);
-        // Load the new source
-        video2.load();
-        video2.pause();
+    if (!video.paused) {
+      video.pause();
+    }
+  };
 
-        const btn2 = document.querySelector('button[aria-controls="5d6c1891-9a96-0995-964d-9cc484796234-video"]');
-        if (btn2) {
-          const pauseSpan = btn2.querySelector('.pause-button');
-          const playSpan = btn2.querySelector('.video-button-icon:not(.pause-button)');
-          if (pauseSpan) pauseSpan.setAttribute('hidden', '');
-          if (playSpan) playSpan.removeAttribute('hidden');
-        }
+  const pauseAllVideos = async () => {
+    await safelyPause(videoOneRef.current);
+    await safelyPause(videoTwoRef.current);
+    setPlayingVideoId(null);
+  };
+
+  const handleTabChange = async (tab) => {
+    setActiveTab(tab);
+    await pauseAllVideos();
+  };
+
+  const handleVideoToggle = async (event, videoId) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const targetVideo =
+      videoId === "video-1" ? videoOneRef.current : videoTwoRef.current;
+    const otherVideo =
+      videoId === "video-1" ? videoTwoRef.current : videoOneRef.current;
+
+    if (!targetVideo) return;
+
+    await safelyPause(otherVideo);
+
+    if (!targetVideo.paused) {
+      await safelyPause(targetVideo);
+      setPlayingVideoId(null);
+      return;
+    }
+
+    try {
+      setPlayingVideoId(videoId);
+      const playPromise = targetVideo.play();
+      playPromiseRef.current = playPromise;
+      await playPromise;
+      playPromiseRef.current = null;
+      if (!targetVideo.paused) {
+        setPlayingVideoId(videoId);
       }
-    };
+    } catch (error) {
+      playPromiseRef.current = null;
+      if (error?.name !== "AbortError") {
+        console.error("Hero video playback failed:", error);
+      }
+      if (targetVideo.paused) {
+        setPlayingVideoId(null);
+      }
+    }
+  };
 
-    window.Webflow.push(initHeroVideos);
-    initHeroVideos();
-  }, []);
+  const renderControlButton = (videoId, videoDomId) => {
+    const isPlaying = playingVideoId === videoId;
 
-  useEffect(() => {
-    window.Webflow = window.Webflow || [];
+    return (
+      <button
+        type="button"
+        aria-label={isPlaying ? "Pause video" : "Play video"}
+        aria-controls={videoDomId}
+        className={`home-hero_video-button ${isPlaying ? "is-playing" : "is-paused"}`}
+        onClick={(event) => handleVideoToggle(event, videoId)}
+      >
+        {isPlaying ? <FaPause /> : <FaPlay className="home-hero_video-button__play-icon" />}
+      </button>
+    );
+  };
 
-    const heroTitleIconHoverAnimation = () => {
-      document.querySelectorAll(".home-hero_title-icon").forEach((icon) => {
-        icon.addEventListener("animationend", function () {
-          this.classList.remove("animate");
-        });
-
-        icon.addEventListener("mouseenter", function () {
-          if (!this.classList.contains("animate"))
-            this.classList.add("animate");
-        });
-      });
-    };
-
-    window.Webflow.push(heroTitleIconHoverAnimation);
-    heroTitleIconHoverAnimation();
-  }, []);
-
-  // Video timeline functionality
   useEffect(() => {
     const videos = [
-      { video: document.querySelector("#hero-video-tab-1 video"), timeline: document.getElementById("timeline-1") },
-      { video: document.querySelector("#hero-video-tab-2 video"), timeline: document.getElementById("timeline-2") },
-      { video: document.querySelector("#hero-video-tab-3 video"), timeline: document.getElementById("timeline-3") }
+      { video: videoOneRef.current, timeline: timelineOneRef.current, id: "video-1" },
+      { video: videoTwoRef.current, timeline: timelineTwoRef.current, id: "video-2" },
     ];
 
-    videos.forEach(({ video, timeline }) => {
+    const listeners = [];
+
+    videos.forEach(({ video, timeline, id }) => {
       if (video && timeline) {
-        // Initialize timeline at 0
         timeline.value = 0;
-        timeline.style.setProperty('--progress', '0%');
+        timeline.style.setProperty("--progress", "0%");
 
-        // Update timeline as video plays
-        video.addEventListener('timeupdate', () => {
-          const progress = (video.currentTime / video.duration) * 100;
+        const handleTimeUpdate = () => {
+          const progress = video.duration ? (video.currentTime / video.duration) * 100 : 0;
           timeline.value = progress;
-          timeline.style.setProperty('--progress', `${progress}%`);
-        });
+          timeline.style.setProperty("--progress", `${progress}%`);
+        };
 
-        // Seek video when timeline is clicked
-        timeline.addEventListener('input', (e) => {
+        const handleInput = (e) => {
+          if (!video.duration) return;
           const time = (e.target.value / 100) * video.duration;
           video.currentTime = time;
-          e.target.style.setProperty('--progress', `${e.target.value}%`);
-        });
+          e.target.style.setProperty("--progress", `${e.target.value}%`);
+        };
 
-        // Reset timeline when video ends
-        video.addEventListener('ended', () => {
+        const handleEnded = () => {
           timeline.value = 0;
-          timeline.style.setProperty('--progress', '0%');
-        });
+          timeline.style.setProperty("--progress", "0%");
+          setPlayingVideoId((current) => (current === id ? null : current));
+        };
 
-        // Reset timeline when video loads
-        video.addEventListener('loadedmetadata', () => {
+        const handleLoadedMetadata = () => {
           timeline.value = 0;
-          timeline.style.setProperty('--progress', '0%');
-        });
+          timeline.style.setProperty("--progress", "0%");
+        };
+
+        const handlePause = () => {
+          setPlayingVideoId((current) => (current === id ? null : current));
+        };
+
+        const handlePlay = () => {
+          setPlayingVideoId(id);
+        };
+
+        video.addEventListener("timeupdate", handleTimeUpdate);
+        video.addEventListener("ended", handleEnded);
+        video.addEventListener("loadedmetadata", handleLoadedMetadata);
+        video.addEventListener("pause", handlePause);
+        video.addEventListener("play", handlePlay);
+        timeline.addEventListener("input", handleInput);
+
+        listeners.push(() => video.removeEventListener("timeupdate", handleTimeUpdate));
+        listeners.push(() => video.removeEventListener("ended", handleEnded));
+        listeners.push(() => video.removeEventListener("loadedmetadata", handleLoadedMetadata));
+        listeners.push(() => video.removeEventListener("pause", handlePause));
+        listeners.push(() => video.removeEventListener("play", handlePlay));
+        listeners.push(() => timeline.removeEventListener("input", handleInput));
       }
-    });
-  }, []);
-
-  useEffect(() => {
-    const tabLinks = document.querySelectorAll(".video-tabs_tab-link");
-    const video1 = document.querySelector("#hero-video-tab-1 video");
-    const video2 = document.querySelector("#hero-video-tab-2 video");
-
-    const updateButtonToPlayIcon = (videoId) => {
-      const btn = document.querySelector(`button[aria-controls="${videoId}"]`);
-      if (btn) {
-        const pauseSpan = btn.querySelector('.pause-button');
-        const playSpan = btn.querySelector('.video-button-icon:not(.pause-button)');
-        if (pauseSpan) pauseSpan.setAttribute('hidden', '');
-        if (playSpan) playSpan.removeAttribute('hidden');
-      }
-    };
-
-    const handleTabClick = (e) => {
-      const targetTab = e.currentTarget.getAttribute("data-w-tab");
-
-      if (targetTab === "Tab 1") {
-        if (video2) {
-          video2.pause();
-          updateButtonToPlayIcon(video2.id);
-        }
-      } else if (targetTab === "Tab 2") {
-        if (video1) {
-          video1.pause();
-          updateButtonToPlayIcon(video1.id);
-        }
-      }
-    };
-
-    tabLinks.forEach((link) => {
-      link.addEventListener("click", handleTabClick);
     });
 
     return () => {
-      tabLinks.forEach((link) => {
-        link.removeEventListener("click", handleTabClick);
-      });
+      listeners.forEach((cleanup) => cleanup());
     };
   }, []);
 
@@ -268,15 +259,7 @@ const Hero = () => {
                       className="heading-style-h1"
                     >
                       {t("hero.titleBefore")}
-                      {t("hero.titleMiddle") === "liday" ? (
-                        <span style={{ whiteSpace: "nowrap" }}>
-                          <span> h</span>
-                          <span className="home-hero_title-icon">
-                            &nbsp; &nbsp;
-                          </span>
-                          <span>liday</span>
-                        </span>
-                      ) : t("hero.titleMiddle") ? (
+                      {t("hero.titleMiddle") ? (
                         <span>{t("hero.titleMiddle")}</span>
                       ) : null}
                       <span className="text-color-gradient">
@@ -315,14 +298,17 @@ const Hero = () => {
               </div>
               <div
                 data-w-id="2618ad9a-39b2-c10b-2334-eb0fb6d4ccf0"
-                data-current="Tab 1"
+                data-current={activeTab}
                 data-easing="ease"
                 data-duration-in="300"
                 data-duration-out="100"
                 className="video-tabs w-tabs"
               >
                 <div className="video-tabs_content w-tab-content">
-                  <div data-w-tab="Tab 1" className="w-tab-pane w--tab-active">
+                  <div
+                    data-w-tab="Tab 1"
+                    className={`w-tab-pane ${activeTab === "Tab 1" ? "w--tab-active" : ""}`}
+                  >
                     <div className="home-hero_video-wrap">
                       <div
                         id="hero-video-tab-1"
@@ -333,6 +319,7 @@ const Hero = () => {
                         className="home-hero_video w-background-video w-background-video-atom"
                       >
                         <video
+                          ref={videoOneRef}
                           id="e917d018-81a7-83a6-e048-6ab832f8484c-video"
                           loop
                           muted={false}
@@ -340,10 +327,15 @@ const Hero = () => {
                           suppressHydrationWarning
                           data-wf-ignore="true"
                           loading="lazy"
-                          preload="none"
+                          preload="auto"
                           poster="/videos/poster.webp"
                           data-object-fit="cover"
-                        ></video>
+                        >
+                          <source
+                            src="https://courchevelmedia.com/videos/output-ski.webm"
+                            type="video/webm"
+                          />
+                        </video>
                         <noscript>
                           <style
                             dangerouslySetInnerHTML={{ __html: bgvideo }}
@@ -351,53 +343,14 @@ const Hero = () => {
                           <img data-wf-bgvideo-fallback-img="true" alt="" />
                         </noscript>
                         <div aria-live="polite">
-                          <button
-                            type="button"
-                            data-w-bg-video-control="true"
-                            aria-controls="e917d018-81a7-83a6-e048-6ab832f8484c-video"
-                            className="w-backgroundvideo-backgroundvideoplaypausebutton home-hero_video-button w-background-video--control"
-                          >
-                            <span className="video-button-icon pause-button">
-                              {/* <img
-                                loading="lazy"
-                                src="https://cdn.prod.website-files.com/659602a8a781e80b03a8096b/659e853a03acf6ed2d436e9c_video-pause-button.webp"
-                                alt=""
-                                className="image-full"
-                              /> */}
-                              <div
-                                className="flex justify-center items-center text-black text-[14px] sm:text-[18px] md:text-[20px] lg:text-[22px] w-[50px] h-[50px] sm:w-[60px] sm:h-[60px] md:w-[70px] md:h-[70px] lg:w-[80px] lg:h-[80px] rounded-full"
-                                style={{
-                                  background:
-                                    "radial-gradient(circle at 11.125px -3.73214px, white 23.2636%, #DADADA 52.5204%, #ACACAC 74.4256%, #F6F6F6 100%)",
-                                }}
-                              >
-                                <FaPause className="ml-[2px] sm:ml-[3px] md:ml-[4px]"/>
-                              </div>
-                            </span>
-                            <span hidden="" className="video-button-icon">
-                              {/* <img
-                                loading="lazy"
-                                src="https://cdn.prod.website-files.com/659602a8a781e80b03a8096b/659d20dfbca2353d04fbfa74_video-play-button.webp"
-                                alt=""
-                                className="image-full"
-                              /> */}
-
-                              <div
-                                className="flex justify-center items-center text-black text-[14px] sm:text-[18px] md:text-[20px] lg:text-[22px] w-[50px] h-[50px] sm:w-[60px] sm:h-[60px] md:w-[70px] md:h-[70px] lg:w-[80px] lg:h-[80px] rounded-full"
-                                style={{
-                                  background:
-                                    "radial-gradient(circle at 11.125px -3.73214px, white 23.2636%, #DADADA 52.5204%, #ACACAC 74.4256%, #F6F6F6 100%)",
-                                }}
-                              >
-                                <FaPlay className="ml-[2px] sm:ml-[3px] md:ml-[4px]" />
-                              </div>
-
-
-                            </span>
-                          </button>
+                          {renderControlButton(
+                            "video-1",
+                            "e917d018-81a7-83a6-e048-6ab832f8484c-video"
+                          )}
                         </div>
                       </div>
                       <input
+                        ref={timelineOneRef}
                         type="range"
                         id="timeline-1"
                         className="video-timeline"
@@ -408,7 +361,10 @@ const Hero = () => {
                       />
                     </div>
                   </div>
-                  <div data-w-tab="Tab 2" className="w-tab-pane">
+                  <div
+                    data-w-tab="Tab 2"
+                    className={`w-tab-pane ${activeTab === "Tab 2" ? "w--tab-active" : ""}`}
+                  >
                     <div className="home-hero_video-wrap">
                       <div
                         id="hero-video-tab-2"
@@ -419,17 +375,23 @@ const Hero = () => {
                         className="home-hero_video w-background-video w-background-video-atom"
                       >
                         <video
+                          ref={videoTwoRef}
                           id="5d6c1891-9a96-0995-964d-9cc484796234-video"
                           loop
                           muted={false}
                           loading="lazy"
-                          preload="none"
+                          preload="metadata"
                           playsInline
                           suppressHydrationWarning
                           poster="/videos/event-poster.webp"
                           data-wf-ignore="true"
                           data-object-fit="cover"
-                        ></video>
+                        >
+                          <source
+                            src="https://courchevelmedia.com/videos/output-events.webm"
+                            type="video/webm"
+                          />
+                        </video>
                         <noscript>
                           <style
                             dangerouslySetInnerHTML={{ __html: bgvideo }}
@@ -437,38 +399,14 @@ const Hero = () => {
                           <img data-wf-bgvideo-fallback-img="true" alt="" />
                         </noscript>
                         <div aria-live="polite">
-                          <button
-                            type="button"
-                            data-w-bg-video-control="true"
-                            aria-controls="5d6c1891-9a96-0995-964d-9cc484796234-video"
-                            className="w-backgroundvideo-backgroundvideoplaypausebutton home-hero_video-button w-background-video--control"
-                          >
-                            <span className="video-button-icon pause-button">
-                            <div
-                                className="flex justify-center items-center text-black text-[14px] sm:text-[18px] md:text-[20px] lg:text-[22px] w-[50px] h-[50px] sm:w-[60px] sm:h-[60px] md:w-[70px] md:h-[70px] lg:w-[80px] lg:h-[80px] rounded-full"
-                                style={{
-                                  background:
-                                    "radial-gradient(circle at 11.125px -3.73214px, white 23.2636%, #DADADA 52.5204%, #ACACAC 74.4256%, #F6F6F6 100%)",
-                                }}
-                              >
-                                <FaPause className="ml-[2px] sm:ml-[3px] md:ml-[4px]"/>
-                              </div>
-                            </span>
-                            <span hidden="" className="video-button-icon">
-                            <div
-                                className="flex justify-center items-center text-black text-[14px] sm:text-[18px] md:text-[20px] lg:text-[22px] w-[50px] h-[50px] sm:w-[60px] sm:h-[60px] md:w-[70px] md:h-[70px] lg:w-[80px] lg:h-[80px] rounded-full"
-                                style={{
-                                  background:
-                                    "radial-gradient(circle at 11.125px -3.73214px, white 23.2636%, #DADADA 52.5204%, #ACACAC 74.4256%, #F6F6F6 100%)",
-                                }}
-                              >
-                                <FaPlay className="ml-[2px] sm:ml-[3px] md:ml-[4px]" />
-                              </div>
-                            </span>
-                          </button>
+                          {renderControlButton(
+                            "video-2",
+                            "5d6c1891-9a96-0995-964d-9cc484796234-video"
+                          )}
                         </div>
                       </div>
                       <input
+                        ref={timelineTwoRef}
                         type="range"
                         id="timeline-2"
                         className="video-timeline"
@@ -500,54 +438,17 @@ const Hero = () => {
                           data-wf-ignore="true"
                           data-object-fit="cover"
                         ></video>
-                        <noscript>
-                          <style
-                            dangerouslySetInnerHTML={{ __html: bgvideo }}
-                          />
-                          <img data-wf-bgvideo-fallback-img="true" alt="" />
-                        </noscript>
-                        <div aria-live="polite">
-                          <button
-                            type="button"
-                            data-w-bg-video-control="true"
-                            aria-controls="956df11e-02ff-940a-9625-7e886cf8e9c5-video"
-                            className="w-backgroundvideo-backgroundvideoplaypausebutton home-hero_video-button w-background-video--control"
-                          >
-                            <span className="video-button-icon pause-button">
-                              <img
-                                loading="lazy"
-                                src="https://cdn.prod.website-files.com/659602a8a781e80b03a8096b/659e853a03acf6ed2d436e9c_video-pause-button.webp"
-                                alt=""
-                                className="image-full"
-                              />
-                            </span>
-                            <span hidden="" className="video-button-icon">
-                              <img
-                                loading="lazy"
-                                src="https://cdn.prod.website-files.com/659602a8a781e80b03a8096b/659d20dfbca2353d04fbfa74_video-play-button.webp"
-                                alt=""
-                                className="image-full"
-                              />
-                            </span>
-                          </button>
-                        </div>
                       </div>
-                      <input
-                        type="range"
-                        id="timeline-3"
-                        className="video-timeline"
-                        min="0"
-                        max="100"
-                        defaultValue="0"
-                        step="0.1"
-                      />
                     </div>
                   </div>
                 </div>
                 <div className="video-tabs_menu hidden-scrollbar w-tab-menu">
                   <a
                     data-w-tab="Tab 1"
-                    className="video-tabs_tab-link w-inline-block w-tab-link w--current"
+                    className={`video-tabs_tab-link w-inline-block w-tab-link ${
+                      activeTab === "Tab 1" ? "w--current" : ""
+                    }`}
+                    onClick={() => handleTabChange("Tab 1")}
                   >
                     <div className="svg-icon _1x1 w-embed">
                       <i className="fa-solid fa-person-skiing text-[white]" style={{ color: "white" }}></i>
@@ -556,7 +457,10 @@ const Hero = () => {
                   </a>
                   <a
                     data-w-tab="Tab 2"
-                    className="video-tabs_tab-link w-inline-block w-tab-link"
+                    className={`video-tabs_tab-link w-inline-block w-tab-link ${
+                      activeTab === "Tab 2" ? "w--current" : ""
+                    }`}
+                    onClick={() => handleTabChange("Tab 2")}
                   >
                     <div className="svg-icon _1x1 w-embed">
                       <i className="fa-solid text-[white] fa-champagne-glasses" style={{ color: "white" }}></i>

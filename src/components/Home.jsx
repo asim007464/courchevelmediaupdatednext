@@ -1,60 +1,93 @@
 "use client";
 
-import { useEffect } from "react";
+import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import TrustedStartups from "@/components/TrustedStartups";
-import TheSolution from "@/components/TheSolution";
-import WhyVideospark from "@/components/WhyVideospark";
-import Testimonials from "@/components/Testimonials";
-import Process from "@/components/Process";
-import GetStarted from "@/components/GetStarted";
-import Reviews from "@/components/Reviews";
-import Pricing from "@/components/Pricing";
-import FAQ from "@/components/FAQ";
-import ReadySection from "@/components/ReadySection";
-import Footer from "@/components/Footer";
-import VideoPopup from "@/components/VideoPopup";
-import Marqueeslider from "@/components/marqueeslider";
+import RevealOnScroll from "@/components/RevealOnScroll";
+
+const TheSolution = dynamic(() => import("@/components/TheSolution"), {
+  ssr: true,
+  loading: () => <div className="section-loading-spacer" aria-hidden="true" />,
+});
+const SelectedWork = dynamic(() => import("@/components/SelectedWork"), {
+  ssr: true,
+  loading: () => <div className="section-loading-spacer" aria-hidden="true" />,
+});
+const Testimonials = dynamic(() => import("@/components/Testimonials"), {
+  ssr: true,
+  loading: () => <div className="section-loading-spacer" aria-hidden="true" />,
+});
+const Process = dynamic(() => import("@/components/Process"), {
+  ssr: true,
+  loading: () => <div className="section-loading-spacer" aria-hidden="true" />,
+});
+const GetStarted = dynamic(() => import("@/components/GetStarted"), {
+  ssr: true,
+  loading: () => <div className="section-loading-spacer" aria-hidden="true" />,
+});
+const Reviews = dynamic(() => import("@/components/Reviews"), {
+  ssr: true,
+  loading: () => <div className="section-loading-spacer" aria-hidden="true" />,
+});
+const Pricing = dynamic(() => import("@/components/Pricing"), {
+  ssr: true,
+  loading: () => <div className="section-loading-spacer" aria-hidden="true" />,
+});
+const FAQ = dynamic(() => import("@/components/FAQ"), {
+  ssr: true,
+  loading: () => <div className="section-loading-spacer" aria-hidden="true" />,
+});
+const ReadySection = dynamic(() => import("@/components/ReadySection"), {
+  ssr: true,
+  loading: () => <div className="section-loading-spacer" aria-hidden="true" />,
+});
+const Footer = dynamic(() => import("@/components/Footer"), {
+  ssr: true,
+});
+const VideoPopup = dynamic(() => import("@/components/VideoPopup"), {
+  ssr: false,
+});
 
 export default function Home() {
-  useEffect(() => {
-    window.Webflow = window.Webflow || [];
-
-    const resetVideoTimeOnFirstPlay = () => {
-      document.querySelectorAll("video").forEach((video) => {
-        let playCount = 0;
-
-        video.addEventListener("play", function () {
-          if (playCount === 0) {
-            this.currentTime = 0;
-          }
-          playCount += 1;
-        });
-      });
-    };
-
-    window.Webflow.push(resetVideoTimeOnFirstPlay);
-    resetVideoTimeOnFirstPlay();
-  }, []);
-
   return (
-    <div className="page-wrapper">
+    <div className="page-wrapper page-enter">
       <main className="main-wrapper">
         <Navbar />
         <Hero />
-        <TrustedStartups />
-        <TheSolution />
-        <Marqueeslider />
-        <WhyVideospark />
-        <Testimonials />
-        <Process />
-        <GetStarted />
-        <Reviews />
-        <Pricing />
-        <FAQ />
-        <ReadySection />
-        <Footer />
+        <RevealOnScroll>
+          <TrustedStartups />
+        </RevealOnScroll>
+        <RevealOnScroll>
+          <TheSolution />
+        </RevealOnScroll>
+        <RevealOnScroll>
+          <SelectedWork />
+        </RevealOnScroll>
+        <RevealOnScroll>
+          <Testimonials />
+        </RevealOnScroll>
+        <RevealOnScroll>
+          <Process />
+        </RevealOnScroll>
+        <RevealOnScroll>
+          <GetStarted />
+        </RevealOnScroll>
+        <RevealOnScroll>
+          <Reviews />
+        </RevealOnScroll>
+        <RevealOnScroll>
+          <Pricing />
+        </RevealOnScroll>
+        <RevealOnScroll>
+          <FAQ />
+        </RevealOnScroll>
+        <RevealOnScroll>
+          <ReadySection />
+        </RevealOnScroll>
+        <RevealOnScroll>
+          <Footer />
+        </RevealOnScroll>
       </main>
       <VideoPopup />
     </div>

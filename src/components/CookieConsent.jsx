@@ -42,15 +42,13 @@ export default function CookieConsent() {
               consentModal: {
                 title: "We use cookies",
                 description:
-                  "We use cookies to analyze site traffic and improve your experience. You can accept or reject analytics cookies.",
+                  "We use cookies to analyze site traffic and improve your experience.",
                 acceptAllBtn: "Accept all",
-                acceptNecessaryBtn: "Reject all",
                 showPreferencesBtn: "Manage preferences",
               },
               preferencesModal: {
                 title: "Cookie preferences",
                 acceptAllBtn: "Accept all",
-                acceptNecessaryBtn: "Reject all",
                 savePreferencesBtn: "Save preferences",
                 sections: [
                   {

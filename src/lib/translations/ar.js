@@ -8,7 +8,7 @@ export const ar = {
     portfolio: "معرض الأعمال",
     process: "العملية",
     reviews: "المراجعات",
-    pricing: "الأسعار",
+    pricing: "الباقات",
     faqs: "الأسئلة",
   },
   hero: {
@@ -21,6 +21,7 @@ export const ar = {
   },
   common: {
     whatsapp: "Whatsapp",
+    contactUs: "تواصل معنا",
     loadMore: "تحميل المزيد",
     ski: "تزلج",
     events: "فعاليات",

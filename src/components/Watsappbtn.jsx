@@ -2,7 +2,7 @@
 
 import { useLanguage } from "@/context/LanguageProvider";
 
-const Watsappbtn = () => {
+const Watsappbtn = ({ className = "" }) => {
   const { t } = useLanguage();
   const phoneNumber = "+33784534489";
   const defaultMessage = "Hello, I'm interested in booking a call!";
@@ -18,11 +18,11 @@ const Watsappbtn = () => {
   return (
     <a
       href="#"
-      className="whatsappbtn whatsappbtn-link"
+      className={`whatsappbtn whatsappbtn-link ${className}`.trim()}
       onClick={handleWhatsAppClick}
     >
       <i className="fa-brands fa-whatsapp whatsappbtn-icon" aria-hidden="true"></i>
-      <span className="whatsappbtn-text">{t("common.whatsapp")}</span>
+      <span className="whatsappbtn-text">{t("common.contactUs")}</span>
     </a>
   );
 };

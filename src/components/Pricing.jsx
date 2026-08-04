@@ -33,19 +33,29 @@ const Pricing = () => {
 
   return (
     <>
-      <section id="pricing" className="section">
+      <section id="pricing" className="section pricing-section">
         <div className="padding-section-large padding-section_home-pricing">
-          <div className="px-[20px]">
+          <div className="pricing-section__inner">
             <div>
               <div className="section-heading">
                 <div className="text-color-white">
                   <h2 className="heading-style-h2 text-white">
                     {t("pricing.title")}
                     <span className="text-color-gradient">
+                      {" "}
                       {t("pricing.titleGradient")}
                     </span>
                   </h2>
                 </div>
+                {t("pricing.subtitle") ? (
+                  <div className="section-heading_paragraph">
+                    <div className="text-weight-medium">
+                      <div className="text-size-medium text-[white]">
+                        {t("pricing.subtitle")}
+                      </div>
+                    </div>
+                  </div>
+                ) : null}
               </div>
               <div className="video-tabs_menu hidden-scrollbar w-tab-menu">
                 <a
@@ -61,7 +71,7 @@ const Pricing = () => {
                       style={{ color: "white" }}
                     ></i>
                   </div>
-                  <div style={{ color: "white" }}>{t("common.ski")}</div>
+                  <div style={{ color: "white" }}>{t("pricing.tabs.ski")}</div>
                 </a>
                 <a
                   onClick={() => handleTabClick("Tab 2")}
@@ -77,35 +87,26 @@ const Pricing = () => {
                     ></i>
                   </div>
                   <div style={{ color: "white" }}>
-                    {t("common.events")}
+                    {t("pricing.tabs.events")}
                   </div>
                 </a>
               </div>
               <div className="padding-top mt-[40px]">
-                <div
-                  className="grid gap-[30px] mx-auto max-w-[1600px]
-  [grid-template-columns:repeat(auto-fit,minmax(300px,max-content))] justify-center"
-                >
+                <div className="pricing-section__grid">
                   {(data[activeTab] || []).map((option, index) => (
                     <div
                       key={`${activeTab}-${option.title}-${index}`}
-                      className="card card-pricing max-w-[500px]"
+                      className="pricing-card card card-pricing"
                     >
                       <div className="card-pricing_heading">
                         <div className="text-weight-medium">
-                          <div>{option.title}</div>
+                          <div className="pricing-card__title">{option.title}</div>
                         </div>
-                        <div className="text-style-allcaps flex items-center">
-                          <div className="text-[16px] mr-2 !normal-case">
-                            {t("pricing.from")}
-                          </div>
-                          <h4 className="heading-style-h4">
-                            <del>{option.discount && option.discount}</del>{" "}
-                            {option.price}
-                          </h4>
+                        <div className="pricing-card__price-line">
+                          {t("pricing.from")} {option.price}
                         </div>
                         <div className="text-weight-medium">
-                          <div className="text-size-medium">
+                          <div className="text-size-medium pricing-card__description">
                             {option.description}
                           </div>
                         </div>
@@ -116,13 +117,9 @@ const Pricing = () => {
                             className="card-pricing_list"
                             key={`${option.title}-feature-${idx}`}
                           >
-                            <div className="card-pricing_list-icon">
-                              <div className="svg-icon full w-embed rounded-full bg-[#0074ec]">
-                                <i className="fa-solid fa-check text-white text-[15px]"></i>
-                              </div>
-                            </div>
+                            <div className="pricing-card__bullet" aria-hidden="true"></div>
                             <div className="card-why_list-text">
-                              <div className="text-weight-medium">{feature}</div>
+                              <div className="text-weight-medium pricing-card__feature">{feature}</div>
                             </div>
                           </div>
                         ))}
@@ -132,35 +129,23 @@ const Pricing = () => {
                           <button
                             humblytics="pricing-25s_button"
                             onClick={() => sendMessageToWhatsApp(option)}
-                            className="buttoninsta w-button"
+                            className={`buttoninsta w-button pricing-card__button ${
+                              option.ctaLabel ? "pricing-card__button--secondary" : ""
+                            }`}
                           >
-                            {t("pricing.bookNow")}
+                            {option.ctaLabel || t("pricing.bookNow")}
                           </button>
                         </div>
                       </div>
-                      {activeTab === "Tab 1" && index === 1 ? (
-                        <div>
-                          <div className="card-pricing_bg"></div>
-                          <div className="card-pricing_label">
-                            <div className="text-color-white">
-                              <div className="text-weight-bold">
-                                <div className="text-style-allcaps">
-                                  <div className="text-size-tiny">
-                                    {t("pricing.mostPopular")}
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      ) : null}
                       <div className="card_noise"></div>
                     </div>
                   ))}
                 </div>
-                <div className="text-center text-[13px] md:text-[14px] w-full mt-8">
-                  {t("pricing.availabilityNote")}
-                </div>
+                {t("pricing.availabilityNote") ? (
+                  <div className="text-center text-[13px] md:text-[14px] w-full mt-8">
+                    {t("pricing.availabilityNote")}
+                  </div>
+                ) : null}
               </div>
             </div>
           </div>

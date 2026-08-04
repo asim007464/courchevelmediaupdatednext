@@ -14,11 +14,11 @@ const FAQ = () => {
   };
 
   const handleLoadMore = () => {
-    setVisibleCount(visibleCount + 5);
+    setVisibleCount((count) => count + 5);
   };
 
   return (
-    <section id="faqs" className="section">
+    <section id="faqs" className="section faq-section">
       <div className="padding-section-large padding-section_home-faq">
         <div className="container-medium">
           <div>
@@ -29,11 +29,23 @@ const FAQ = () => {
                   <span className="text-color-gradient">{t("faq.titleGradient")}</span>
                 </h2>
               </div>
+              {t("faq.subtitle") ? (
+                <div className="section-heading_paragraph">
+                  <div className="text-weight-medium">
+                    <div className="text-size-medium text-[white]">
+                      {t("faq.subtitle")}
+                    </div>
+                  </div>
+                </div>
+              ) : null}
             </div>
             <div className="padding-top padding-xlarge">
               <div className="home-faq-wrap">
                 {faqs.slice(0, visibleCount).map((faq, index) => (
-                  <div key={index} className="card card-faq">
+                  <div
+                    key={index}
+                    className={`card card-faq ${openIndex === index ? "is-open" : ""}`}
+                  >
                     <div
                       className="card-faq_heading"
                       onClick={() => handleToggle(index)}
@@ -91,17 +103,17 @@ const FAQ = () => {
                 ))}
               </div>
 
-              <div className="flex justify-center mt-5">
-                {visibleCount < faqs.length && (
+              {visibleCount < faqs.length ? (
+                <div className="flex justify-center mt-5">
                   <button
                     type="button"
                     className="load-more-button"
                     onClick={handleLoadMore}
                   >
-                    {t("common.loadMore")}
+                    See more
                   </button>
-                )}
-              </div>
+                </div>
+              ) : null}
             </div>
           </div>
         </div>

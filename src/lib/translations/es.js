@@ -8,7 +8,7 @@ export const es = {
     portfolio: "Portafolio",
     process: "Proceso",
     reviews: "Reseñas",
-    pricing: "Precios",
+    pricing: "Paquetes",
     faqs: "Preguntas",
   },
   hero: {
@@ -21,6 +21,7 @@ export const es = {
   },
   common: {
     whatsapp: "Whatsapp",
+    contactUs: "Contact Us",
     loadMore: "Cargar más",
     ski: "Ski",
     events: "Eventos",
