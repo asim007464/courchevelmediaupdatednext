@@ -7,7 +7,7 @@ import {
   defaultGalleryCollections,
   EXCLUDED_ALT,
   isExclusionRow,
-} from "@/data/galleryDefaults";
+} from "@/Data/galleryDefaults";
 
 const emptyForm = {
   category: "ski",

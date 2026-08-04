@@ -2,7 +2,7 @@ import { createClient } from "@/lib/supabase/client";
 import {
   defaultGalleryCollections,
   isExclusionRow,
-} from "@/data/galleryDefaults";
+} from "@/Data/galleryDefaults";
 
 export async function fetchPricingPlans() {
   const supabase = createClient();

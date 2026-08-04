@@ -6,7 +6,7 @@ import { getImageSrc } from "@/lib/getImageSrc";
 import { useLanguage } from "@/context/LanguageProvider";
 import { fetchGalleryState } from "@/lib/supabase/content";
 
-import { defaultGalleryCollections } from "@/data/galleryDefaults";
+import { defaultGalleryCollections } from "@/Data/galleryDefaults";
 
 const collections = defaultGalleryCollections;
 
