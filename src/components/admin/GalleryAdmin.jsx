@@ -2,6 +2,12 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { createClient, isSupabaseConfigured } from "@/lib/supabase/client";
+import { getImageSrc } from "@/lib/getImageSrc";
+import {
+  defaultGalleryCollections,
+  EXCLUDED_ALT,
+  isExclusionRow,
+} from "@/data/galleryDefaults";
 
 const emptyForm = {
   category: "ski",
@@ -10,7 +16,7 @@ const emptyForm = {
 };
 
 export default function GalleryAdmin() {
-  const [images, setImages] = useState([]);
+  const [rows, setRows] = useState([]);
   const [form, setForm] = useState(emptyForm);
   const [file, setFile] = useState(null);
   const [editingId, setEditingId] = useState(null);
@@ -25,6 +31,7 @@ export default function GalleryAdmin() {
     const supabase = createClient();
     if (!supabase) {
       setError("Supabase is not configured.");
+      setRows([]);
       setLoading(false);
       return;
     }
@@ -42,8 +49,9 @@ export default function GalleryAdmin() {
           ? "Gallery table missing. Run supabase/schema.sql in the Supabase SQL Editor."
           : loadError.message
       );
+      setRows([]);
     } else {
-      setImages(data || []);
+      setRows(data || []);
       setError("");
     }
     setLoading(false);
@@ -53,10 +61,38 @@ export default function GalleryAdmin() {
     loadImages();
   }, []);
 
-  const visibleImages = useMemo(() => {
-    if (filterCategory === "all") return images;
-    return images.filter((image) => image.category === filterCategory);
-  }, [images, filterCategory]);
+  const displayImages = useMemo(() => {
+    const excluded = new Set(
+      rows.filter(isExclusionRow).map((row) => row.image_url)
+    );
+    const uploads = rows
+      .filter((row) => !isExclusionRow(row))
+      .map((image) => ({
+        ...image,
+        source: "upload",
+        preview: image.image_url,
+      }));
+
+    const builtins = [
+      ...defaultGalleryCollections.ski,
+      ...defaultGalleryCollections.events,
+    ]
+      .filter((item) => !excluded.has(item.key))
+      .map((item) => ({
+        id: item.id,
+        key: item.key,
+        category: item.category,
+        alt: item.alt,
+        sort_order: item.sort_order,
+        source: "builtin",
+        preview: getImageSrc(item.src),
+        image_url: item.key,
+      }));
+
+    const all = [...builtins, ...uploads];
+    if (filterCategory === "all") return all;
+    return all.filter((image) => image.category === filterCategory);
+  }, [rows, filterCategory]);
 
   const resetForm = () => {
     setEditingId(null);
@@ -66,6 +102,12 @@ export default function GalleryAdmin() {
   };
 
   const startEdit = (image) => {
+    if (image.source === "builtin") {
+      setMessage(
+        "Built-in site images can be deleted from the slider. Upload a new image to add replacements."
+      );
+      return;
+    }
     setEditingId(image.id);
     setForm({
       category: image.category,
@@ -145,7 +187,10 @@ export default function GalleryAdmin() {
         alt: form.alt.trim() || `${form.category} portfolio image`,
         sort_order:
           Number(form.sort_order) ||
-          images.filter((image) => image.category === form.category).length + 1,
+          rows.filter(
+            (image) =>
+              image.category === form.category && !isExclusionRow(image)
+          ).length + 1,
         image_url: imageUrl,
       };
 
@@ -168,8 +213,26 @@ export default function GalleryAdmin() {
   };
 
   const handleDelete = async (image) => {
-    if (!window.confirm("Delete this gallery image?")) return;
+    if (!window.confirm("Remove this image from the website slider?")) return;
     const supabase = createClient();
+
+    if (image.source === "builtin") {
+      const { error: excludeError } = await supabase.from("gallery_images").insert({
+        category: image.category,
+        image_url: image.key,
+        alt: EXCLUDED_ALT,
+        sort_order: -1,
+      });
+
+      if (excludeError) {
+        setError(excludeError.message);
+        return;
+      }
+
+      setMessage("Built-in image removed from the slider.");
+      loadImages();
+      return;
+    }
 
     const { error: deleteError } = await supabase
       .from("gallery_images")
@@ -192,8 +255,8 @@ export default function GalleryAdmin() {
       <header className="admin-page__header">
         <h1>Sliding gallery</h1>
         <p>
-          Add, update, or delete images used in the Selected Work slider for Ski
-          and Events.
+          Site slider images are listed below. Delete any of them, or upload new
+          ones to add to Ski / Events.
         </p>
       </header>
 
@@ -202,7 +265,7 @@ export default function GalleryAdmin() {
 
       <form className="admin-form" onSubmit={handleSave}>
         <h2 className="admin-form__title">
-          {editingId ? "Update gallery image" : "Add gallery image"}
+          {editingId ? "Update uploaded image" : "Add gallery image"}
         </h2>
         <div className="admin-form__row">
           <label>
@@ -297,26 +360,30 @@ export default function GalleryAdmin() {
 
       {loading ? (
         <p>Loading gallery...</p>
-      ) : visibleImages.length === 0 ? (
+      ) : displayImages.length === 0 ? (
         <p className="admin-banner">
-          No gallery images yet. Upload one above to show it in the website
-          slider.
+          No gallery images left. Upload new ones above to rebuild the slider.
         </p>
       ) : (
         <div className="admin-gallery-grid">
-          {visibleImages.map((image) => (
+          {displayImages.map((image) => (
             <article key={image.id} className="admin-gallery-card">
-              <img src={image.image_url} alt={image.alt || ""} />
+              <img src={image.preview} alt={image.alt || ""} />
               <div>
-                <strong>{image.category}</strong>
+                <strong>
+                  {image.category}
+                  {image.source === "builtin" ? " · site" : " · uploaded"}
+                </strong>
                 <p>{image.alt || "No description"}</p>
                 <p className="admin-gallery-card__meta">
                   Order {image.sort_order}
                 </p>
                 <div className="admin-gallery-card__actions">
-                  <button type="button" onClick={() => startEdit(image)}>
-                    Edit
-                  </button>
+                  {image.source === "upload" ? (
+                    <button type="button" onClick={() => startEdit(image)}>
+                      Edit
+                    </button>
+                  ) : null}
                   <button type="button" onClick={() => handleDelete(image)}>
                     Delete
                   </button>

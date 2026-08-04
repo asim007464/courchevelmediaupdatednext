@@ -8811,6 +8811,10 @@ background-clip: text;
   width: auto;
   padding: 0.45rem 0.7rem;
   cursor: pointer;
+  background: #fff;
+  color: #111;
+  border-color: rgba(255, 255, 255, 0.2);
+  font-weight: 600;
 }
 
 .admin-gallery-grid {
@@ -9076,4 +9080,8 @@ background-clip: text;
 .admin-gallery-card__actions button {
   width: auto;
   cursor: pointer;
+  background: #fff;
+  color: #111;
+  border-color: rgba(255, 255, 255, 0.2);
+  font-weight: 600;
 }

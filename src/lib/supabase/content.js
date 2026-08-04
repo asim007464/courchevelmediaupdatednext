@@ -1,4 +1,8 @@
 import { createClient } from "@/lib/supabase/client";
+import {
+  defaultGalleryCollections,
+  isExclusionRow,
+} from "@/data/galleryDefaults";
 
 export async function fetchPricingPlans() {
   const supabase = createClient();
@@ -26,9 +30,13 @@ export async function fetchPricingPlans() {
   };
 }
 
-export async function fetchGalleryImages(category) {
+export async function fetchGalleryState(category) {
+  const defaults = defaultGalleryCollections[category] || [];
   const supabase = createClient();
-  if (!supabase) return null;
+
+  if (!supabase) {
+    return defaults.map(({ src, alt }) => ({ src, alt }));
+  }
 
   const { data, error } = await supabase
     .from("gallery_images")
@@ -36,12 +44,30 @@ export async function fetchGalleryImages(category) {
     .eq("category", category)
     .order("sort_order", { ascending: true });
 
-  if (error || !data?.length) return null;
+  if (error) {
+    return defaults.map(({ src, alt }) => ({ src, alt }));
+  }
 
-  return data.map((image, index) => ({
-    src: image.image_url,
-    alt: image.alt || `${category} portfolio image ${index + 1}`,
-  }));
+  const rows = data || [];
+  const excluded = new Set(
+    rows.filter(isExclusionRow).map((row) => row.image_url)
+  );
+  const uploads = rows
+    .filter((row) => !isExclusionRow(row))
+    .map((image, index) => ({
+      src: image.image_url,
+      alt: image.alt || `${category} portfolio image ${index + 1}`,
+    }));
+
+  const visibleDefaults = defaults
+    .filter((item) => !excluded.has(item.key))
+    .map(({ src, alt }) => ({ src, alt }));
+
+  return [...visibleDefaults, ...uploads];
+}
+
+export async function fetchGalleryImages(category) {
+  return fetchGalleryState(category);
 }
 
 export async function fetchPublishedBlogs() {
