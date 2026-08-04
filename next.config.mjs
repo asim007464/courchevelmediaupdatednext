@@ -14,6 +14,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "courchevelmedia.com",
       },
+      {
+        protocol: "https",
+        hostname: "**.supabase.co",
+      },
     ],
   },
   async redirects() {

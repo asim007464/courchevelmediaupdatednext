@@ -4,6 +4,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { getImageSrc } from "@/lib/getImageSrc";
 import { useLanguage } from "@/context/LanguageProvider";
+import { fetchGalleryImages } from "@/lib/supabase/content";
 
 import Adriana1 from "@/images/Computer/Ski/Adriana Howerton - Brasil/1.webp";
 import Adriana2 from "@/images/Computer/Ski/Adriana Howerton - Brasil/2.webp";
@@ -239,6 +240,7 @@ export default function SelectedWork() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(null);
+  const [remoteCollections, setRemoteCollections] = useState(null);
   const scrollerRef = useRef(null);
   const dragState = useRef({
     isDragging: false,
@@ -248,7 +250,28 @@ export default function SelectedWork() {
     pointerId: null,
   });
 
-  const items = useMemo(() => collections[activeTab], [activeTab]);
+  useEffect(() => {
+    let active = true;
+    Promise.all([
+      fetchGalleryImages("ski"),
+      fetchGalleryImages("events"),
+    ]).then(([ski, events]) => {
+      if (!active) return;
+      if (!ski && !events) return;
+      setRemoteCollections({
+        ski: ski || collections.ski,
+        events: events || collections.events,
+      });
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const items = useMemo(
+    () => (remoteCollections || collections)[activeTab],
+    [activeTab, remoteCollections]
+  );
   const panels = useMemo(() => chunkItems(items, 6), [items]);
   const lightboxItem =
     lightboxIndex !== null ? items[lightboxIndex] ?? null : null;

@@ -1,12 +1,12 @@
-import BlogArticle from "@/components/BlogArticle";
+import BlogIndex from "@/components/BlogIndex";
 
 export const metadata = {
-  title: "Why overcast days often make better photographs | Courchevel Media",
+  title: "Blogs | Courchevel Media",
   description:
-    "Soft light, even snow and no harsh shadows. What flat alpine light gives you that bluebird conditions often cannot — a Courchevel Media guide.",
+    "Guides and notes from Courchevel Media on ski photography, filming, and planning your alpine experience.",
   alternates: { canonical: "/blogs" },
 };
 
 export default function BlogsPage() {
-  return <BlogArticle />;
+  return <BlogIndex />;
 }

@@ -1,17 +1,29 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLanguage } from "@/context/LanguageProvider";
+import { fetchPricingPlans } from "@/lib/supabase/content";
 
 const Pricing = () => {
   const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState("Tab 1");
+  const [remotePackages, setRemotePackages] = useState(null);
+
+  useEffect(() => {
+    let active = true;
+    fetchPricingPlans().then((plans) => {
+      if (active && plans) setRemotePackages(plans);
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
 
-  const packages = t("pricing.packages") || {};
+  const packages = remotePackages || t("pricing.packages") || {};
   const data = {
     "Tab 1": packages.tab1 || [],
     "Tab 2": packages.tab2 || [],
