@@ -1,0 +1,53 @@
+:root{
+/* base neutrals */
+--black-0:#000000;
+--black-1:#0a0a0a;
+--black-2:#0d0d0d;
+--black-3:#111111;
+--black-4:#161616;
+--black-5:#1c1c1c;
+--gray-1:#2a2a2a;
+--gray-2:#3d3d3d;
+--gray-3:#6b6b6b;
+--gray-4:#9a9a9a;
+--gray-5:#c2c2c2;
+--white-1:#e1e1e1;
+--white-0:#ffffff;
+
+/* brand blue (from logo, primary accent) */
+--blue-100:#eaf2ff;
+--blue-300:#93c5fd;
+--blue-500:#3b82f6;
+--blue-600:#0074ec;
+--blue-700:#0f246f;
+
+/* logo-only colors (shutter mark) — not used as UI accents */
+--logo-red-500:#e93331;
+--logo-red-700:#840000;
+--logo-gray-500:#999999;
+
+/* functional (whatsapp) */
+--green-500:#25d366;
+--green-600:#1fb757;
+
+/* semantic surface */
+--surface-page:var(--black-1);
+--surface-raised:var(--black-3);
+--surface-overlay:var(--black-4);
+--surface-pill:rgba(255,255,255,.04);
+
+/* semantic text */
+--text-primary:var(--white-0);
+--text-secondary:var(--gray-5);
+--text-tertiary:var(--gray-4);
+--text-disabled:var(--gray-3);
+
+/* semantic border */
+--border-subtle:rgba(255,255,255,.08);
+--border-default:rgba(255,255,255,.12);
+--border-strong:rgba(255,255,255,.2);
+--border-focus:var(--blue-500);
+
+/* accent gradient (headline emphasis) */
+--accent-gradient:linear-gradient(90deg,var(--blue-600) 0%,var(--blue-300) 100%);
+}

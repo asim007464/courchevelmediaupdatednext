@@ -1,14 +1,14 @@
-import BlogPost from "@/components/BlogPost";
+import { redirect } from "next/navigation";
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   return {
     title: `${slug.replace(/-/g, " ")} | Courchevel Media`,
-    alternates: { canonical: `/blogs/${slug}` },
+    alternates: { canonical: `/magazine/${slug}` },
   };
 }
 
-export default async function BlogSlugPage({ params }) {
+export default async function BlogSlugRedirect({ params }) {
   const { slug } = await params;
-  return <BlogPost slug={slug} />;
+  redirect(`/magazine/${slug}`);
 }

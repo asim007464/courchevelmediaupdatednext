@@ -13,6 +13,8 @@ import "../styles/styles_home-success-stories.css";
 import "../components/Trusted.css";
 import "../components/Slider.css";
 import "../components/Servicespage.css";
+import "../styles/design/fonts.css";
+import "../styles/design/design-system.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "swiper/swiper-bundle.css";

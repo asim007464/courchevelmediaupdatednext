@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# large local media (over GitHub 100MB limit)
+public/videos/Showreels/
+public/videos/Showreels.zip
+public/Blog.zip
+courcheveldesign/

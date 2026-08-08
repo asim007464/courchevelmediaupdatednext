@@ -1,12 +1,10 @@
-import BlogIndex from "@/components/BlogIndex";
+import { redirect } from "next/navigation";
 
 export const metadata = {
-  title: "Blogs | Courchevel Media",
-  description:
-    "Guides and notes from Courchevel Media on ski photography, filming, and planning your alpine experience.",
-  alternates: { canonical: "/blogs" },
+  title: "Magazine | Courchevel Media",
+  alternates: { canonical: "/magazine" },
 };
 
-export default function BlogsPage() {
-  return <BlogIndex />;
+export default function BlogsRedirectPage() {
+  redirect("/magazine");
 }

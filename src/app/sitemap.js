@@ -11,6 +11,18 @@ export default function sitemap() {
       priority: 1,
     },
     {
+      url: `${SITE_URL}/about`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/magazine`,
+      lastModified,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
       url: `${SITE_URL}/terms`,
       lastModified,
       changeFrequency: "yearly",
@@ -27,12 +39,6 @@ export default function sitemap() {
       lastModified,
       changeFrequency: "yearly",
       priority: 0.5,
-    },
-    {
-      url: `${SITE_URL}/blogs`,
-      lastModified,
-      changeFrequency: "weekly",
-      priority: 0.8,
     },
   ];
 }

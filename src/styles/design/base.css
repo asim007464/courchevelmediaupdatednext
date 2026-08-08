@@ -1,0 +1,5 @@
+*{box-sizing:border-box}
+.ds-page{background:var(--surface-page);color:var(--text-primary);font-family:var(--font-sans)}
+.ds-page a{color:var(--text-secondary);text-decoration:none}
+.ds-page a:hover{color:var(--text-primary)}
+.gradient-text{background:var(--accent-gradient);-webkit-background-clip:text;background-clip:text;color:transparent}
