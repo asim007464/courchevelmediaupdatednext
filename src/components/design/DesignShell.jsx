@@ -54,7 +54,14 @@ export function DesignNav({ active = "" }) {
       href={WHATSAPP_URL}
       target="_blank"
       rel="noreferrer"
-      style={{ padding: "9px 14px", fontSize: "var(--text-xs)", gap: 6 }}
+      style={{
+        padding: "9px 14px",
+        fontSize: "var(--text-xs)",
+        gap: 6,
+        background: "#25d366",
+        color: "#fff",
+        borderColor: "#25d366",
+      }}
     >
       <IconWhatsApp /> CONTACT US
     </a>

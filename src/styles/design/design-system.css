@@ -96,8 +96,20 @@
   quotes: none;
 }
 
-.ds-btn--primary:hover {
+.ds-btn--primary,
+.ds-page a.ds-btn--primary,
+.ds-page a.ds-btn--primary:visited,
+.ds-page a.ds-btn--primary:hover,
+.ds-page .navpanel-foot a.ds-btn--primary {
+  background: #25d366 !important;
+  color: #fff !important;
+  border-color: #25d366 !important;
+}
+
+.ds-btn--primary:hover,
+.ds-page a.ds-btn--primary:hover {
   filter: brightness(1.06);
+  color: #fff !important;
 }
 
 .ds-btn--secondary {
