@@ -97,19 +97,41 @@
 }
 
 .ds-btn--primary,
+.ds-btn--whatsapp,
 .ds-page a.ds-btn--primary,
+.ds-page a.ds-btn--whatsapp,
+.ds-page a.ds-btn--primary:link,
+.ds-page a.ds-btn--whatsapp:link,
 .ds-page a.ds-btn--primary:visited,
+.ds-page a.ds-btn--whatsapp:visited,
 .ds-page a.ds-btn--primary:hover,
-.ds-page .navpanel-foot a.ds-btn--primary {
+.ds-page a.ds-btn--whatsapp:hover,
+.ds-page a.ds-btn--primary:active,
+.ds-page a.ds-btn--whatsapp:active,
+.ds-page .navpanel-foot a.ds-btn--primary,
+.ds-page .navpanel-foot a.ds-btn--whatsapp,
+.ds-page .cta-actions a.ds-btn--primary,
+.ds-page .home-hero a.ds-btn--primary {
   background: #25d366 !important;
-  color: #fff !important;
+  background-color: #25d366 !important;
+  color: #ffffff !important;
   border-color: #25d366 !important;
 }
 
 .ds-btn--primary:hover,
-.ds-page a.ds-btn--primary:hover {
+.ds-btn--whatsapp:hover,
+.ds-page a.ds-btn--primary:hover,
+.ds-page a.ds-btn--whatsapp:hover {
   filter: brightness(1.06);
-  color: #fff !important;
+  color: #ffffff !important;
+}
+
+.ds-btn--primary svg,
+.ds-btn--whatsapp svg,
+.ds-page a.ds-btn--primary svg,
+.ds-page a.ds-btn--whatsapp svg {
+  color: #ffffff !important;
+  fill: currentColor;
 }
 
 .ds-btn--secondary {

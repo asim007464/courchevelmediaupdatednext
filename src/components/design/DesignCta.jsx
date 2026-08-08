@@ -1,5 +1,5 @@
 import { IconInstagram, IconWhatsApp } from "@/components/design/DesignIcons";
-import { INSTAGRAM_URL, WHATSAPP_URL } from "@/lib/designLinks";
+import { INSTAGRAM_URL, WHATSAPP_URL, WHATSAPP_BTN_STYLE } from "@/lib/designLinks";
 
 export default function DesignCta({
   title = (
@@ -51,7 +51,13 @@ export default function DesignCta({
             {secondaryLabel === "INSTAGRAM" ? <IconInstagram /> : null}
             {secondaryLabel}
           </a>
-          <a className="ds-btn ds-btn--primary" href={WHATSAPP_URL} target="_blank" rel="noreferrer">
+          <a
+            className="ds-btn ds-btn--primary ds-btn--whatsapp"
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noreferrer"
+            style={WHATSAPP_BTN_STYLE}
+          >
             <IconWhatsApp /> CONTACT US
           </a>
         </div>

@@ -20,8 +20,8 @@ function LanguageFlag({ item, className = "" }) {
         src={getFlagUrl(item.flagCode, 40)}
         srcSet={`${getFlagUrl(item.flagCode, 80)} 2x`}
         alt=""
-        width={20}
-        height={15}
+        width={22}
+        height={22}
         className="language-switcher__flag-img"
         loading="lazy"
       />

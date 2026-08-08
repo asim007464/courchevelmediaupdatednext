@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { IconFacebook, IconInstagram, IconTikTok, IconWhatsApp } from "@/components/design/DesignIcons";
 import { DESIGN_LOGO } from "@/lib/designImages";
-import { INSTAGRAM_URL, WHATSAPP_URL } from "@/lib/designLinks";
+import { INSTAGRAM_URL, WHATSAPP_URL, WHATSAPP_BTN_STYLE } from "@/lib/designLinks";
 
 const NAV = [
   { label: "What We Do", href: "/#what-we-do" },
@@ -50,7 +50,7 @@ export function DesignNav({ active = "" }) {
 
   const contact = (
     <a
-      className="ds-btn ds-btn--primary"
+      className="ds-btn ds-btn--primary ds-btn--whatsapp"
       href={WHATSAPP_URL}
       target="_blank"
       rel="noreferrer"
@@ -58,9 +58,7 @@ export function DesignNav({ active = "" }) {
         padding: "9px 14px",
         fontSize: "var(--text-xs)",
         gap: 6,
-        background: "#25d366",
-        color: "#fff",
-        borderColor: "#25d366",
+        ...WHATSAPP_BTN_STYLE,
       }}
     >
       <IconWhatsApp /> CONTACT US

@@ -3,6 +3,14 @@ export const WHATSAPP_URL =
 
 export const INSTAGRAM_URL = "https://www.instagram.com/courchevelmedia";
 
+/** Inline styles so WhatsApp CTA stays green even if legacy CSS wins on Vercel */
+export const WHATSAPP_BTN_STYLE = {
+  backgroundColor: "#25d366",
+  background: "#25d366",
+  color: "#ffffff",
+  borderColor: "#25d366",
+};
+
 export function packageWhatsAppUrl(pkg) {
   const message = encodeURIComponent(
     `Hi, I'm interested in the following package:\n\n` +

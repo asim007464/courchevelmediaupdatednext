@@ -6,6 +6,7 @@
 .language-switcher__trigger {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   padding: 0.55rem 0.9rem;
   border: 1px solid rgba(255, 255, 255, 0.25);
@@ -58,32 +59,52 @@
 }
 
 .language-switcher__flag {
-  width: 1.35rem;
-  height: 1rem;
+  width: 22px;
+  height: 22px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  line-height: 0;
 }
 
 .language-switcher__flag-img {
-  width: 20px;
-  height: 15px;
+  width: 22px;
+  height: 22px;
   object-fit: cover;
-  border-radius: 2px;
+  border-radius: 50%;
   display: block;
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12);
 }
 
 .language-switcher__globe {
-  font-size: 0.95rem;
+  font-size: 0.75rem;
   color: #fff;
   opacity: 0.95;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  line-height: 1;
+  margin: 0;
+}
+
+.language-switcher__flag--trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .language-switcher__flag--trigger .language-switcher__flag-img,
 .language-switcher__flag--trigger .language-switcher__globe {
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .language-switcher__label {
@@ -98,6 +119,9 @@
 .language-switcher__chevron {
   font-size: 0.7rem;
   opacity: 0.8;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
 }
 
 @media (max-width: 767px) {

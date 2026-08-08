@@ -7,7 +7,7 @@ import DesignCta from "@/components/design/DesignCta";
 import { DesignShell } from "@/components/design/DesignShell";
 import { IconInstagram, IconWhatsApp } from "@/components/design/DesignIcons";
 import { DESIGN_PACKAGES } from "@/lib/designImages";
-import { INSTAGRAM_URL, WHATSAPP_URL, packageWhatsAppUrl } from "@/lib/designLinks";
+import { INSTAGRAM_URL, WHATSAPP_URL, packageWhatsAppUrl, WHATSAPP_BTN_STYLE } from "@/lib/designLinks";
 import { fetchGalleryImages, fetchPricingPlans } from "@/lib/supabase/content";
 import { getImageSrc } from "@/lib/getImageSrc";
 import { defaultGalleryCollections } from "@/Data/galleryDefaults";
@@ -173,7 +173,13 @@ function HomeHero() {
         <a className="ds-btn ds-btn--secondary" href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
           <IconInstagram /> INSTAGRAM
         </a>
-        <a className="ds-btn ds-btn--primary" href={WHATSAPP_URL} target="_blank" rel="noreferrer">
+        <a
+          className="ds-btn ds-btn--primary ds-btn--whatsapp"
+          href={WHATSAPP_URL}
+          target="_blank"
+          rel="noreferrer"
+          style={WHATSAPP_BTN_STYLE}
+        >
           <IconWhatsApp /> CONTACT US
         </a>
       </div>
