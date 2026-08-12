@@ -15,11 +15,13 @@ import portfolioMood from "@/images/Computer/Ski/Robert Horwitz - USA/9.webp";
 
 const SHOWREEL = {
   ski: {
-    src: "https://lnbj0wjl9e5lhlz0.public.blob.vercel-storage.com/showreels/trailer-ski.mp4",
+    // Web-optimized (~29MB @ ~3.5Mbps) with faststart for progressive playback
+    src: "https://lnbj0wjl9e5lhlz0.public.blob.vercel-storage.com/showreels/trailer-ski-web.mp4",
     poster: "/videos/poster.webp",
   },
   events: {
-    src: "https://lnbj0wjl9e5lhlz0.public.blob.vercel-storage.com/showreels/trailer-events.mp4",
+    // Web-optimized (~21MB @ ~3.5Mbps) with faststart for progressive playback
+    src: "https://lnbj0wjl9e5lhlz0.public.blob.vercel-storage.com/showreels/trailer-events-web.mp4",
     poster: "/videos/event-poster.webp",
   },
 };
@@ -174,11 +176,11 @@ function Showreel() {
             controls
             playsInline
             autoPlay
-            preload="metadata"
+            preload="auto"
             poster={active.poster}
             onError={() => setPlaying(false)}
           >
-            <source src={active.src} type="video/mp4" />
+            <source src={active.src} type='video/mp4; codecs="avc1.640028, mp4a.40.2"' />
           </video>
         ) : (
           <button
