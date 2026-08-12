@@ -4,17 +4,10 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { useLanguage } from "@/context/LanguageProvider";
 import { IconFacebook, IconInstagram, IconTikTok, IconWhatsApp } from "@/components/design/DesignIcons";
 import { DESIGN_LOGO } from "@/lib/designImages";
 import { INSTAGRAM_URL, WHATSAPP_URL, WHATSAPP_BTN_STYLE } from "@/lib/designLinks";
-
-const NAV = [
-  { label: "What We Do", href: "/#what-we-do" },
-  { label: "Portfolio", href: "/#portfolio" },
-  { label: "Reviews", href: "/#reviews" },
-  { label: "Packages", href: "/#packages" },
-  { label: "Magazine", href: "/magazine" },
-];
 
 function scrollToHash(href) {
   if (!href.includes("#")) return false;
@@ -30,8 +23,17 @@ function scrollToHash(href) {
 
 export function DesignNav({ active = "" }) {
   const pathname = usePathname();
+  const { t } = useLanguage();
   const [menu, setMenu] = useState(false);
   const [stuck, setStuck] = useState(false);
+
+  const nav = [
+    { label: t("nav.whatWeDo"), href: "/#what-we-do", match: "What We Do" },
+    { label: t("nav.portfolio"), href: "/#portfolio", match: "Portfolio" },
+    { label: t("nav.reviews"), href: "/#reviews", match: "Reviews" },
+    { label: t("nav.pricing"), href: "/#packages", match: "Packages" },
+    { label: t("nav.magazine"), href: "/magazine", match: "Magazine" },
+  ];
 
   useEffect(() => {
     const onScroll = () => setStuck(window.scrollY > 2);
@@ -61,7 +63,7 @@ export function DesignNav({ active = "" }) {
         ...WHATSAPP_BTN_STYLE,
       }}
     >
-      <IconWhatsApp /> CONTACT US
+      <IconWhatsApp /> {t("nav.contactUs")}
     </a>
   );
 
@@ -114,7 +116,7 @@ export function DesignNav({ active = "" }) {
         </Link>
 
         <div className="navlinks" style={{ display: "flex", gap: "var(--space-8)" }}>
-          {NAV.map((item) => (
+          {nav.map((item) => (
             <Link
               key={item.href}
               href={item.href}
@@ -123,7 +125,7 @@ export function DesignNav({ active = "" }) {
                 fontSize: "var(--text-sm)",
                 fontWeight: "var(--weight-medium)",
                 color:
-                  active === item.label ||
+                  active === item.match ||
                   (item.href === "/magazine" && pathname.startsWith("/magazine"))
                     ? "var(--text-primary)"
                     : "var(--text-secondary)",
@@ -156,7 +158,7 @@ export function DesignNav({ active = "" }) {
 
       {menu ? (
         <div className="navpanel">
-          {NAV.map((item) => (
+          {nav.map((item) => (
             <Link
               key={item.href}
               href={item.href}
@@ -173,29 +175,6 @@ export function DesignNav({ active = "" }) {
   );
 }
 
-const FOOTER_COLS = [
-  {
-    title: "Company",
-    links: [{ label: "About", href: "/about" }],
-  },
-  {
-    title: "Magazine",
-    links: [
-      { label: "All Articles", href: "/magazine" },
-      { label: "Behind the Scenes", href: "/magazine" },
-      { label: "How We Capture It", href: "/magazine" },
-    ],
-  },
-  {
-    title: "Legal",
-    links: [
-      { label: "Terms & Conditions", href: "/terms" },
-      { label: "Privacy Policy", href: "/Privacy" },
-      { label: "Service Policy", href: "/Service" },
-    ],
-  },
-];
-
 const SOCIALS = [
   { label: "Instagram", href: INSTAGRAM_URL, icon: <IconInstagram /> },
   { label: "TikTok", href: "https://www.tiktok.com", icon: <IconTikTok /> },
@@ -203,6 +182,31 @@ const SOCIALS = [
 ];
 
 export function DesignFooter() {
+  const { t } = useLanguage();
+
+  const footerCols = [
+    {
+      title: t("design.company"),
+      links: [{ label: t("design.about"), href: "/about" }],
+    },
+    {
+      title: t("nav.magazine"),
+      links: [
+        { label: t("design.allArticles"), href: "/magazine" },
+        { label: t("design.behindScenes"), href: "/magazine" },
+        { label: t("design.howWeCapture"), href: "/magazine" },
+      ],
+    },
+    {
+      title: t("design.legal"),
+      links: [
+        { label: t("design.terms"), href: "/terms" },
+        { label: t("design.privacy"), href: "/Privacy" },
+        { label: t("design.servicePolicy"), href: "/Service" },
+      ],
+    },
+  ];
+
   return (
     <footer style={{ borderTop: "1px solid var(--border-subtle)", paddingTop: "var(--space-16)", paddingBottom: "var(--space-12)" }}>
       <div
@@ -230,10 +234,10 @@ export function DesignFooter() {
             </span>
           </Link>
           <p style={{ margin: 0, fontSize: "var(--text-sm)", color: "var(--text-tertiary)", lineHeight: "var(--leading-relaxed)" }}>
-            Private photography and filmmaking for ski holidays and events in Courchevel.
+            {t("design.footerBlurb")}
           </p>
         </div>
-        {FOOTER_COLS.map((col) => (
+        {footerCols.map((col) => (
           <div key={col.title}>
             <h5
               style={{
@@ -274,7 +278,7 @@ export function DesignFooter() {
         }}
       >
         <p style={{ margin: 0, fontSize: "var(--text-sm)", color: "var(--text-tertiary)" }}>
-          © {new Date().getFullYear()} Courchevel Media. All rights reserved.
+          © {new Date().getFullYear()} Courchevel Media. {t("footer.copyright")}
         </p>
         <div style={{ display: "flex", gap: "var(--space-3)" }}>
           {SOCIALS.map((item) => (

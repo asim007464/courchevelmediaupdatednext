@@ -58,8 +58,8 @@ export function LanguageProvider({ children }) {
   useEffect(() => {
     const language = getLanguage(locale);
     document.documentElement.lang = locale;
-    document.documentElement.dir = "ltr";
-    document.body.dataset.textDir = language.dir;
+    document.documentElement.dir = language.dir || "ltr";
+    document.body.dataset.textDir = language.dir || "ltr";
   }, [locale]);
 
   const setLocale = useCallback((code) => {

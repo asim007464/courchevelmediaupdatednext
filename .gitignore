@@ -43,5 +43,11 @@ next-env.d.ts
 # large local media (over GitHub 100MB limit)
 public/videos/Showreels/
 public/videos/Showreels.zip
+public/Trailer ski.mp4
+public/Trailer events.mp4
 public/Blog.zip
 courcheveldesign/
+env-*.json
+env-*.txt
+env-*.err
+val-*.txt

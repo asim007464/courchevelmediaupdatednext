@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import DesignImage from "@/components/design/DesignImage";
+import { useEffect, useMemo, useRef, useState } from "react";
 import DesignReveal from "@/components/design/DesignReveal";
 import DesignCta from "@/components/design/DesignCta";
 import { DesignShell } from "@/components/design/DesignShell";
 import { IconInstagram, IconWhatsApp } from "@/components/design/DesignIcons";
+import { useLanguage } from "@/context/LanguageProvider";
 import { DESIGN_PACKAGES } from "@/lib/designImages";
 import { INSTAGRAM_URL, WHATSAPP_URL, packageWhatsAppUrl, WHATSAPP_BTN_STYLE } from "@/lib/designLinks";
 import { fetchGalleryImages, fetchPricingPlans } from "@/lib/supabase/content";
@@ -14,12 +14,12 @@ import { defaultGalleryCollections } from "@/Data/galleryDefaults";
 import portfolioMood from "@/images/Computer/Ski/Robert Horwitz - USA/9.webp";
 
 const SHOWREEL = {
-  Ski: {
-    src: "/videos/Showreels/Showreels/Trailer%20ski.mp4",
+  ski: {
+    src: "https://lnbj0wjl9e5lhlz0.public.blob.vercel-storage.com/showreels/trailer-ski.mp4",
     poster: "/videos/poster.webp",
   },
-  Events: {
-    src: "/videos/Showreels/Showreels/Trailer%20events.mp4",
+  events: {
+    src: "https://lnbj0wjl9e5lhlz0.public.blob.vercel-storage.com/showreels/trailer-events.mp4",
     poster: "/videos/event-poster.webp",
   },
 };
@@ -35,62 +35,6 @@ const BRANDS = [
   { name: "Red Bull", src: "/images/companieslogos/Red%20Bull%20Courchevel.webp" },
 ];
 
-const PILLARS = [
-  [
-    "Tailored to your holiday",
-    "Every day on the mountain is different. We adapt to your plans, your pace and your priorities, capturing the moments that matter without ever interrupting the experience.",
-  ],
-  [
-    "Cinematic storytelling",
-    "Every moment is captured with the attention and creativity it deserves. From intimate family moments to aerial perspectives, we create photographs and films you will revisit.",
-  ],
-  [
-    "Discretion and privacy",
-    "Whether you are travelling with family, friends or colleagues, we work quietly in the background so you can stay present while every important moment is naturally captured.",
-  ],
-];
-
-const STEPS = [
-  [
-    "01",
-    "Planning",
-    "We adapt everything around your holiday, understanding your plans, preferences and priorities before we meet.",
-  ],
-  [
-    "02",
-    "Capturing",
-    "Enjoy your day while we work discreetly in the background, capturing the moments that matter most.",
-  ],
-  [
-    "03",
-    "Delivery",
-    "Your professionally edited photos and film are carefully selected and delivered within days.",
-  ],
-];
-
-const FAQS = [
-  [
-    "How far in advance should we book?",
-    "Most families book four to eight weeks ahead, and earlier for Christmas, February half term and Easter. If your dates are close, message us anyway. We keep a small amount of flexibility through the season.",
-  ],
-  [
-    "What happens if the weather is poor?",
-    "We photograph the day you are actually having. Flat light and snowfall often produce our strongest work, and if conditions close the mountain entirely we move the session within your stay at no cost.",
-  ],
-  [
-    "Will you interrupt our holiday?",
-    "No. We work quietly in the background, following your plans rather than directing them. Portraits are brief and only when they feel natural.",
-  ],
-  [
-    "When do we receive the photographs and film?",
-    "A short selection is shared within a few days, and the full gallery and film follow within two weeks. Urgent selects can be arranged.",
-  ],
-  [
-    "Do you travel outside Courchevel?",
-    "Yes. We regularly work across the Trois Vallées and travel further for multi-day bookings and private events.",
-  ],
-];
-
 const REVIEWS = [
   ["Ria Tab", 5, "Nov 8, 2024", "As artistic director for this place, I have never seen such professionalism and beauty in one. Gracias Kevin."],
   ["Niccolo Bucciero", 5, "Nov 5, 2024", "Kevin was a great support catching the content I need for my professional content. It was very professional working with him and he is very punctual. He is my go to when needed to shoot some content."],
@@ -100,19 +44,19 @@ const REVIEWS = [
   ["Corinne Dumas", 5, "Nov 2, 2024", "Absolutely discreet throughout our week, and the film he delivered is everything we hoped for. Thank you."],
 ];
 
-function Tabs({ options, active, onChange, ariaLabel }) {
+function Tabs({ options, active, onChange, ariaLabel, className = "tabs" }) {
   return (
-    <div className="tabs" role="tablist" aria-label={ariaLabel}>
+    <div className={className} role="tablist" aria-label={ariaLabel}>
       {options.map((option) => (
         <button
-          key={option}
+          key={option.value}
           type="button"
           role="tab"
-          aria-selected={option === active}
+          aria-selected={option.value === active}
           className="tab"
-          onClick={() => onChange(option)}
+          onClick={() => onChange(option.value)}
         >
-          {option}
+          {option.label}
         </button>
       ))}
     </div>
@@ -147,20 +91,20 @@ function mapGalleryItems(items, prefix = "gal") {
 }
 
 const DEFAULT_PORTFOLIO = {
-  "Ski Holidays": mapGalleryItems(defaultGalleryCollections.ski, "ski"),
-  "Private Events": mapGalleryItems(defaultGalleryCollections.events, "events"),
+  ski: mapGalleryItems(defaultGalleryCollections.ski, "ski"),
+  events: mapGalleryItems(defaultGalleryCollections.events, "events"),
 };
 
 function HomeHero() {
+  const { t } = useLanguage();
   return (
     <section className="home-hero">
       <h1 className="home-h1">
-        Your ski holiday, <span className="gradient-text">captured like cinema.</span>
+        {t("hero.titleBefore")}
+        {t("hero.titleMiddle")}
+        <span className="gradient-text">{t("hero.titleGradient")}</span>
       </h1>
-      <p className="home-lead">
-        Exclusive photo and video service capturing your Courchevel experience with discretion and
-        cinematic detail.
-      </p>
+      <p className="home-lead">{t("hero.subtitle")}</p>
       <div
         className="cta-actions"
         style={{
@@ -171,7 +115,7 @@ function HomeHero() {
         }}
       >
         <a className="ds-btn ds-btn--secondary" href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
-          <IconInstagram /> INSTAGRAM
+          <IconInstagram /> {t("hero.instagram").toUpperCase()}
         </a>
         <a
           className="ds-btn ds-btn--primary ds-btn--whatsapp"
@@ -180,7 +124,7 @@ function HomeHero() {
           rel="noreferrer"
           style={WHATSAPP_BTN_STYLE}
         >
-          <IconWhatsApp /> CONTACT US
+          <IconWhatsApp /> {t("nav.contactUs")}
         </a>
       </div>
     </section>
@@ -188,10 +132,18 @@ function HomeHero() {
 }
 
 function Showreel() {
-  const tabs = ["Ski", "Events"];
-  const [tab, setTab] = useState("Ski");
+  const { t } = useLanguage();
+  const tabs = useMemo(
+    () => [
+      { value: "ski", label: t("common.ski") },
+      { value: "events", label: t("common.events") },
+    ],
+    [t]
+  );
+  const [tab, setTab] = useState("ski");
   const [playing, setPlaying] = useState(false);
   const videoRef = useRef(null);
+  const active = SHOWREEL[tab];
 
   useEffect(() => {
     setPlaying(false);
@@ -203,8 +155,14 @@ function Showreel() {
 
   useEffect(() => {
     if (!playing || !videoRef.current) return;
-    videoRef.current.play().catch(() => setPlaying(false));
+    const video = videoRef.current;
+    const playPromise = video.play();
+    if (playPromise?.catch) {
+      playPromise.catch(() => setPlaying(false));
+    }
   }, [playing, tab]);
+
+  const startPlayback = () => setPlaying(true);
 
   return (
     <section style={{ padding: "0 0 var(--space-24)" }}>
@@ -213,61 +171,50 @@ function Showreel() {
           <video
             key={tab}
             ref={videoRef}
-            src={SHOWREEL[tab].src}
             controls
             playsInline
             autoPlay
-            poster={SHOWREEL[tab].poster}
-          />
+            preload="metadata"
+            poster={active.poster}
+            onError={() => setPlaying(false)}
+          >
+            <source src={active.src} type="video/mp4" />
+          </video>
         ) : (
-          <img
-            src={SHOWREEL[tab].poster}
-            alt={`${tab} showreel still`}
-            className="design-img"
-            draggable="false"
-          />
-        )}
-        {!playing ? (
           <button
             type="button"
-            className="reel-play"
-            aria-label={`Play ${tab.toLowerCase()} showreel`}
-            onClick={() => setPlaying(true)}
+            className="reel-poster"
+            onClick={startPlayback}
+            aria-label={`Play ${tabs.find((item) => item.value === tab)?.label || tab} showreel`}
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M8 5.5v13l11-6.5z" />
-            </svg>
-          </button>
-        ) : null}
-        {!playing ? (
-          <div className="reel-bar" aria-hidden="true">
-            <span className="reel-dot" />
-            <span className="reel-track">
-              <span className="reel-fill" />
+            <img
+              src={active.poster}
+              alt={`${tabs.find((item) => item.value === tab)?.label || tab} showreel still`}
+              className="design-img"
+              draggable="false"
+            />
+            <span className="reel-play" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5.5v13l11-6.5z" />
+              </svg>
             </span>
-            <span className="reel-time">0:28 / 1:12</span>
-          </div>
-        ) : null}
-      </div>
-      <div className="tabs reel-tabs" role="tablist" aria-label="Showreel type">
-        {tabs.map((t) => (
-          <button
-            key={t}
-            type="button"
-            role="tab"
-            aria-selected={t === tab}
-            className="tab"
-            onClick={() => setTab(t)}
-          >
-            {t}
+            <span className="reel-bar" aria-hidden="true">
+              <span className="reel-dot" />
+              <span className="reel-track">
+                <span className="reel-fill" />
+              </span>
+              <span className="reel-time">0:28 / 1:12</span>
+            </span>
           </button>
-        ))}
+        )}
       </div>
+      <Tabs options={tabs} active={tab} onChange={setTab} ariaLabel="Showreel type" className="tabs reel-tabs" />
     </section>
   );
 }
 
 function TrustedBy() {
+  const { t } = useLanguage();
   return (
     <DesignReveal>
       <section style={{ padding: "0 0 var(--space-24)" }}>
@@ -282,7 +229,7 @@ function TrustedBy() {
               color: "var(--text-primary)",
             }}
           >
-            Trusted by
+            {t("trusted.title")}
           </h2>
           <p
             style={{
@@ -292,7 +239,7 @@ function TrustedBy() {
               lineHeight: "var(--leading-relaxed)",
             }}
           >
-            International brands, leading venues, and private families who value discretion.
+            {t("trusted.subtitle")}
           </p>
         </div>
         <div className="brands">
@@ -315,6 +262,8 @@ function TrustedBy() {
 }
 
 function PrivateWork() {
+  const { t } = useLanguage();
+  const cards = t("solution.cards") || [];
   return (
     <DesignReveal>
       <section className="sec" style={{ padding: "0 0 var(--space-24)" }}>
@@ -322,11 +271,10 @@ function PrivateWork() {
         <div className="editorial">
           <div className="editorial-head">
             <h2 className="sec-title">
-              Private <span className="gradient-text">photography and filmmaking</span>
+              {t("solution.title")} <span className="gradient-text">{t("solution.titleGradient")}</span>
             </h2>
             <p className="sec-sub" style={{ marginTop: "var(--space-6)" }}>
-              A professional photography and filmmaking experience, designed around your holiday from
-              start to finish.
+              {t("solution.subtitle")}
             </p>
           </div>
           <div className="editorial-img">
@@ -339,10 +287,10 @@ function PrivateWork() {
             />
           </div>
           <div className="pillars">
-            {PILLARS.map(([title, body]) => (
-              <div key={title} className="pillar">
-                <h3 className="pillar-title">{title}</h3>
-                <p className="pillar-text">{body}</p>
+            {(Array.isArray(cards) ? cards : []).map((card) => (
+              <div key={card.title} className="pillar">
+                <h3 className="pillar-title">{card.title}</h3>
+                <p className="pillar-text">{card.text}</p>
               </div>
             ))}
           </div>
@@ -353,8 +301,15 @@ function PrivateWork() {
 }
 
 function Portfolio({ itemsByTab }) {
-  const tabs = Object.keys(itemsByTab);
-  const [tab, setTab] = useState(tabs[0]);
+  const { t } = useLanguage();
+  const tabs = useMemo(
+    () => [
+      { value: "ski", label: t("portfolio.skiTab", "Ski Holidays") },
+      { value: "events", label: t("portfolio.eventsTab", "Private Events") },
+    ],
+    [t]
+  );
+  const [tab, setTab] = useState("ski");
   const ref = useRef(null);
   const [progress, setProgress] = useState(0);
   const drag = useRef(null);
@@ -394,9 +349,10 @@ function Portfolio({ itemsByTab }) {
         <div className="sec-head">
           <h2 className="sec-title">
             <span id="portfolio" className="anchor" aria-hidden="true" />
-            Selected <span className="gradient-text">work</span>
+            {t("portfolio.title")}
+            <span className="gradient-text">{t("portfolio.titleGradient")}</span>
           </h2>
-          <p className="sec-sub">A glimpse into the moments we have had the privilege to capture.</p>
+          <p className="sec-sub">{t("portfolio.subtitle", "A glimpse into the moments we have had the privilege to capture.")}</p>
         </div>
         <Tabs options={tabs} active={tab} onChange={setTab} ariaLabel="Portfolio category" />
         <div
@@ -404,7 +360,7 @@ function Portfolio({ itemsByTab }) {
           ref={ref}
           tabIndex={0}
           role="region"
-          aria-label={`${tab} gallery, scroll horizontally`}
+          aria-label={`${tabs.find((item) => item.value === tab)?.label || tab} gallery, scroll horizontally`}
           onScroll={onScroll}
           onPointerDown={down}
           onPointerMove={move}
@@ -423,7 +379,7 @@ function Portfolio({ itemsByTab }) {
           <span style={{ transform: `translateX(${progress * 300}%)` }} />
         </div>
         <p className="pfhint" aria-hidden="true">
-          <span>←</span> Drag to explore more <span>→</span>
+          <span>←</span> {t("portfolio.dragHint", "Drag to explore more")} <span>→</span>
         </p>
       </section>
     </DesignReveal>
@@ -431,22 +387,24 @@ function Portfolio({ itemsByTab }) {
 }
 
 function Process() {
+  const { t } = useLanguage();
+  const steps = t("process.steps") || [];
   return (
     <DesignReveal>
       <section className="sec" style={{ padding: "0 0 var(--space-24)" }}>
         <div className="sec-head">
           <h2 className="sec-title">
-            Simple process, <span className="gradient-text">unforgettable results.</span>
+            {t("process.title")} <span className="gradient-text">{t("process.titleGradient")}</span>
           </h2>
-          <p className="sec-sub">We make it easy from the first message to the final delivery.</p>
+          <p className="sec-sub">{t("process.subtitle", "We make it easy from the first message to the final delivery.")}</p>
         </div>
         <div className="steps">
-          {STEPS.map(([n, title, body]) => (
-            <div key={n} className="step">
-              <span className="step-n">{n}</span>
+          {(Array.isArray(steps) ? steps : []).map((step, i) => (
+            <div key={step.title} className="step">
+              <span className="step-n">{String(i + 1).padStart(2, "0")}</span>
               <div className="step-body">
-                <h3 className="step-title">{title}</h3>
-                <p className="step-text">{body}</p>
+                <h3 className="step-title">{step.title}</h3>
+                <p className="step-text">{step.text}</p>
               </div>
             </div>
           ))}
@@ -457,21 +415,25 @@ function Process() {
 }
 
 function Reviews() {
-  const doubled = [...REVIEWS, ...REVIEWS];
+  const { t } = useLanguage();
+  // Duplicate once so -50% translate loops seamlessly right → left
+  const loop = [...REVIEWS, ...REVIEWS];
   return (
     <DesignReveal>
       <section className="sec" style={{ padding: "0 0 var(--space-24)" }}>
         <div className="sec-head center">
           <h2 className="sec-title">
             <span id="reviews" className="anchor" aria-hidden="true" />
-            What <span className="gradient-text">our clients</span> say
+            {t("reviews.title")}
+            <span className="gradient-text">{t("reviews.titleGradient")}</span>
+            {t("reviews.titleEnd", "")}
           </h2>
         </div>
         <div className="rvrow">
           <div className="rvsummary">
-            <p className="rvsum-label">Excellent</p>
+            <p className="rvsum-label">{t("reviews.excellent")}</p>
             <Stars n={5} />
-            <p className="rvsum-sub">Based on our reviews</p>
+            <p className="rvsum-sub">{t("design.basedOnOur")}</p>
             <div className="rvsum-logo">
               <img
                 src="/images/googlereviews.webp"
@@ -494,12 +456,12 @@ function Reviews() {
                 marginTop: "auto",
               }}
             >
-              READ MORE
+              {t("reviews.readMore").toUpperCase()}
             </a>
           </div>
-          <div className="rvviewport">
+          <div className="rvviewport" aria-label="Client reviews">
             <div className="rvtrack">
-              {doubled.map(([name, stars, date, text], i) => (
+              {loop.map(([name, stars, date, text], i) => (
                 <figure key={`${name}-${i}`} className="rvcard">
                   <div className="rvtop">
                     <Stars n={stars} />
@@ -518,8 +480,27 @@ function Reviews() {
 }
 
 function Packages({ packages }) {
-  const tabs = Object.keys(packages);
-  const [tab, setTab] = useState(tabs[0]);
+  const { t, locale } = useLanguage();
+  const tabs = useMemo(
+    () => [
+      { value: "ski", label: t("common.ski") },
+      { value: "events", label: t("common.events") },
+    ],
+    [t]
+  );
+  const [tab, setTab] = useState("ski");
+
+  const translated = t("pricing.packages");
+  const displayPackages = useMemo(() => {
+    if (locale === "en") return packages;
+    const tab1 = translated?.tab1;
+    const tab2 = translated?.tab2;
+    if (!tab1?.length && !tab2?.length) return packages;
+    return {
+      ski: tab1?.length ? tab1 : packages.ski,
+      events: tab2?.length ? tab2 : packages.events,
+    };
+  }, [locale, packages, translated]);
 
   return (
     <DesignReveal>
@@ -527,26 +508,32 @@ function Packages({ packages }) {
         <div className="sec-head center">
           <h2 className="sec-title">
             <span id="packages" className="anchor" aria-hidden="true" />
-            Choose your <span className="gradient-text">experience</span>
+            {t("pricing.title")}
+            <span className="gradient-text">{t("pricing.titleGradient")}</span>
           </h2>
           <p className="sec-sub">
-            Whether you are capturing a single day or your entire holiday, each experience is tailored
-            to your plans and delivered with the same attention to detail.
+            {t(
+              "pricing.subtitle",
+              "Whether you are capturing a single day or your entire holiday, each experience is tailored to your plans and delivered with the same attention to detail."
+            )}
           </p>
         </div>
         <Tabs options={tabs} active={tab} onChange={setTab} ariaLabel="Experience type" />
         <div className="pkgrid">
-          {(packages[tab] || []).map((pkg) => {
+          {(displayPackages[tab] || []).map((pkg) => {
             const title = pkg.title || pkg.name;
             const features = pkg.features || pkg.items || [];
-            const action = pkg.ctaLabel || pkg.action || "Book Now";
+            const action = pkg.ctaLabel || pkg.action || t("pricing.bookNow");
+            const price = String(pkg.price || "");
+            const showFrom =
+              !price.toLowerCase().startsWith("from") &&
+              !price.toLowerCase().startsWith("custom") &&
+              !price.toLowerCase().startsWith("desde");
             return (
               <div key={title} className="pkcard">
                 <h3 className="pk-name">{title}</h3>
                 <p className="pk-price">
-                  {String(pkg.price).startsWith("From") || String(pkg.price).startsWith("Custom")
-                    ? pkg.price
-                    : `From ${pkg.price}`}
+                  {showFrom ? `${t("pricing.from")} ${pkg.price}` : pkg.price}
                 </p>
                 <p className="pk-blurb">{pkg.description || pkg.blurb}</p>
                 <ul className="pk-list">
@@ -580,25 +567,27 @@ function Packages({ packages }) {
 }
 
 function Faq() {
+  const { t } = useLanguage();
+  const faqs = Array.isArray(t("faq.items")) ? t("faq.items") : [];
   const initial = 4;
   const [open, setOpen] = useState(-1);
   const [all, setAll] = useState(false);
-  const shown = all ? FAQS : FAQS.slice(0, initial);
+  const shown = all ? faqs : faqs.slice(0, initial);
 
   return (
     <DesignReveal>
       <section className="sec" style={{ padding: "0 0 var(--space-24)" }}>
         <div className="sec-head center">
           <h2 className="sec-title">
-            Questions, <span className="gradient-text">answered.</span>
+            {t("design.faqTitle")} <span className="gradient-text">{t("design.faqTitleGradient")}</span>
           </h2>
-          <p className="sec-sub">The things families ask us most often before booking.</p>
+          <p className="sec-sub">{t("design.faqSubtitle")}</p>
         </div>
         <div className="faq">
-          {shown.map(([q, a], i) => {
+          {shown.map((item, i) => {
             const isOpen = open === i;
             return (
-              <div key={q} className={`faq-item${isOpen ? " open" : ""}`}>
+              <div key={item.question} className={`faq-item${isOpen ? " open" : ""}`}>
                 <h3 style={{ margin: 0 }}>
                   <button
                     type="button"
@@ -608,7 +597,7 @@ function Faq() {
                     id={`faq-q-${i}`}
                     onClick={() => setOpen(isOpen ? -1 : i)}
                   >
-                    <span className="faq-qtext">{q}</span>
+                    <span className="faq-qtext">{item.question}</span>
                     <svg
                       className="faq-chev"
                       width="14"
@@ -632,13 +621,13 @@ function Faq() {
                   aria-labelledby={`faq-q-${i}`}
                   hidden={!isOpen}
                 >
-                  <p className="faq-a">{a}</p>
+                  <p className="faq-a">{item.answer}</p>
                 </div>
               </div>
             );
           })}
         </div>
-        {FAQS.length > initial && !all ? (
+        {faqs.length > initial && !all ? (
           <div className="faq-more">
             <button
               type="button"
@@ -652,7 +641,7 @@ function Faq() {
                 fontWeight: "var(--weight-medium)",
               }}
             >
-              VIEW ALL FAQS
+              {t("design.viewAllFaqs")}
             </button>
           </div>
         ) : null}
@@ -663,7 +652,10 @@ function Faq() {
 
 export default function DesignHome() {
   const [portfolio, setPortfolio] = useState(DEFAULT_PORTFOLIO);
-  const [packages, setPackages] = useState(DESIGN_PACKAGES);
+  const [packages, setPackages] = useState({
+    ski: DESIGN_PACKAGES.Ski,
+    events: DESIGN_PACKAGES.Events,
+  });
 
   useEffect(() => {
     let active = true;
@@ -678,16 +670,14 @@ export default function DesignHome() {
       const skiItems = mapGalleryItems(ski, "ski");
       const eventItems = mapGalleryItems(events, "events");
       setPortfolio({
-        "Ski Holidays": skiItems.length ? skiItems : DEFAULT_PORTFOLIO["Ski Holidays"],
-        "Private Events": eventItems.length
-          ? eventItems
-          : DEFAULT_PORTFOLIO["Private Events"],
+        ski: skiItems.length ? skiItems : DEFAULT_PORTFOLIO.ski,
+        events: eventItems.length ? eventItems : DEFAULT_PORTFOLIO.events,
       });
 
       if (pricing?.tab1?.length || pricing?.tab2?.length) {
         setPackages({
-          Ski: pricing.tab1?.length ? pricing.tab1 : DESIGN_PACKAGES.Ski,
-          Events: pricing.tab2?.length ? pricing.tab2 : DESIGN_PACKAGES.Events,
+          ski: pricing.tab1?.length ? pricing.tab1 : DESIGN_PACKAGES.Ski,
+          events: pricing.tab2?.length ? pricing.tab2 : DESIGN_PACKAGES.Events,
         });
       }
     });

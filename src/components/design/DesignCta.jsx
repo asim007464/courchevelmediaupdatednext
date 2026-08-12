@@ -1,17 +1,28 @@
+"use client";
+
 import { IconInstagram, IconWhatsApp } from "@/components/design/DesignIcons";
+import { useLanguage } from "@/context/LanguageProvider";
 import { INSTAGRAM_URL, WHATSAPP_URL, WHATSAPP_BTN_STYLE } from "@/lib/designLinks";
 
 export default function DesignCta({
-  title = (
-    <>
-      Ready to <span className="gradient-text">secure your date?</span>
-    </>
-  ),
-  body = "Availability is limited during the season. Send us a message today to reserve your filmmaker in Courchevel.",
+  title,
+  body,
   secondaryHref = INSTAGRAM_URL,
-  secondaryLabel = "INSTAGRAM",
+  secondaryLabel,
   secondaryExternal = true,
 }) {
+  const { t } = useLanguage();
+  const resolvedTitle =
+    title ??
+    (
+      <>
+        {t("ready.title")}
+        <span className="gradient-text">{t("ready.titleGradient")}</span>
+      </>
+    );
+  const resolvedBody = body ?? t("ready.text");
+  const resolvedSecondary = secondaryLabel ?? t("hero.instagram").toUpperCase();
+
   return (
     <section className="sec" style={{ padding: "0 0 var(--space-24)" }}>
       <div
@@ -30,7 +41,7 @@ export default function DesignCta({
           className="cta-h2"
           style={{ fontSize: "var(--text-3xl)", fontWeight: "var(--weight-bold)", margin: "0 0 16px" }}
         >
-          {title}
+          {resolvedTitle}
         </h2>
         <p
           style={{
@@ -40,7 +51,7 @@ export default function DesignCta({
             lineHeight: "var(--leading-relaxed)",
           }}
         >
-          {body}
+          {resolvedBody}
         </p>
         <div className="cta-actions" style={{ display: "flex", gap: "var(--space-4)", justifyContent: "center" }}>
           <a
@@ -48,8 +59,10 @@ export default function DesignCta({
             href={secondaryHref}
             {...(secondaryExternal ? { target: "_blank", rel: "noreferrer" } : {})}
           >
-            {secondaryLabel === "INSTAGRAM" ? <IconInstagram /> : null}
-            {secondaryLabel}
+            {resolvedSecondary === "INSTAGRAM" || resolvedSecondary === t("hero.instagram").toUpperCase() ? (
+              <IconInstagram />
+            ) : null}
+            {resolvedSecondary}
           </a>
           <a
             className="ds-btn ds-btn--primary ds-btn--whatsapp"
@@ -58,7 +71,7 @@ export default function DesignCta({
             rel="noreferrer"
             style={WHATSAPP_BTN_STYLE}
           >
-            <IconWhatsApp /> CONTACT US
+            <IconWhatsApp /> {t("nav.contactUs")}
           </a>
         </div>
       </div>
