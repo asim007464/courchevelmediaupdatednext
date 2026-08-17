@@ -1,6 +1,5 @@
 "use client";
 
-import DesignImage from "@/components/design/DesignImage";
 import DesignReveal from "@/components/design/DesignReveal";
 import DesignCta from "@/components/design/DesignCta";
 import { DesignShell } from "@/components/design/DesignShell";
@@ -42,14 +41,26 @@ export default function DesignAbout() {
       </section>
 
       <figure className="ab-bleed">
-        <DesignImage slot="ab-hero-img" alt="Skiers mid-run through soft alpine light" />
+        <img
+          src="/homepageimgs/courchevel-mountains-winter-sunset.webp"
+          alt="Snow-covered mountains in Courchevel during winter at sunset."
+          className="design-img"
+          loading="eager"
+          draggable="false"
+        />
       </figure>
 
       <DesignReveal>
         <section className="sec">
           <div className="ab-spread">
             <figure className="ab-spread-img">
-              <DesignImage slot="ab-portrait" alt="Kevin on the mountain with camera" />
+              <img
+                src="/homepageimgs/kevin-oliveri-filmmaker-production.webp"
+                alt="Courchevel Media founder Kevin Olivieri working on an action sports film production."
+                className="design-img"
+                loading="lazy"
+                draggable="false"
+              />
             </figure>
             <div className="ab-spread-copy">
               <p className="ab-tagline">
@@ -81,7 +92,13 @@ export default function DesignAbout() {
       <DesignReveal>
         <section className="sec">
           <figure className="ab-bleed ab-bleed-tall">
-            <DesignImage slot="ab-slope" alt="Photographer skiing beside a family" />
+            <img
+              src="/homepageimgs/courchevel-media-ski-holiday-behind-the-scenes.webp"
+              alt="Courchevel Media photographer riding a chairlift with clients during a ski holiday in Courchevel."
+              className="design-img"
+              loading="lazy"
+              draggable="false"
+            />
           </figure>
           <div className="ab-note-block">
             <p className="eyebrow">The idea</p>
@@ -147,7 +164,13 @@ export default function DesignAbout() {
               </p>
             </div>
             <figure className="ab-lifestyle-img">
-              <DesignImage slot="ab-lifestyle" alt="Real interaction with a family at altitude" />
+              <img
+                src="/homepageimgs/courchevel-media-client-experience-apres-ski.webp"
+                alt="Courchevel Media photographer with clients during an après-ski afternoon in Courchevel."
+                className="design-img"
+                loading="lazy"
+                draggable="false"
+              />
             </figure>
           </div>
         </section>
@@ -156,7 +179,13 @@ export default function DesignAbout() {
       <DesignReveal>
         <section className="sec">
           <figure className="ab-bleed ab-bleed-tall">
-            <DesignImage slot="ab-closing" alt="Courchevel at blue hour" />
+            <img
+              src="/homepageimgs/courchevel-media-private-wedding.webp"
+              alt="Courchevel Media filming a private mountain wedding in Courchevel"
+              className="design-img"
+              loading="lazy"
+              draggable="false"
+            />
           </figure>
           <div className="ab-today">
             <h2 className="ab-h2 ab-h2-center">Courchevel Media today.</h2>

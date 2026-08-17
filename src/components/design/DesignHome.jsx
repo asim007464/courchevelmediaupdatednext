@@ -11,7 +11,6 @@ import { INSTAGRAM_URL, WHATSAPP_URL, packageWhatsAppUrl } from "@/lib/designLin
 import { fetchGalleryImages, fetchPricingPlans } from "@/lib/supabase/content";
 import { getImageSrc } from "@/lib/getImageSrc";
 import { defaultGalleryCollections } from "@/Data/galleryDefaults";
-import portfolioMood from "@/images/Computer/Ski/Robert Horwitz - USA/9.webp";
 
 const SHOWREEL = {
   ski: {
@@ -282,8 +281,8 @@ function PrivateWork() {
           </div>
           <div className="editorial-img">
             <img
-              src={getImageSrc(portfolioMood)}
-              alt="Private ski holiday photography in the mountains"
+              src="/homepageimgs/courchevel-private-ski-photography.webp"
+              alt="Two skiers photographed during a private ski holiday in Courchevel."
               className="design-img"
               loading="lazy"
               draggable="false"
