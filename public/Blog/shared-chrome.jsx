@@ -184,7 +184,11 @@ function SiteFooter() {
     { h: 'Guides', items: ['All Guides', 'Behind the Scenes', 'How We Capture It'] },
     { h: 'Legal', items: ['Terms of Service', 'Privacy Policy', 'Service Agreement'] },
   ];
-  const socials = [['Instagram', <IconInstagram />], ['TikTok', <IconTikTok />], ['Facebook', <IconFacebook />]];
+  const socials = [
+    ['Instagram', 'https://www.instagram.com/courchevelmedia', <IconInstagram />],
+    ['TikTok', 'https://www.tiktok.com/@courchevelmedia', <IconTikTok />],
+    ['Facebook', 'https://www.facebook.com/people/Courchevel-Media/61554863364115/', <IconFacebook />],
+  ];
   return (
     <footer style={{ borderTop: '1px solid var(--border-subtle)', paddingTop: 'var(--space-16)' }}>
       <div className="footer-grid" style={{ display: 'grid', gridTemplateColumns: '1.9fr .8fr .95fr .85fr', gap: 'var(--space-10)' }}>
@@ -207,8 +211,8 @@ function SiteFooter() {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 'var(--space-6)', flexWrap: 'wrap', borderTop: '1px solid var(--border-subtle)', marginTop: 'var(--space-16)', paddingTop: 'var(--space-6)' }}>
         <p style={{ margin: 0, fontSize: 'var(--text-sm)', color: 'var(--text-tertiary)' }}>&copy; 2026 Courchevel Media. All rights reserved.</p>
         <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
-          {socials.map(([label, icon]) => (
-            <a key={label} href="#" aria-label={label} className="socialbtn">{icon}</a>
+          {socials.map(([label, href, icon]) => (
+            <a key={label} href={href} aria-label={label} className="socialbtn" target="_blank" rel="noreferrer">{icon}</a>
           ))}
         </div>
       </div>

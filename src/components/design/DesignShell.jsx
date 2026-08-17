@@ -2,27 +2,38 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { useLanguage } from "@/context/LanguageProvider";
 import { IconFacebook, IconInstagram, IconTikTok, IconWhatsApp } from "@/components/design/DesignIcons";
 import { DESIGN_LOGO } from "@/lib/designImages";
-import { INSTAGRAM_URL, WHATSAPP_URL, WHATSAPP_BTN_STYLE } from "@/lib/designLinks";
+import { FACEBOOK_URL, INSTAGRAM_URL, TIKTOK_URL, WHATSAPP_URL, WHATSAPP_BTN_STYLE } from "@/lib/designLinks";
+import { scrollToHash, scrollToHashAfterMount } from "@/lib/smoothScroll";
 
-function scrollToHash(href) {
-  if (!href.includes("#")) return false;
-  const id = href.split("#")[1];
-  const el = document.getElementById(id);
-  if (!el) return false;
-  window.scrollTo({
-    top: el.getBoundingClientRect().top + window.scrollY - 24,
-    behavior: "smooth",
-  });
+function isHomePath(pathname) {
+  return pathname === "/" || pathname === "";
+}
+
+function handleSectionLink(event, href, pathname, router, onComplete) {
+  if (!href.startsWith("/#")) return false;
+
+  event.preventDefault();
+
+  if (isHomePath(pathname)) {
+    scrollToHash(href);
+    window.history.replaceState(null, "", href);
+    onComplete?.();
+    return true;
+  }
+
+  onComplete?.();
+  router.push(href, { scroll: false });
   return true;
 }
 
 export function DesignNav({ active = "" }) {
   const pathname = usePathname();
+  const router = useRouter();
   const { t } = useLanguage();
   const [menu, setMenu] = useState(false);
   const [stuck, setStuck] = useState(false);
@@ -68,14 +79,8 @@ export function DesignNav({ active = "" }) {
   );
 
   const handleNav = (event, href) => {
-    if (href.startsWith("/#") && (pathname === "/" || pathname === "")) {
-      event.preventDefault();
-      scrollToHash(href);
-      setMenu(false);
-      window.history.replaceState(null, "", href);
-    } else {
-      setMenu(false);
-    }
+    if (handleSectionLink(event, href, pathname, router, () => setMenu(false))) return;
+    setMenu(false);
   };
 
   return (
@@ -93,26 +98,9 @@ export function DesignNav({ active = "" }) {
           borderRadius: "var(--radius-lg)",
         }}
       >
-        <Link
-          href="/"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "var(--space-3)",
-            color: "var(--text-primary)",
-            minWidth: 0,
-          }}
-        >
-          <img src={DESIGN_LOGO} alt="" style={{ height: 38, width: "auto" }} />
-          <span
-            style={{
-              fontSize: "var(--text-lg)",
-              fontWeight: "var(--weight-medium)",
-              whiteSpace: "nowrap",
-            }}
-          >
-            Courchevel Media
-          </span>
+        <Link href="/" className="nav-brand">
+          <img src={DESIGN_LOGO} alt="" className="nav-brand__logo" />
+          <span className="nav-brand__text">Courchevel Media</span>
         </Link>
 
         <div className="navlinks" style={{ display: "flex", gap: "var(--space-8)" }}>
@@ -120,6 +108,7 @@ export function DesignNav({ active = "" }) {
             <Link
               key={item.href}
               href={item.href}
+              scroll={item.href.startsWith("/#") ? false : undefined}
               onClick={(event) => handleNav(event, item.href)}
               style={{
                 fontSize: "var(--text-sm)",
@@ -162,6 +151,7 @@ export function DesignNav({ active = "" }) {
             <Link
               key={item.href}
               href={item.href}
+              scroll={item.href.startsWith("/#") ? false : undefined}
               className="navpanel-link"
               onClick={(event) => handleNav(event, item.href)}
             >
@@ -177,17 +167,23 @@ export function DesignNav({ active = "" }) {
 
 const SOCIALS = [
   { label: "Instagram", href: INSTAGRAM_URL, icon: <IconInstagram /> },
-  { label: "TikTok", href: "https://www.tiktok.com", icon: <IconTikTok /> },
-  { label: "Facebook", href: "https://www.facebook.com", icon: <IconFacebook /> },
+  { label: "TikTok", href: TIKTOK_URL, icon: <IconTikTok /> },
+  { label: "Facebook", href: FACEBOOK_URL, icon: <IconFacebook /> },
 ];
 
 export function DesignFooter() {
+  const pathname = usePathname();
+  const router = useRouter();
   const { t } = useLanguage();
 
   const footerCols = [
     {
       title: t("design.company"),
-      links: [{ label: t("design.about"), href: "/about" }],
+      links: [
+        { label: t("design.about"), href: "/about" },
+        { label: t("nav.pricing"), href: "/#packages" },
+        { label: t("nav.portfolio"), href: "/#portfolio" },
+      ],
     },
     {
       title: t("nav.magazine"),
@@ -255,8 +251,10 @@ export function DesignFooter() {
                 <Link
                   key={`${col.title}-${link.label}`}
                   href={link.href}
+                  scroll={link.href.startsWith("/#") ? false : undefined}
                   className="footlink"
                   style={{ fontSize: "var(--text-sm)", color: "var(--text-tertiary)" }}
+                  onClick={(event) => handleSectionLink(event, link.href, pathname, router)}
                 >
                   {link.label}
                 </Link>
@@ -293,6 +291,15 @@ export function DesignFooter() {
 }
 
 export function DesignShell({ children, active = "" }) {
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if (!isHomePath(pathname)) return undefined;
+    const hash = window.location.hash;
+    if (!hash) return undefined;
+    return scrollToHashAfterMount(hash);
+  }, [pathname]);
+
   return (
     <div className="ds-page">
       <div className="shell">

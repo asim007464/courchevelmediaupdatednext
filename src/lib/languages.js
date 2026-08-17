@@ -3,8 +3,7 @@ export const LANGUAGES = [
     code: "en",
     label: "English",
     short: "EN",
-    flagCode: "gb",
-    useGlobe: true,
+    flagCode: "us",
     dir: "ltr",
   },
   {

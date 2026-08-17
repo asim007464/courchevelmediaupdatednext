@@ -41,16 +41,8 @@ const LEGAL = {
       [
         "Cancellation & Rescheduling",
         [
-          {
-            list: [
-              { b: "A non-refundable 50% deposit is required to secure every booking." },
-              {
-                b: "Bookings cancelled within 15 days of the scheduled service are fully non-refundable.",
-                text: "However, date changes may be accommodated based on availability. Alternatively, any payments made can be used as credit towards the following winter season or ",
-                b2: "transferred as booking credit to another person.",
-              },
-            ],
-          },
+          "A non-refundable 50% deposit is required to secure every booking.",
+          "Bookings cancelled within 15 days of the scheduled service are fully non-refundable. However, date changes may be accommodated based on availability. Alternatively, any payments made can be used as credit towards the following winter season or transferred as booking credit to another person.",
         ],
       ],
       [
@@ -243,24 +235,14 @@ export default function DesignLegal({ page = "terms" }) {
 
   return (
     <DesignShell>
-      <section className="legal-page" style={{ padding: "var(--space-20) 0 var(--space-24)", maxWidth: 820 }}>
-        <p className="eyebrow" style={{ marginBottom: "var(--space-6)" }}>
-          Legal
-        </p>
-        <h1
-          style={{
-            margin: 0,
-            fontSize: "var(--text-4xl)",
-            fontWeight: "var(--weight-bold)",
-            letterSpacing: "var(--tracking-tight)",
-            lineHeight: "var(--leading-tight)",
-          }}
-        >
-          {doc.title}
-        </h1>
-        <p style={{ margin: "var(--space-4) 0 var(--space-10)", color: "var(--text-tertiary)", fontSize: "var(--text-sm)" }}>
-          Last updated {doc.updated}
-        </p>
+      <section style={{ padding: "var(--space-20) 0 var(--space-24)" }}>
+        <div className="legal-head">
+          <p className="eyebrow" style={{ margin: "0 0 var(--space-6)" }}>
+            Legal
+          </p>
+          <h1 className="legal-title">{doc.title}</h1>
+          <p className="legal-updated">Last updated {doc.updated}</p>
+        </div>
 
         <nav
           aria-label="Legal documents"
@@ -268,7 +250,8 @@ export default function DesignLegal({ page = "terms" }) {
             display: "flex",
             flexWrap: "wrap",
             gap: "var(--space-3)",
-            marginBottom: "var(--space-12)",
+            maxWidth: 720,
+            margin: "0 auto var(--space-12)",
             paddingBottom: "var(--space-6)",
             borderBottom: "1px solid var(--border-subtle)",
           }}
@@ -294,14 +277,22 @@ export default function DesignLegal({ page = "terms" }) {
           })}
         </nav>
 
-        <div className="prose legal-prose">
+        <div className="legal-body">
           {doc.sections.map(([heading, blocks]) => (
-            <section key={heading} style={{ marginBottom: "var(--space-12)" }}>
+            <section key={heading} className="legal-section">
               <h2>{heading}</h2>
               {blocks.map((block, i) => (
                 <Block key={i} item={block} />
               ))}
             </section>
+          ))}
+        </div>
+
+        <div className="legal-links legal-body">
+          {LEGAL_NAV.filter(([key]) => key !== page).map(([key, label]) => (
+            <Link key={key} href={LEGAL[key].href}>
+              {label}
+            </Link>
           ))}
         </div>
       </section>

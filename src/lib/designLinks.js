@@ -3,6 +3,11 @@ export const WHATSAPP_URL =
 
 export const INSTAGRAM_URL = "https://www.instagram.com/courchevelmedia";
 
+export const TIKTOK_URL = "https://www.tiktok.com/@courchevelmedia";
+
+export const FACEBOOK_URL =
+  "https://www.facebook.com/people/Courchevel-Media/61554863364115/";
+
 /** Inline styles so WhatsApp CTA stays green even if legacy CSS wins on Vercel */
 export const WHATSAPP_BTN_STYLE = {
   backgroundColor: "#25d366",

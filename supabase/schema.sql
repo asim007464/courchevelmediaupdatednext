@@ -177,9 +177,9 @@ select * from (values
   (
     'events',
     'Private Event',
-    '€950',
+    '€1,500',
     'Discreet photography and filmmaking for private celebrations, dinners and special occasions, tailored to your schedule.',
-    '["Photography & filmmaking coverage","Professionally curated photo gallery","Highlight film","Tailored to your event","Delivery within days"]'::jsonb,
+    '["Photography and filmmaking coverage","Professionally curated photo gallery","Highlight film","Tailored to your event","Delivery within days"]'::jsonb,
     null,
     1
   ),
@@ -188,9 +188,18 @@ select * from (values
     'DJ Event',
     '€1,500',
     'High-energy photography and filmmaking, capturing the atmosphere, crowd and unforgettable moments of your event.',
-    '["Dynamic event photography","Professionally curated photo gallery","Individual cinematic event clips","Highlight film","Crowd and atmosphere coverage"]'::jsonb,
+    '["Dynamic event photography","Professionally curated photo gallery","Individual cinematic event clips","Highlight aftermovie","Drone footage, when conditions allow"]'::jsonb,
     null,
     2
+  ),
+  (
+    'events',
+    'Bespoke Experience',
+    'Custom quote',
+    'Designed for clients whose plans go beyond a single event, whether it is a destination celebration, luxury wedding, multi-day holiday or any occasion requiring dedicated coverage tailored around your experience.',
+    '["Dedicated photographer and filmmaker","Multi-day or international coverage","Weddings, celebrations and private experiences","Creative planning before your event","Tailored photography and cinematic films","Worldwide availability"]'::jsonb,
+    'By enquiry only',
+    3
   )
 ) as seed(tab, title, price, description, features, cta_label, sort_order)
 where not exists (select 1 from public.pricing_plans limit 1);

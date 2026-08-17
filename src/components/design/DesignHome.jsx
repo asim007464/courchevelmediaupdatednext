@@ -7,7 +7,7 @@ import { DesignShell } from "@/components/design/DesignShell";
 import { IconInstagram, IconWhatsApp } from "@/components/design/DesignIcons";
 import { useLanguage } from "@/context/LanguageProvider";
 import { DESIGN_PACKAGES } from "@/lib/designImages";
-import { INSTAGRAM_URL, WHATSAPP_URL, packageWhatsAppUrl, WHATSAPP_BTN_STYLE } from "@/lib/designLinks";
+import { INSTAGRAM_URL, WHATSAPP_URL, packageWhatsAppUrl } from "@/lib/designLinks";
 import { fetchGalleryImages, fetchPricingPlans } from "@/lib/supabase/content";
 import { getImageSrc } from "@/lib/getImageSrc";
 import { defaultGalleryCollections } from "@/Data/galleryDefaults";
@@ -120,11 +120,10 @@ function HomeHero() {
           <IconInstagram /> {t("hero.instagram").toUpperCase()}
         </a>
         <a
-          className="ds-btn ds-btn--primary ds-btn--whatsapp"
+          className="ds-btn ds-btn--primary"
           href={WHATSAPP_URL}
           target="_blank"
           rel="noreferrer"
-          style={WHATSAPP_BTN_STYLE}
         >
           <IconWhatsApp /> {t("nav.contactUs")}
         </a>
@@ -167,8 +166,9 @@ function Showreel() {
   const startPlayback = () => setPlaying(true);
 
   return (
-    <section style={{ padding: "0 0 var(--space-24)" }}>
-      <div className="reel">
+    <DesignReveal>
+      <section style={{ padding: "0 0 var(--space-24)" }}>
+        <div className="reel">
         {playing ? (
           <video
             key={tab}
@@ -210,8 +210,9 @@ function Showreel() {
           </button>
         )}
       </div>
-      <Tabs options={tabs} active={tab} onChange={setTab} ariaLabel="Showreel type" className="tabs reel-tabs" />
-    </section>
+        <Tabs options={tabs} active={tab} onChange={setTab} ariaLabel="Showreel type" className="tabs reel-tabs" />
+      </section>
+    </DesignReveal>
   );
 }
 
@@ -348,7 +349,7 @@ function Portfolio({ itemsByTab }) {
   return (
     <DesignReveal>
       <section className="sec" style={{ padding: "0 0 var(--space-24)" }}>
-        <div className="sec-head">
+        <div className="sec-head center">
           <h2 className="sec-title">
             <span id="portfolio" className="anchor" aria-hidden="true" />
             {t("portfolio.title")}
@@ -597,7 +598,10 @@ function Faq() {
                     aria-expanded={isOpen}
                     aria-controls={`faq-a-${i}`}
                     id={`faq-q-${i}`}
-                    onClick={() => setOpen(isOpen ? -1 : i)}
+                    onClick={(event) => {
+                      setOpen(isOpen ? -1 : i);
+                      event.currentTarget.blur();
+                    }}
                   >
                     <span className="faq-qtext">{item.question}</span>
                     <svg
@@ -687,20 +691,6 @@ export default function DesignHome() {
     return () => {
       active = false;
     };
-  }, []);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const hash = window.location.hash?.replace(/^#/, "");
-    if (!hash) return;
-    const el = document.getElementById(hash);
-    if (!el) return;
-    requestAnimationFrame(() => {
-      window.scrollTo({
-        top: el.getBoundingClientRect().top + window.scrollY - 24,
-        behavior: "smooth",
-      });
-    });
   }, []);
 
   return (

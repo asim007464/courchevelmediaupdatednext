@@ -234,11 +234,11 @@ export const DESIGN_PACKAGES = {
   Events: [
     {
       title: "Private Event",
-      price: "€950",
+      price: "€1,500",
       description:
-        "Discreet photography and filmmaking for private celebrations, dinners and special occasions.",
+        "Discreet photography and filmmaking for private celebrations, dinners and special occasions, tailored to your schedule.",
       features: [
-        "Photography & filmmaking coverage",
+        "Photography and filmmaking coverage",
         "Professionally curated photo gallery",
         "Highlight film",
         "Tailored to your event",
@@ -249,27 +249,29 @@ export const DESIGN_PACKAGES = {
       title: "DJ Event",
       price: "€1,500",
       description:
-        "High-energy photography and filmmaking, capturing the atmosphere, crowd and unforgettable moments.",
+        "High-energy photography and filmmaking, capturing the atmosphere, crowd and unforgettable moments of your event.",
       features: [
         "Dynamic event photography",
         "Professionally curated photo gallery",
         "Individual cinematic event clips",
-        "Highlight film",
-        "Crowd and atmosphere coverage",
+        "Highlight aftermovie",
+        "Drone footage, when conditions allow",
       ],
     },
     {
       title: "Bespoke Experience",
-      price: "Custom",
+      price: "Custom quote",
       description:
-        "A fully tailored production for multi-day celebrations, brand activations or private residencies.",
+        "Designed for clients whose plans go beyond a single event, whether it is a destination celebration, luxury wedding, multi-day holiday or any occasion requiring dedicated coverage tailored around your experience.",
       features: [
-        "Custom crew and schedule",
-        "Multi-day coverage options",
-        "Creative direction",
-        "Priority delivery",
+        "Dedicated photographer and filmmaker",
+        "Multi-day or international coverage",
+        "Weddings, celebrations and private experiences",
+        "Creative planning before your event",
+        "Tailored photography and cinematic films",
+        "Worldwide availability",
       ],
-      ctaLabel: "Enquire",
+      ctaLabel: "By enquiry only",
     },
   ],
 };

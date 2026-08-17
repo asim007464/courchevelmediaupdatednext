@@ -1,9 +1,9 @@
 import Terms from "@/components/Terms";
 
 export const metadata = {
-  title: "Terms of Service",
+  title: "Terms & Conditions",
   description:
-    "Terms of Service for Courchevel Media — luxury ski photography and videography in Courchevel, France.",
+    "Terms and Conditions for Courchevel Media — ski and event photography and filmmaking in Courchevel and worldwide.",
   alternates: { canonical: "/terms" },
 };
 

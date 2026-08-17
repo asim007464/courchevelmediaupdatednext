@@ -59,56 +59,29 @@
 }
 
 .language-switcher__flag {
-  width: 22px;
-  height: 22px;
+  width: 18px;
+  height: 12px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  border-radius: 50%;
+  border-radius: 2px;
   overflow: hidden;
   line-height: 0;
 }
 
 .language-switcher__flag-img {
-  width: 22px;
-  height: 22px;
+  width: 18px !important;
+  height: 12px !important;
+  max-width: none !important;
   object-fit: cover;
-  border-radius: 50%;
+  object-position: center;
+  border-radius: 2px;
   display: block;
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12);
-}
-
-.language-switcher__globe-wrap {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12);
-  flex-shrink: 0;
-}
-
-.language-switcher__globe {
-  display: block;
-  width: 14px;
-  height: 14px;
-  color: #fff;
-  opacity: 0.95;
-  margin: 0;
-  flex-shrink: 0;
 }
 
 .language-switcher__flag--trigger {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.language-switcher__flag--trigger .language-switcher__flag-img,
-.language-switcher__flag--trigger .language-switcher__globe-wrap {
   display: inline-flex;
   align-items: center;
   justify-content: center;

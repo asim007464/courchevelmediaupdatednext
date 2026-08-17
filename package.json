@@ -10,7 +10,7 @@
     "create-admin": "node scripts/create-admin.mjs"
   },
   "engines": {
-    "node": "20.x"
+    "node": "24.x"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.4",

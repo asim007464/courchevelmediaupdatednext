@@ -97,38 +97,51 @@
 }
 
 .ds-btn--primary,
-.ds-btn--whatsapp,
 .ds-page a.ds-btn--primary,
-.ds-page a.ds-btn--whatsapp,
 .ds-page a.ds-btn--primary:link,
-.ds-page a.ds-btn--whatsapp:link,
 .ds-page a.ds-btn--primary:visited,
-.ds-page a.ds-btn--whatsapp:visited,
 .ds-page a.ds-btn--primary:hover,
-.ds-page a.ds-btn--whatsapp:hover,
 .ds-page a.ds-btn--primary:active,
-.ds-page a.ds-btn--whatsapp:active,
-.ds-page .navpanel-foot a.ds-btn--primary,
-.ds-page .navpanel-foot a.ds-btn--whatsapp,
 .ds-page .cta-actions a.ds-btn--primary,
 .ds-page .home-hero a.ds-btn--primary {
-  background: #25d366 !important;
-  background-color: #25d366 !important;
-  color: #ffffff !important;
-  border-color: #25d366 !important;
+  background: var(--white-1) !important;
+  background-color: var(--white-1) !important;
+  color: var(--black-1) !important;
+  border-color: var(--white-1) !important;
 }
 
 .ds-btn--primary:hover,
+.ds-page a.ds-btn--primary:hover {
+  filter: brightness(0.96);
+  color: var(--black-1) !important;
+}
+
+.ds-btn--primary svg,
+.ds-page a.ds-btn--primary svg {
+  color: var(--black-1) !important;
+  fill: currentColor;
+}
+
+.ds-btn--whatsapp,
+.ds-page a.ds-btn--whatsapp,
+.ds-page a.ds-btn--whatsapp:link,
+.ds-page a.ds-btn--whatsapp:visited,
+.ds-page a.ds-btn--whatsapp:hover,
+.ds-page a.ds-btn--whatsapp:active,
+.ds-page .navpanel-foot a.ds-btn--whatsapp {
+  background: var(--green-500) !important;
+  background-color: var(--green-500) !important;
+  color: #ffffff !important;
+  border-color: var(--green-500) !important;
+}
+
 .ds-btn--whatsapp:hover,
-.ds-page a.ds-btn--primary:hover,
 .ds-page a.ds-btn--whatsapp:hover {
   filter: brightness(1.06);
   color: #ffffff !important;
 }
 
-.ds-btn--primary svg,
 .ds-btn--whatsapp svg,
-.ds-page a.ds-btn--primary svg,
 .ds-page a.ds-btn--whatsapp svg {
   color: #ffffff !important;
   fill: currentColor;
@@ -155,17 +168,6 @@
   font-size: var(--text-xs);
   letter-spacing: var(--tracking-wider);
   text-transform: uppercase;
-}
-
-[data-reveal] {
-  opacity: 0;
-  transform: translate3d(0, 18px, 0);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-
-[data-reveal].in {
-  opacity: 1;
-  transform: none;
 }
 
 .navwrap.stuck nav {

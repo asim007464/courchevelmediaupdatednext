@@ -124,7 +124,7 @@ export const en = {
   },
   portfolio: {
     title: "Selected",
-    titleGradient: "Work",
+    titleGradient: " Work",
     subtitle: "A glimpse into the moments we've had the privilege to capture.",
     skiTab: "Ski Holidays",
     eventsTab: "Private Events",
@@ -228,7 +228,7 @@ export const en = {
   },
   pricing: {
     title: "Choose Your",
-    titleGradient: "Experience",
+    titleGradient: " Experience",
     subtitle:
       "Whether you're looking to capture a single day or your entire holiday, each experience is tailored to your plans and delivered with the same attention to detail.",
     from: "From",
@@ -288,11 +288,11 @@ export const en = {
       tab2: [
         {
           title: "Private Event",
-          price: "€950",
+          price: "€1,500",
           description:
             "Discreet photography and filmmaking for private celebrations, dinners and special occasions, tailored to your schedule.",
           features: [
-            "Photography & filmmaking coverage",
+            "Photography and filmmaking coverage",
             "Professionally curated photo gallery",
             "Highlight film",
             "Tailored to your event",
@@ -311,6 +311,21 @@ export const en = {
             "Highlight aftermovie",
             "Drone footage, when conditions allow",
           ],
+        },
+        {
+          title: "Bespoke Experience",
+          price: "Custom quote",
+          description:
+            "Designed for clients whose plans go beyond a single event, whether it is a destination celebration, luxury wedding, multi-day holiday or any occasion requiring dedicated coverage tailored around your experience.",
+          features: [
+            "Dedicated photographer and filmmaker",
+            "Multi-day or international coverage",
+            "Weddings, celebrations and private experiences",
+            "Creative planning before your event",
+            "Tailored photography and cinematic films",
+            "Worldwide availability",
+          ],
+          ctaLabel: "By enquiry only",
         },
       ],
       tab3: [
