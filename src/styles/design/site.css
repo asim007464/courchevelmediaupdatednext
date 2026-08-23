@@ -140,17 +140,21 @@ section.related{padding-top:var(--space-32,128px)}
 .tab:hover{color:var(--text-primary)}
 .tab[aria-selected="true"]{color:var(--text-primary);border-bottom-color:rgba(255,255,255,.78)}
 .tabs.reel-tabs{justify-content:center;border-bottom:0;margin:var(--space-8) 0 0}
-.pfscroll{overflow-x:auto;overflow-y:hidden;cursor:grab;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.pfscroll{overflow-x:auto;overflow-y:hidden;cursor:grab;scrollbar-width:none;-webkit-overflow-scrolling:touch;touch-action:pan-x;overscroll-behavior-x:contain}
 .pfscroll::-webkit-scrollbar{display:none}
-.pfscroll.dragging{cursor:grabbing}
+.pfscroll.dragging{cursor:grabbing;scroll-snap-type:none}
 .pfscroll.dragging .pfitem{pointer-events:none}
 .pfgrid{display:grid;grid-auto-flow:column dense;grid-template-rows:repeat(2,285px);grid-auto-columns:230px;gap:var(--space-4);width:max-content}
-.pfitem{margin:0;border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border-subtle);background:var(--surface-overlay)}
+.pfitem{margin:0;border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border-subtle);background:var(--surface-overlay);contain:layout paint}
+.pfitem .design-img,.pfitem img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
 .pfitem.tall{grid-row:span 2;grid-column:span 2}
 .pfitem.wide{grid-column:span 4}
 .pfitem.std{grid-column:span 2}
-.pfmeter{position:relative;height:2px;margin:var(--space-8) auto 0;max-width:560px;background:var(--border-subtle);overflow:hidden}
-.pfmeter span{position:absolute;inset:0 0 0 0;width:25%;background:var(--white-1);transition:transform .15s linear}
+.pfmeter{position:relative;height:2px;margin:var(--space-8) auto 0;max-width:560px;width:100%;background:var(--border-subtle);overflow:visible;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
+.pfmeter::before{content:"";position:absolute;left:0;right:0;top:50%;height:28px;transform:translateY(-50%);cursor:grab}
+.pfmeter.is-dragging,.pfmeter.is-dragging::before{cursor:grabbing}
+.pfmeter-thumb{position:absolute;inset:0 auto 0 0;width:25%;height:2px;background:var(--white-1);pointer-events:none;will-change:transform}
+.pfmeter.is-dragging .pfmeter-thumb{height:3px;top:-0.5px}
 .pfhint{display:flex;align-items:center;justify-content:center;gap:var(--space-3);margin:var(--space-5) 0 0;font-size:var(--text-sm);color:var(--text-tertiary)}
 .pfhint span{color:var(--text-disabled)}
 .steps{display:flex;flex-direction:column}

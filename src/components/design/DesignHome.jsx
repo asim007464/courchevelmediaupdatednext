@@ -313,37 +313,108 @@ function Portfolio({ itemsByTab }) {
   );
   const [tab, setTab] = useState("ski");
   const ref = useRef(null);
-  const [progress, setProgress] = useState(0);
+  const meterTrackRef = useRef(null);
+  const meterRef = useRef(null);
   const drag = useRef(null);
+  const meterDrag = useRef(false);
+  const scrollRaf = useRef(0);
+  const THUMB_RATIO = 0.25;
 
   useEffect(() => {
     if (ref.current) {
       ref.current.scrollLeft = 0;
-      setProgress(0);
+    }
+    if (meterRef.current) {
+      meterRef.current.style.transform = "translateX(0%)";
     }
   }, [tab]);
 
-  const onScroll = () => {
+  const syncMeter = () => {
     const el = ref.current;
-    if (!el) return;
+    const meter = meterRef.current;
+    if (!el || !meter) return;
     const max = el.scrollWidth - el.clientWidth;
-    setProgress(max > 0 ? el.scrollLeft / max : 0);
+    const progress = max > 0 ? el.scrollLeft / max : 0;
+    meter.style.transform = `translateX(${progress * ((1 - THUMB_RATIO) / THUMB_RATIO) * 100}%)`;
+  };
+
+  const scrollFromMeterClientX = (clientX) => {
+    const el = ref.current;
+    const track = meterTrackRef.current;
+    if (!el || !track) return;
+    const rect = track.getBoundingClientRect();
+    const thumbWidth = rect.width * THUMB_RATIO;
+    const usable = Math.max(rect.width - thumbWidth, 1);
+    const x = Math.min(Math.max(clientX - rect.left - thumbWidth / 2, 0), usable);
+    const progress = x / usable;
+    const max = el.scrollWidth - el.clientWidth;
+    el.scrollLeft = progress * Math.max(max, 0);
+    syncMeter();
+  };
+
+  const onScroll = () => {
+    if (meterDrag.current) return;
+    if (scrollRaf.current) return;
+    scrollRaf.current = requestAnimationFrame(() => {
+      scrollRaf.current = 0;
+      syncMeter();
+    });
   };
 
   const down = (e) => {
     const el = ref.current;
-    drag.current = { x: e.clientX, left: el.scrollLeft };
+    if (!el || e.button !== 0) return;
+    drag.current = { x: e.clientX, left: el.scrollLeft, pointerId: e.pointerId };
     el.setPointerCapture(e.pointerId);
     el.classList.add("dragging");
   };
   const move = (e) => {
-    if (!drag.current) return;
+    if (!drag.current || !ref.current) return;
+    e.preventDefault();
     ref.current.scrollLeft = drag.current.left - (e.clientX - drag.current.x);
+    syncMeter();
   };
   const up = () => {
+    if (!drag.current) return;
+    const el = ref.current;
+    if (el && drag.current.pointerId != null) {
+      try {
+        el.releasePointerCapture(drag.current.pointerId);
+      } catch {
+        /* already released */
+      }
+    }
     drag.current = null;
-    ref.current?.classList.remove("dragging");
+    el?.classList.remove("dragging");
   };
+
+  const meterDown = (e) => {
+    if (e.button !== 0) return;
+    e.preventDefault();
+    meterDrag.current = true;
+    meterTrackRef.current?.classList.add("is-dragging");
+    meterTrackRef.current?.setPointerCapture(e.pointerId);
+    scrollFromMeterClientX(e.clientX);
+  };
+  const meterMove = (e) => {
+    if (!meterDrag.current) return;
+    e.preventDefault();
+    scrollFromMeterClientX(e.clientX);
+  };
+  const meterUp = (e) => {
+    if (!meterDrag.current) return;
+    meterDrag.current = false;
+    meterTrackRef.current?.classList.remove("is-dragging");
+    if (meterTrackRef.current && e.pointerId != null) {
+      try {
+        meterTrackRef.current.releasePointerCapture(e.pointerId);
+      } catch {
+        /* already released */
+      }
+    }
+  };
+
+  const items = itemsByTab[tab] || [];
 
   return (
     <DesignReveal>
@@ -370,15 +441,48 @@ function Portfolio({ itemsByTab }) {
           onPointerCancel={up}
         >
           <div className="pfgrid">
-            {(itemsByTab[tab] || []).map((item) => (
+            {items.map((item, index) => (
               <figure key={item.id} className={`pfitem ${item.size}`}>
-                <img src={item.src} alt={item.alt} className="design-img" draggable="false" />
+                <img
+                  src={item.src}
+                  alt={item.alt}
+                  className="design-img"
+                  draggable="false"
+                  loading={index < 6 ? "eager" : "lazy"}
+                  decoding="async"
+                  fetchPriority={index < 3 ? "high" : "auto"}
+                />
               </figure>
             ))}
           </div>
         </div>
-        <div className="pfmeter" aria-hidden="true">
-          <span style={{ transform: `translateX(${progress * 300}%)` }} />
+        <div
+          className="pfmeter"
+          ref={meterTrackRef}
+          role="scrollbar"
+          aria-controls="portfolio"
+          aria-orientation="horizontal"
+          aria-label="Scroll Selected Work gallery"
+          tabIndex={0}
+          onPointerDown={meterDown}
+          onPointerMove={meterMove}
+          onPointerUp={meterUp}
+          onPointerCancel={meterUp}
+          onKeyDown={(e) => {
+            const el = ref.current;
+            if (!el) return;
+            if (e.key === "ArrowRight") {
+              e.preventDefault();
+              el.scrollLeft += 160;
+              syncMeter();
+            } else if (e.key === "ArrowLeft") {
+              e.preventDefault();
+              el.scrollLeft -= 160;
+              syncMeter();
+            }
+          }}
+        >
+          <span ref={meterRef} className="pfmeter-thumb" />
         </div>
         <p className="pfhint" aria-hidden="true">
           <span>←</span> {t("portfolio.dragHint", "Drag to explore more")} <span>→</span>
