@@ -1,3 +1,5 @@
+import selectedWork from "@/Data/selectedWorkImages.json";
+
 const U = (name) => `/design/uploads/${encodeURIComponent(name)}`;
 const A = (name) => `/design/assets/${name}`;
 
@@ -67,9 +69,12 @@ export const DESIGN_IMAGES = {
   "journal-cover": photo(2),
 };
 
+const portfolioSrc = (category, index) =>
+  `/selected-work/${category}/${encodeURIComponent(selectedWork[category][index].file)}`;
+
 for (let i = 1; i <= 9; i += 1) {
-  DESIGN_IMAGES[`pf-ski-${i}`] = photo(i - 1);
-  DESIGN_IMAGES[`pf-ev-${i}`] = photo(i + 4);
+  DESIGN_IMAGES[`pf-ski-${i}`] = portfolioSrc("ski", i - 1);
+  DESIGN_IMAGES[`pf-ev-${i}`] = portfolioSrc("events", i - 1);
   DESIGN_IMAGES[`guide-${i}`] = photo(i + 2);
 }
 
@@ -81,14 +86,14 @@ export const DESIGN_PORTFOLIO = {
   "Ski Holidays": Array.from({ length: 9 }, (_, i) => ({
     id: `pf-ski-${i + 1}`,
     size: [0, 6].includes(i) ? "tall" : i === 3 ? "wide" : "std",
-    src: designImage(`pf-ski-${i + 1}`),
-    alt: `Ski portfolio ${i + 1}`,
+    src: portfolioSrc("ski", i),
+    alt: selectedWork.ski[i]?.alt || `Ski portfolio ${i + 1}`,
   })),
   "Private Events": Array.from({ length: 9 }, (_, i) => ({
     id: `pf-ev-${i + 1}`,
     size: [0, 6].includes(i) ? "tall" : i === 3 ? "wide" : "std",
-    src: designImage(`pf-ev-${i + 1}`),
-    alt: `Events portfolio ${i + 1}`,
+    src: portfolioSrc("events", i),
+    alt: selectedWork.events[i]?.alt || `Events portfolio ${i + 1}`,
   })),
 };
 

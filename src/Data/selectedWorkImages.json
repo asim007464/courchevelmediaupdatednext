@@ -1,0 +1,441 @@
+{
+  "ski": [
+    {
+      "file": "courchevel-amerl-ski-fashion-mountain-view.jpg",
+      "alt": "Two women wearing AMERL ski outfits with snowy mountain views in Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-baies-apres-club-ski-restaurant.jpg",
+      "alt": "Baïes Après Club ski restaurant surrounded by snowy slopes and pine forests in Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-family-ski-holiday-children.jpg",
+      "alt": "Two children skiing together during a family ski holiday in Courchevel, wearing Moncler and Bogner ski wear.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-friends-ski-holiday.jpg",
+      "alt": "Two friends skiing together during a luxury ski holiday in Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-fusalp-mens-ski-fashion.jpg",
+      "alt": "Man wearing black Fusalp ski wear posing during a luxury ski holiday in Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-goldbergh-red-ski-outfit.jpg",
+      "alt": "Woman wearing a red Goldbergh ski outfit during a snowy ski day in Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-goldbergh-ski-fashion-gold-outfit.jpg",
+      "alt": "Woman skiing in a gold Goldbergh outfit on the slopes of Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-goldbergh-ski-fashion-women.jpg",
+      "alt": "Two women wearing Goldbergh ski outfits in the mountains of Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-goldbergh-ski-portrait.jpg",
+      "alt": "Woman wearing a red Goldbergh ski outfit posing on the slopes in Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-les-neiges-hot-air-balloon.jpg",
+      "alt": "Les Neiges hot air balloon flying above the snowy mountains and forests of Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-luxury-ski-fashion-amerl-gray-jacket.jpg",
+      "alt": "Woman wearing a gray AMERL ski jacket during a luxury ski holiday in Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-luxury-ski-fashion-amerl-women.jpg",
+      "alt": "Two women wearing AMERL ski outfits during a luxury ski holiday in Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-luxury-ski-fashion-red-fur.jpg",
+      "alt": "Woman wearing a red Goldbergh fur ski jacket smiling in the snow in Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-luxury-ski-portrait.jpg",
+      "alt": "Woman wearing Chanel ski wear posing with skis during a luxury ski holiday in Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-luxury-snowboard-portrait.jpg",
+      "alt": "Woman posing with a snowboard during a luxury winter holiday in Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-moncler-womens-ski-fashion.jpg",
+      "alt": "Woman wearing black Moncler ski wear posing with ski poles against the snowy mountains of Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-rh-mens-ski-outfit.jpg",
+      "alt": "Man wearing RH ski wear posing with skis against the snowy mountain peaks of Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-ski-fashion-dior-yellow-black-suit.jpg",
+      "alt": "Skier wearing a black and yellow Dior ski suit on the slopes in Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-ski-fashion-gold-goldbergh-jacket.jpg",
+      "alt": "Woman wearing a gold Goldbergh ski jacket posing with skis in Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-ski-fashion-mountains.jpg",
+      "alt": "Woman wearing Perfect Moment ski wear posing against the snowy mountain landscape in Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-ski-fashion-orange-moncler-jacket.jpg",
+      "alt": "Woman wearing an orange Moncler ski jacket playing in the snow in Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-ski-fashion-portrait-goggles.jpg",
+      "alt": "Woman wearing Perfect Moment ski wear and mirrored ski goggles posing in the mountains of Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-ski-fashion-portrait-red.jpg",
+      "alt": "Woman wearing a red Obermeyer ski suit posing with Rossignol skis in Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-ski-fashion-portrait.jpg",
+      "alt": "Woman wearing green Toni Sailer ski wear posing with Bohême skis in Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-ski-fashion-red-amerl-outfit.jpg",
+      "alt": "Woman wearing a red AMERL ski outfit sitting in the snow in Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-ski-friends-creative-photo.jpg",
+      "alt": "Creative ski photo of friends enjoying a sunny ski day in Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-ski-holiday-friends.jpg",
+      "alt": "Two women wearing Perfect Moment and Moncler ski wear celebrating on skis during a luxury ski holiday in Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-ski-holiday-mountain-view.jpg",
+      "alt": "Skiers enjoying the mountain views during a luxury ski holiday in Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-ski-holiday-winter-portrait.jpg",
+      "alt": "Woman wearing a fur jacket and sunglasses posing during a luxury ski holiday in Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-ski-lift-snowboard-burton.jpg",
+      "alt": "Snowboarder riding a ski lift with a Burton snowboard against a clear blue sky in Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-ski-photography-action-carving.jpg",
+      "alt": "Skier wearing Moncler ski wear carving through fresh snow during a ski photography session in Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-ski-photography-action.jpg",
+      "alt": "Skier carving through fresh snow in Courchevel wearing a Helly Hansen ski jacket.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-skier-cheval-blanc.jpg",
+      "alt": "Skier wearing Moncler ski wear posing outside Cheval Blanc Courchevel during a luxury ski holiday.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-skier-mountain-portrait.jpg",
+      "alt": "Skier wearing Moncler ski wear posing among the snowy mountain peaks during a ski photography session in Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-skiing-snowfall.jpg",
+      "alt": "Skier wearing Colmar ski wear skiing through heavy snowfall in Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-snowboard-bogner-red-white-ski-suit.jpg",
+      "alt": "Snowboarder wearing a red and white Bogner ski suit riding the slopes in Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-snowmobile-evening-portrait.jpg",
+      "alt": "Woman wearing a fur jacket posing on a snowmobile during an evening experience in Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-snowmobile-sunset.jpg",
+      "alt": "Snowmobile ride through the mountains at sunset during a winter holiday in Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-snowy-alps-mountain-landscape.jpg",
+      "alt": "Snow-covered mountain peaks and alpine landscape in Courchevel under a clear blue sky.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-toni-sailer-red-ski-jacket-apres-ski.jpg",
+      "alt": "Woman wearing a red Toni Sailer ski jacket enjoying après-ski with a drink in Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-toni-sailer-red-ski-jacket-woman.jpg",
+      "alt": "Woman wearing a red Toni Sailer ski jacket posing with ski poles in Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-winter-fashion-skis-portrait.jpg",
+      "alt": "Woman wearing Chanel ski wear and fur hat posing with skis in the mountains of Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-woman-red-ski-suit.jpg",
+      "alt": "Woman wearing an Obermeyer red ski suit posing on the slopes of Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-woman-skiing-patterned-jacket.jpg",
+      "alt": "Woman wearing a Perfect Moment patterned ski jacket while skiing in Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-woman-skiing.jpg",
+      "alt": "Woman wearing Fendi ski wear skiing during a luxury ski holiday in Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "courchevel-womens-ski-fashion.jpg",
+      "alt": "Woman posing with Elan skis in a luxury ski outfit in the mountains of Courchevel.",
+      "category": "ski"
+    },
+    {
+      "file": "st-Moritz-winter-horse-riding.jpg",
+      "alt": "Mother and daughter horse riding through the snow during a winter holiday in St. Moritz.",
+      "category": "ski"
+    },
+    {
+      "file": "st-moritz-family-dog-sledding-experience.jpg",
+      "alt": "Family enjoying a dog sledding experience with huskies in St. Moritz.",
+      "category": "ski"
+    },
+    {
+      "file": "st-moritz-family-skiing-fendi-bogner-moncler.jpg",
+      "alt": "Family wearing Fendi, Bogner and Moncler ski outfits during a ski holiday in St. Moritz.",
+      "category": "ski"
+    }
+  ],
+  "events": [
+    {
+      "file": "COURCHEVEL-153_vtXYjA.jpg",
+      "alt": "Courchevel 153_Vtxyja in Courchevel",
+      "category": "events"
+    },
+    {
+      "file": "COURCHEVEL-172_vtXYjA.jpg",
+      "alt": "Courchevel 172_Vtxyja in Courchevel",
+      "category": "events"
+    },
+    {
+      "file": "COURCHEVEL-383_vtXYjA.jpg",
+      "alt": "Courchevel 383_Vtxyja in Courchevel",
+      "category": "events"
+    },
+    {
+      "file": "courchevel-bagatelle-apres-ski-woman.jpg",
+      "alt": "Woman in white ski wear enjoying après-ski at Bagatelle Courchevel with the snowy mountains in the background",
+      "category": "events"
+    },
+    {
+      "file": "courchevel-bagatelle-apres-ski.jpg",
+      "alt": "Woman enjoying après-ski at Bagatelle Courchevel with the snowy mountains in the background",
+      "category": "events"
+    },
+    {
+      "file": "courchevel-bagatelle-wedding-couple.jpg",
+      "alt": "Bride and groom photographed at Bagatelle during their wedding in Courchevel",
+      "category": "events"
+    },
+    {
+      "file": "courchevel-baies-apres-ski-aerial.jpg",
+      "alt": "Aerial view of Baïes après-ski surrounded by snowy ski slopes in Courchevel",
+      "category": "events"
+    },
+    {
+      "file": "courchevel-baies-apres-ski-dancer.jpg",
+      "alt": "Dancer performing during an après-ski party at Baïes in Courchevel",
+      "category": "events"
+    },
+    {
+      "file": "courchevel-baies-apres-ski-dj.jpg",
+      "alt": "DJ performing at an outdoor après-ski party at Baïes in Courchevel",
+      "category": "events"
+    },
+    {
+      "file": "courchevel-baies-apres-ski-friends-party.jpg",
+      "alt": "Group of friends enjoying an après-ski party with drinks at Baïes in Courchevel",
+      "category": "events"
+    },
+    {
+      "file": "courchevel-baies-apres-ski-friends.jpg",
+      "alt": "Friends celebrating together during an après-ski party at Baïes in Courchevel",
+      "category": "events"
+    },
+    {
+      "file": "courchevel-baies-apres-ski-girls.jpg",
+      "alt": "Two friends enjoying an outdoor après-ski party at Baïes in Courchevel",
+      "category": "events"
+    },
+    {
+      "file": "courchevel-baies-apres-ski-party-guest.jpg",
+      "alt": "Guest enjoying an outdoor après-ski party at Baïes in Courchevel",
+      "category": "events"
+    },
+    {
+      "file": "courchevel-baies-apres-ski-party-woman.jpg",
+      "alt": "Woman enjoying an après-ski party at Baïes in Courchevel",
+      "category": "events"
+    },
+    {
+      "file": "courchevel-baies-apres-ski-party-women.jpg",
+      "alt": "Women dancing with wine during an après-ski party at Baïes in Courchevel",
+      "category": "events"
+    },
+    {
+      "file": "courchevel-baies-apres-ski-party.jpg",
+      "alt": "Guests enjoying an après-ski party at Baïes in Courchevel",
+      "category": "events"
+    },
+    {
+      "file": "courchevel-baies-apres-ski-woman.jpg",
+      "alt": "Woman enjoying an outdoor après-ski party at Baïes in Courchevel",
+      "category": "events"
+    },
+    {
+      "file": "courchevel-baies-apres-ski-women.jpg",
+      "alt": "Women dancing with drinks during an après-ski party at Baïes in Courchevel",
+      "category": "events"
+    },
+    {
+      "file": "courchevel-baies-mont-rouge-dj.jpg",
+      "alt": "Mont Rouge performing a DJ set at Baïes in Courchevel",
+      "category": "events"
+    },
+    {
+      "file": "courchevel-baies-pawsa-apres-ski.jpg",
+      "alt": "PAWSA performing at an outdoor après-ski party at Baïes in Courchevel",
+      "category": "events"
+    },
+    {
+      "file": "courchevel-cap-horn-apres-ski.jpg",
+      "alt": "Woman enjoying après-ski outside Cap Horn in Courchevel",
+      "category": "events"
+    },
+    {
+      "file": "courchevel-folie-douce-festival-marina-diniz-crowd.jpg",
+      "alt": "Marina Diniz performing in front of the crowd at the Folie Douce Festival in Courchevel",
+      "category": "events"
+    },
+    {
+      "file": "courchevel-folie-douce-festival-marina-diniz.jpg",
+      "alt": "Marina Diniz performing at the Folie Douce Festival in Courchevel",
+      "category": "events"
+    },
+    {
+      "file": "courchevel-folie-douce-festival-martin-solveig.jpg",
+      "alt": "Martin Solveig performing in front of a large crowd at the Folie Douce Festival in Courchevel",
+      "category": "events"
+    },
+    {
+      "file": "courchevel-hugel-baies-apres-ski-dj.jpg",
+      "alt": "Hugel performing a DJ set during an après-ski party at Baïes in Courchevel",
+      "category": "events"
+    },
+    {
+      "file": "courchevel-la-mangeoire-morgenshtern-performance.jpg",
+      "alt": "Morgenshtern performing live during a party at La Mangeoire in Courchevel",
+      "category": "events"
+    },
+    {
+      "file": "courchevel-la-mangeoire-nightlife-party.jpg",
+      "alt": "Guests enjoying the nightlife atmosphere at La Mangeoire in Courchevel",
+      "category": "events"
+    },
+    {
+      "file": "courchevel-la-mangeoire-nightlife-women.jpg",
+      "alt": "Two women enjoying a nightlife party at La Mangeoire in Courchevel",
+      "category": "events"
+    },
+    {
+      "file": "courchevel-la-mangeoire-party-performer.jpg",
+      "alt": "Performer dancing during a nightlife party at La Mangeoire in Courchevel",
+      "category": "events"
+    },
+    {
+      "file": "courchevel-la-mangeoire-party.jpg",
+      "alt": "Guests dancing during a nightlife party at La Mangeoire in Courchevel",
+      "category": "events"
+    },
+    {
+      "file": "courchevel-la-mangeoire-swae-lee-performance.jpg",
+      "alt": "Swae Lee performing live at La Mangeoire in Courchevel",
+      "category": "events"
+    },
+    {
+      "file": "courchevel-martin-solveig-la-folie-douce.jpg",
+      "alt": "Martin Solveig performing at a La Folie Douce event in Courchevel",
+      "category": "events"
+    },
+    {
+      "file": "courchevel-morgenshtern-la-mangeoire-concert.jpg",
+      "alt": "Morgenshtern performing live during a nightlife event at La Mangeoire in Courchevel",
+      "category": "events"
+    },
+    {
+      "file": "courchevel-morgenshtern-la-mangeoire-live.jpg",
+      "alt": "Morgenshtern performing live for a crowd at La Mangeoire in Courchevel",
+      "category": "events"
+    },
+    {
+      "file": "courchevel-morgenshtern-la-mangeoire-performance.jpg",
+      "alt": "Morgenshtern performing live at La Mangeoire during a nightlife event in Courchevel",
+      "category": "events"
+    },
+    {
+      "file": "courchevel-rick-ross-la-mangeoire-performance.jpg",
+      "alt": "Rick Ross performing live at La Mangeoire during a nightlife event in Courchevel",
+      "category": "events"
+    },
+    {
+      "file": "courchevel-rosewood-hotel-wedding-bride.jpg",
+      "alt": "Bride photographed during a wedding at Rosewood Courchevel",
+      "category": "events"
+    },
+    {
+      "file": "courchevel-rosewood-hotel-wedding-couple.jpg",
+      "alt": "Bride and groom photographed during their wedding at Rosewood Courchevel",
+      "category": "events"
+    }
+  ]
+}

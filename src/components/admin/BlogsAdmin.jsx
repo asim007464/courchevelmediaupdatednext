@@ -3,26 +3,19 @@
 import { useEffect, useRef, useState } from "react";
 import { createClient, isSupabaseConfigured } from "@/lib/supabase/client";
 import { renderBlogContentToHtml } from "@/lib/blogContent";
+import { MAGAZINE_EDITORIAL_PILLARS } from "@/lib/magazine";
 
 const emptyPost = {
   title: "",
   slug: "",
-  category: "Guides",
+  category: "Planning Your Experience",
   lead: "",
   content: "",
   minutes: 5,
   published: false,
 };
 
-const CATEGORIES = [
-  "Guides",
-  "Behind the Scenes",
-  "Planning Your Experience",
-  "How We Capture It",
-  "Experiences",
-  "News",
-  "Tips",
-];
+const CATEGORIES = MAGAZINE_EDITORIAL_PILLARS;
 
 const slugify = (value) =>
   value
@@ -85,7 +78,7 @@ export default function BlogsAdmin() {
     setForm({
       title: post.title,
       slug: post.slug,
-      category: post.category || "Guides",
+      category: post.category || "Planning Your Experience",
       lead: post.lead || "",
       content: post.content || "",
       minutes: post.minutes || 5,
@@ -214,7 +207,7 @@ export default function BlogsAdmin() {
     const payload = {
       title: form.title.trim(),
       slug,
-      category: form.category.trim() || "Guides",
+      category: form.category.trim() || "Planning Your Experience",
       lead: form.lead.trim(),
       content: form.content.trim(),
       minutes: Number(form.minutes) || 5,

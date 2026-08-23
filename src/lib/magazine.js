@@ -1,6 +1,25 @@
 import { DESIGN_GUIDES, FEATURED_GUIDE, designImage } from "@/lib/designImages";
 import { fetchBlogBySlug, fetchPublishedBlogs } from "@/lib/supabase/content";
 
+export const MAGAZINE_EDITORIAL_PILLARS = [
+  "Behind the Scenes",
+  "Planning Your Experience",
+  "How We Capture It",
+  "Experiences",
+];
+
+const LEGACY_CATEGORY_MAP = {
+  Guides: "Planning Your Experience",
+  Magazine: "Planning Your Experience",
+  News: "Experiences",
+  Tips: "How We Capture It",
+};
+
+export function normalizeMagazineCategory(category) {
+  if (MAGAZINE_EDITORIAL_PILLARS.includes(category)) return category;
+  return LEGACY_CATEGORY_MAP[category] || "Planning Your Experience";
+}
+
 function slugify(value) {
   return String(value || "")
     .toLowerCase()
@@ -21,7 +40,7 @@ export function mapBlogToGuide(blog, index = 0) {
     source: "supabase",
     id: blog.id,
     slug: blog.slug,
-    category: blog.category || "Magazine",
+    category: normalizeMagazineCategory(blog.category),
     title: blog.title,
     description: blog.lead || "",
     minutes: blog.minutes || estimateMinutes(blog.content || blog.lead),

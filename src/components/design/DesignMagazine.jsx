@@ -7,18 +7,12 @@ import { DesignShell } from "@/components/design/DesignShell";
 import {
   getFeaturedGuide,
   getMagazineGuides,
+  MAGAZINE_EDITORIAL_PILLARS,
   mapDesignGuide,
 } from "@/lib/magazine";
 import { FEATURED_GUIDE } from "@/lib/designImages";
 
-const CATEGORIES = [
-  "All",
-  "Behind the Scenes",
-  "Planning Your Experience",
-  "How We Capture It",
-  "Experiences",
-  "Magazine",
-];
+const CATEGORIES = ["All", ...MAGAZINE_EDITORIAL_PILLARS];
 
 const JOURNAL_ITEMS = [
   "New magazine stories",

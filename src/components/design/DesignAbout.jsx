@@ -51,7 +51,7 @@ export default function DesignAbout() {
       </figure>
 
       <DesignReveal>
-        <section className="sec">
+        <section className="sec ab-founder-sec">
           <div className="ab-spread">
             <figure className="ab-spread-img">
               <img
@@ -90,7 +90,7 @@ export default function DesignAbout() {
       </DesignReveal>
 
       <DesignReveal>
-        <section className="sec">
+        <section className="sec ab-idea-sec">
           <figure className="ab-bleed ab-bleed-tall">
             <img
               src="/homepageimgs/courchevel-media-ski-holiday-behind-the-scenes.webp"
@@ -177,7 +177,7 @@ export default function DesignAbout() {
       </DesignReveal>
 
       <DesignReveal>
-        <section className="sec">
+        <section className="sec ab-today-sec">
           <figure className="ab-bleed ab-bleed-tall">
             <img
               src="/homepageimgs/courchevel-media-private-wedding.webp"
