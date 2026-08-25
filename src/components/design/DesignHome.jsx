@@ -802,9 +802,13 @@ export default function DesignHome() {
       });
 
       if (pricing?.tab1?.length || pricing?.tab2?.length) {
+        const remoteEvents = pricing.tab2 || [];
+        const hasEventsTrio = ["Private Event", "DJ Event", "Bespoke Experience"].every(
+          (title) => remoteEvents.some((plan) => plan.title === title)
+        );
         setPackages({
           ski: pricing.tab1?.length ? pricing.tab1 : DESIGN_PACKAGES.Ski,
-          events: pricing.tab2?.length ? pricing.tab2 : DESIGN_PACKAGES.Events,
+          events: hasEventsTrio ? remoteEvents : DESIGN_PACKAGES.Events,
         });
       }
     });
