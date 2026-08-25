@@ -82,12 +82,29 @@ function resolveSrc(src) {
   return getImageSrc(src);
 }
 
+function sizeFromLayout(item, index) {
+  if (item.layoutSize === "portrait") return "tall";
+  if (item.layoutSize === "landscape") return "std";
+  if (item.layoutSize === "square") return "square";
+  if (
+    item.size === "tall" ||
+    item.size === "std" ||
+    item.size === "wide" ||
+    item.size === "square"
+  ) {
+    return item.size;
+  }
+  return sizeForIndex(index);
+}
+
 function mapGalleryItems(items, prefix = "gal") {
   return (items || []).map((item, i) => ({
     id: `${prefix}-${i}`,
-    size: sizeForIndex(i),
+    size: sizeFromLayout(item, i),
     src: resolveSrc(item.src),
     alt: item.alt || `Portfolio ${i + 1}`,
+    objectPosition: item.objectPosition || item.object_position || "center",
+    layoutSize: item.layoutSize || "auto",
   }));
 }
 
@@ -451,6 +468,7 @@ function Portfolio({ itemsByTab }) {
                   loading={index < 6 ? "eager" : "lazy"}
                   decoding="async"
                   fetchPriority={index < 3 ? "high" : "auto"}
+                  style={{ objectPosition: item.objectPosition || "center" }}
                 />
               </figure>
             ))}

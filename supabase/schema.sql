@@ -22,8 +22,17 @@ create table if not exists public.gallery_images (
   image_url text not null,
   alt text not null default '',
   sort_order int not null default 0,
+  object_position text not null default 'center',
+  layout_size text not null default 'auto',
   created_at timestamptz not null default now()
 );
+
+-- Focal point + tile size for cropped tiles (safe to re-run)
+alter table public.gallery_images
+  add column if not exists object_position text not null default 'center';
+
+alter table public.gallery_images
+  add column if not exists layout_size text not null default 'auto';
 
 -- Blog posts
 create table if not exists public.blogs (

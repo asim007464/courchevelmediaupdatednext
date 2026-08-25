@@ -9,6 +9,9 @@ const createItems = (items, category) =>
     source: "selected",
     category,
     sort_order: index + 1,
+    width: item.width || null,
+    height: item.height || null,
+    orientation: item.orientation || (item.height > item.width ? "portrait" : "landscape"),
   }));
 
 export const defaultGalleryCollections = {
@@ -22,6 +25,7 @@ export function isExclusionRow(row) {
   return (
     row?.alt === EXCLUDED_ALT &&
     typeof row?.image_url === "string" &&
-    row.image_url.startsWith("builtin://")
+    (row.image_url.startsWith("builtin://") ||
+      row.image_url.startsWith("selected://"))
   );
 }

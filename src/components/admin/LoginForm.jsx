@@ -38,7 +38,14 @@ export default function LoginForm() {
     setLoading(false);
 
     if (signInError) {
-      setError(signInError.message || "Invalid email or password.");
+      const raw = signInError.message || "";
+      if (/failed to fetch|networkerror|load failed|fetch failed/i.test(raw)) {
+        setError(
+          "Cannot reach Supabase. If the project is paused, resume it in the Supabase dashboard (Owner account), then try again."
+        );
+      } else {
+        setError(raw || "Invalid email or password.");
+      }
       return;
     }
 
