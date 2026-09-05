@@ -9,7 +9,7 @@ const NAV_LINKS = [
   { href: "/#service", labelKey: "nav.service" },
   { href: "/#portfolio", labelKey: "nav.portfolio" },
   { href: "/#process", labelKey: "nav.process" },
-  { href: "/#reviews", labelKey: "nav.reviews" },
+  { href: "/#testimonials", labelKey: "nav.reviews" },
   { href: "/#pricing", labelKey: "nav.pricing" },
   { href: "/#faqs", labelKey: "nav.faqs" },
 ];

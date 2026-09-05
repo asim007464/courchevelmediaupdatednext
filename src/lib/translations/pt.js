@@ -7,7 +7,7 @@ export const pt = {
     service: "Serviço",
     portfolio: "Portfólio",
     process: "Processo",
-    reviews: "Avaliações",
+    reviews: "Depoimentos",
     pricing: "Pacotes",
     faqs: "Perguntas",
     blogs: "Blog",

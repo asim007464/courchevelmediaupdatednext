@@ -7,7 +7,7 @@ export const he = {
     service: "שירות",
     portfolio: "תיק עבודות",
     process: "תהליך",
-    reviews: "ביקורות",
+    reviews: "המלצות",
     pricing: "חבילות",
     faqs: "שאלות",
     blogs: "בלוג",

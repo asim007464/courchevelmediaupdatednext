@@ -81,7 +81,7 @@ export const en = {
     service: "Service",
     portfolio: "Portfolio",
     process: "Process",
-    reviews: "Reviews",
+    reviews: "Testimonials",
     pricing: "Packages",
     faqs: "FAQs",
     blogs: "Blogs",

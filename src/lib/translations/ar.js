@@ -7,7 +7,7 @@ export const ar = {
     service: "الخدمة",
     portfolio: "معرض الأعمال",
     process: "العملية",
-    reviews: "المراجعات",
+    reviews: "شهادات",
     pricing: "الباقات",
     faqs: "الأسئلة",
     blogs: "المدونة",

@@ -84,6 +84,7 @@ export default function GalleryAdmin() {
     } else {
       setRows(data || []);
       setError("");
+      setMessage("");
     }
     setLoading(false);
   };
@@ -137,25 +138,52 @@ export default function GalleryAdmin() {
       alt: patch.alt ?? image.alt ?? "",
       sort_order: Number(patch.sort_order ?? image.sort_order) || 0,
       object_position: patch.object_position || image.object_position || "center",
-      layout_size: normalizeLayoutSize(
-        patch.layout_size ?? image.layout_size,
-        "auto"
-      ),
     };
 
-    if (image.overrideId) {
-      const { error: updateError } = await supabase
-        .from("gallery_images")
-        .update(payload)
-        .eq("id", image.overrideId);
-      if (updateError) throw new Error(updateError.message);
-      return;
+    // Only send layout_size when explicitly changing it, so reorder/edit
+    // still work if the DB column is missing on the live Supabase project.
+    if (Object.prototype.hasOwnProperty.call(patch, "layout_size")) {
+      payload.layout_size = normalizeLayoutSize(patch.layout_size, "auto");
     }
 
-    const { error: insertError } = await supabase
-      .from("gallery_images")
-      .insert(payload);
-    if (insertError) throw new Error(insertError.message);
+    const run = async (body) => {
+      if (image.overrideId) {
+        return supabase
+          .from("gallery_images")
+          .update(body)
+          .eq("id", image.overrideId);
+      }
+      return supabase.from("gallery_images").insert(body);
+    };
+
+    let { error: writeError } = await run(payload);
+
+    if (
+      writeError &&
+      payload.layout_size != null &&
+      (writeError.message.includes("layout_size") ||
+        writeError.message.includes("schema cache"))
+    ) {
+      const { layout_size: _ignored, ...withoutLayout } = payload;
+      ({ error: writeError } = await run(withoutLayout));
+      if (!writeError) {
+        throw new Error(
+          "Saved without tile size. In Supabase project pkrxcunpuxoqahbbnjxo run: alter table public.gallery_images add column if not exists layout_size text not null default 'auto'; then NOTIFY pgrst, 'reload schema';"
+        );
+      }
+    }
+
+    if (writeError) {
+      if (
+        writeError.message.includes("layout_size") ||
+        writeError.message.includes("schema cache")
+      ) {
+        throw new Error(
+          "Missing layout_size column on the LIVE Supabase project (pkrxcunpuxoqahbbnjxo). Open that project → SQL Editor and run: alter table public.gallery_images add column if not exists layout_size text not null default 'auto'; then NOTIFY pgrst, 'reload schema';"
+        );
+      }
+      throw new Error(writeError.message);
+    }
   };
 
   const moveImage = async (category, index, direction) => {
@@ -277,7 +305,6 @@ export default function GalleryAdmin() {
         alt: EXCLUDED_ALT,
         sort_order: -1,
         object_position: "center",
-        layout_size: "auto",
       });
       if (excludeError) throw new Error(excludeError.message);
       setMessage("Image hidden from the slider.");

@@ -41,7 +41,7 @@ export function DesignNav({ active = "" }) {
   const nav = [
     { label: t("nav.whatWeDo"), href: "/#what-we-do", match: "What We Do" },
     { label: t("nav.portfolio"), href: "/#portfolio", match: "Portfolio" },
-    { label: t("nav.reviews"), href: "/#reviews", match: "Reviews" },
+    { label: t("nav.reviews"), href: "/#testimonials", match: "Testimonials" },
     { label: t("nav.pricing"), href: "/#packages", match: "Packages" },
     { label: t("nav.magazine"), href: "/magazine", match: "Magazine" },
   ];

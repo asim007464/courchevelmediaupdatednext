@@ -18,7 +18,7 @@ export default function DesignReveal({ children, className = "" }) {
           observer.unobserve(node);
         }
       },
-      { rootMargin: "0px 0px -10% 0px", threshold: 0.08 }
+      { rootMargin: "20% 0px 20% 0px", threshold: 0.01 }
     );
 
     observer.observe(node);

@@ -1,5 +1,9 @@
 const DEFAULT_DURATION = 850;
-const HEADER_OFFSET = 110;
+const HEADER_OFFSET = 120;
+
+const HASH_ALIASES = {
+  reviews: "testimonials",
+};
 
 let activeAnimation = null;
 
@@ -14,8 +18,37 @@ function getMaxScroll() {
   );
 }
 
+function resolveSectionId(id) {
+  if (!id) return id;
+  return HASH_ALIASES[id] || id;
+}
+
+function revealAround(element) {
+  let node = element;
+  while (node && node !== document.body) {
+    if (node.hasAttribute?.("data-reveal")) {
+      node.classList.add("in");
+    }
+    node = node.parentElement;
+  }
+  // Force layout so transforms are cleared before we measure.
+  void element.getBoundingClientRect();
+}
+
+/** Layout top in the document, ignoring CSS transforms on ancestors. */
+function getDocumentOffsetTop(element) {
+  let top = 0;
+  let node = element;
+  while (node) {
+    top += node.offsetTop;
+    node = node.offsetParent;
+  }
+  return top;
+}
+
 export function getSectionScrollTop(element) {
-  return element.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
+  revealAround(element);
+  return getDocumentOffsetTop(element) - HEADER_OFFSET;
 }
 
 function cancelActiveAnimation() {
@@ -64,10 +97,14 @@ export function smoothScrollTo(top, duration = DEFAULT_DURATION) {
 export function scrollToSectionId(id, duration = DEFAULT_DURATION, attempt = 0) {
   if (typeof window === "undefined" || !id) return false;
 
-  const el = document.getElementById(id);
+  const resolvedId = resolveSectionId(id);
+  const el = document.getElementById(resolvedId);
   if (!el) {
     if (attempt < 25) {
-      window.setTimeout(() => scrollToSectionId(id, duration, attempt + 1), 100);
+      window.setTimeout(
+        () => scrollToSectionId(resolvedId, duration, attempt + 1),
+        100
+      );
       return true;
     }
     return false;

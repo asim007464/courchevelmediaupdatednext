@@ -15,7 +15,7 @@ const NOTICED = [
   ],
   [
     "We ski beside you.",
-    "No waiting, no catching up, no stopping every few minutes for another photograph.",
+    "We move at your pace, capturing the day without changing the way you want to experience it.",
   ],
   [
     "Conversation when you want it.",
@@ -34,8 +34,7 @@ export default function DesignAbout() {
             <span className="gradient-text">remember a ski holiday.</span>
           </h1>
           <p className="ab-hero-p">
-            Courchevel Media exists because the best moments of your holiday shouldn&apos;t stop for the
-            camera.
+            Courchevel Media exists because your most beautiful memories are worth reliving.
           </p>
         </div>
       </section>
@@ -110,18 +109,16 @@ export default function DesignAbout() {
             <div className="ab-cols ab-cols-center">
               <div>
                 <p className="ab-body">
-                  The challenge was never making beautiful photographs. It was documenting genuine moments
-                  while leaving the holiday completely alone. Traditional coverage does the opposite: the
-                  group skis ahead, the photographer waits below, everyone stops, regroups, and starts again.
+                  Traditional ski photography often means stopping, regrouping and shooting from
+                  predetermined positions. We wanted the opposite. So instead of building the experience
+                  around the camera, we learned to move with it.
                 </p>
               </div>
               <div>
                 <p className="ab-body">
-                  So the experience was redesigned around that question instead of around the camera. The only
-                  way to truly document a day was to become part of it, which meant learning to ski. One season
-                  later Kevin was photographing clients while skiing beside them. That decision now defines
-                  every booking: the group never has to stop for the camera, because the camera moves with the
-                  group.
+                  That meant learning to ski. One season later, Kevin was photographing clients while skiing
+                  beside them. Today, that decision still defines every booking: the group keeps enjoying
+                  their day while the camera moves with them.
                 </p>
               </div>
             </div>
@@ -134,8 +131,7 @@ export default function DesignAbout() {
           <div className="ab-noticed-head">
             <h2 className="ab-h2">What clients notice.</h2>
             <p className="ab-body">
-              These aren&apos;t company values. They&apos;re the things people tend to mention after spending a
-              week with us.
+              The things our clients tend to remember about the experience.
             </p>
           </div>
           <div className="ab-rows">
@@ -156,11 +152,16 @@ export default function DesignAbout() {
             <div className="ab-lifestyle-copy">
               <h2 className="ab-h2">More than photographs.</h2>
               <p className="ab-body">
-                One piece of feedback appears again and again: booking felt easier after meeting Kevin.
+                The experience matters just as much as the photographs.
               </p>
               <p className="ab-body">
-                Some clients appreciate having someone who keeps the energy up through the day. Others value
-                that he knows exactly when to disappear into the background. Both matter equally.
+                We become part of your day without taking it over, adapting to your plans, your pace and your
+                group. Sometimes that means bringing energy and becoming part of the fun. Other times, it means
+                knowing when to step back and let the moment happen.
+              </p>
+              <p className="ab-body">
+                The goal is simple: everything should feel natural, with the photography fitting around your
+                holiday, not your holiday around the photography.
               </p>
             </div>
             <figure className="ab-lifestyle-img">
@@ -178,15 +179,6 @@ export default function DesignAbout() {
 
       <DesignReveal>
         <section className="sec ab-today-sec">
-          <figure className="ab-bleed ab-bleed-tall">
-            <img
-              src="/homepageimgs/courchevel-media-private-wedding.webp"
-              alt="Courchevel Media filming a private mountain wedding in Courchevel"
-              className="design-img"
-              loading="lazy"
-              draggable="false"
-            />
-          </figure>
           <div className="ab-today">
             <h2 className="ab-h2 ab-h2-center">Courchevel Media today.</h2>
             <p className="ab-body">
@@ -199,6 +191,15 @@ export default function DesignAbout() {
               naturally as it happened. The photographs matter. The memories they bring back matter even more.
             </p>
           </div>
+          <figure className="ab-bleed ab-bleed-tall">
+            <img
+              src="/homepageimgs/courchevel-media-private-wedding.webp"
+              alt="Courchevel Media filming a private mountain wedding in Courchevel"
+              className="design-img"
+              loading="lazy"
+              draggable="false"
+            />
+          </figure>
         </section>
       </DesignReveal>
 

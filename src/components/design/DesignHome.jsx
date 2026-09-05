@@ -285,8 +285,7 @@ function PrivateWork() {
   const cards = t("solution.cards") || [];
   return (
     <DesignReveal>
-      <section className="sec" style={{ padding: "0 0 var(--space-24)" }}>
-        <span id="what-we-do" className="anchor" aria-hidden="true" />
+      <section id="what-we-do" className="sec" style={{ padding: "0 0 var(--space-24)" }}>
         <div className="editorial">
           <div className="editorial-head">
             <h2 className="sec-title">
@@ -435,10 +434,9 @@ function Portfolio({ itemsByTab }) {
 
   return (
     <DesignReveal>
-      <section className="sec" style={{ padding: "0 0 var(--space-24)" }}>
+      <section id="portfolio" className="sec" style={{ padding: "0 0 var(--space-24)" }}>
         <div className="sec-head center">
           <h2 className="sec-title">
-            <span id="portfolio" className="anchor" aria-hidden="true" />
             {t("portfolio.title")}
             <span className="gradient-text">{t("portfolio.titleGradient")}</span>
           </h2>
@@ -544,10 +542,9 @@ function Reviews() {
   const loop = [...REVIEWS, ...REVIEWS];
   return (
     <DesignReveal>
-      <section className="sec" style={{ padding: "0 0 var(--space-24)" }}>
+      <section id="testimonials" className="sec" style={{ padding: "0 0 var(--space-24)" }}>
         <div className="sec-head center">
           <h2 className="sec-title">
-            <span id="reviews" className="anchor" aria-hidden="true" />
             {t("reviews.title")}
             <span className="gradient-text">{t("reviews.titleGradient")}</span>
             {t("reviews.titleEnd", "")}
@@ -628,10 +625,9 @@ function Packages({ packages }) {
 
   return (
     <DesignReveal>
-      <section className="sec" style={{ padding: "0 0 var(--space-24)" }}>
+      <section id="packages" className="sec" style={{ padding: "0 0 var(--space-24)" }}>
         <div className="sec-head center">
           <h2 className="sec-title">
-            <span id="packages" className="anchor" aria-hidden="true" />
             {t("pricing.title")}
             <span className="gradient-text">{t("pricing.titleGradient")}</span>
           </h2>

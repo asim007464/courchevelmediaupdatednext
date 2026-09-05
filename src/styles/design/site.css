@@ -251,7 +251,7 @@ section.related{padding-top:var(--space-32,128px)}
 }
 
 html,html:root{scroll-behavior:auto}
-#what-we-do,#portfolio,#reviews,#packages{scroll-margin-top:110px}
+#what-we-do,#portfolio,#testimonials,#reviews,#packages{scroll-margin-top:120px}
 .anchor{display:block;height:0;width:0;overflow:hidden;pointer-events:none}
 
 .navwrap{position:sticky;top:20px;z-index:40}
@@ -329,6 +329,8 @@ html,html:root{scroll-behavior:auto}
 .ab-lifestyle-img image-slot{display:block;width:100%;height:100%}
 .ab-today{max-width:720px;margin:0 auto;text-align:center}
 .ab-today .ab-body{margin-top:var(--space-5)}
+.ab-today-sec{display:flex;flex-direction:column;gap:var(--space-16)}
+.ab-today-sec .ab-bleed-tall{margin-bottom:0}
 .ab-cta{max-width:1080px;margin:0 auto;background:var(--surface-raised);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:var(--space-24) var(--space-16);text-align:center}
 @media(max-width:1080px){
   .ab-hero-grid,.ab-spread,.ab-cols,.ab-band,.ab-lifestyle{grid-template-columns:1fr;gap:var(--space-8)}
