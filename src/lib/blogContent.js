@@ -15,12 +15,20 @@ function escapeHtml(value) {
 function formatInline(text) {
   let html = escapeHtml(text);
   html = html.replace(
-    /!\[([^\]]*)\]\((https?:\/\/[^)\s]+)\)/g,
+    /!\[([^\]]*)\]\(((?:https?:\/\/|\/)[^)\s]+)\)/g,
     '<img src="$2" alt="$1" class="blog-article__content-image" />'
   );
   html = html.replace(
-    /\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g,
-    '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
+    /\[([^\]]+)\]\(((?:https?:\/\/|\/)[^)\s]+)\)/g,
+    (_, label, href) => {
+      const isExternal =
+        /^https?:\/\//i.test(href) &&
+        !/courchevelmedia\.com/i.test(href);
+      if (isExternal) {
+        return `<a href="${href}" target="_blank" rel="noopener noreferrer">${label}</a>`;
+      }
+      return `<a href="${href}">${label}</a>`;
+    }
   );
   html = html.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
   html = html.replace(/\*([^*]+)\*/g, "<em>$1</em>");
@@ -93,7 +101,7 @@ export function renderBlogContentToHtml(content) {
       continue;
     }
 
-    if (/^!\[.*\]\(https?:\/\/.+\)$/.test(trimmed)) {
+    if (/^!\[.*\]\((?:https?:\/\/|\/).+\)$/.test(trimmed)) {
       flushParagraph();
       flushList();
       blocks.push(`<p>${formatInline(trimmed)}</p>`);

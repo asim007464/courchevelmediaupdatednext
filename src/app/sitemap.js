@@ -1,9 +1,11 @@
+import { fetchPublishedBlogs } from "@/lib/supabase/content";
 import { SITE_URL } from "@/lib/seo";
 
-export default function sitemap() {
+export default async function sitemap() {
   const lastModified = new Date();
+  const blogs = await fetchPublishedBlogs();
 
-  return [
+  const staticRoutes = [
     {
       url: SITE_URL,
       lastModified,
@@ -41,4 +43,15 @@ export default function sitemap() {
       priority: 0.5,
     },
   ];
+
+  const articleRoutes = (blogs || []).map((blog) => ({
+    url: `${SITE_URL}/magazine/${blog.slug}`,
+    lastModified: new Date(
+      blog.updated_at || blog.published_at || blog.created_at || lastModified
+    ),
+    changeFrequency: "monthly",
+    priority: 0.8,
+  }));
+
+  return [...staticRoutes, ...articleRoutes];
 }

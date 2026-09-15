@@ -36,7 +36,7 @@ function GuideCard({ guide }) {
       }}
     >
       <div className="slotwrap">
-        <img src={guide.cover} alt="" className="design-img" />
+        <img src={guide.cover} alt={guide.coverAlt || guide.title || ""} className="design-img" />
       </div>
       <div
         style={{
@@ -250,7 +250,7 @@ export default function DesignMagazine() {
           </div>
           <Link href={`/magazine/${featured.slug}`} className="cardlink feature">
             <div className="feature-thumb" style={{ minHeight: 460, position: "relative" }}>
-              <img src={featured.cover} alt="" className="design-img" />
+              <img src={featured.cover} alt={featured.coverAlt || featured.title || ""} className="design-img" />
             </div>
             <div
               className="feature-copy"

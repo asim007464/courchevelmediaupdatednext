@@ -11,6 +11,11 @@ const emptyPost = {
   category: "Planning Your Experience",
   lead: "",
   content: "",
+  seo_title: "",
+  meta_description: "",
+  cover_alt: "",
+  author: "Courchevel Media",
+  published_at: "",
   minutes: 5,
   published: false,
 };
@@ -24,12 +29,28 @@ const slugify = (value) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
 
+function toDateTimeLocal(value) {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+  const pad = (n) => String(n).padStart(2, "0");
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+}
+
+function fromDateTimeLocal(value) {
+  if (!value) return null;
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return null;
+  return date.toISOString();
+}
+
 export default function BlogsAdmin() {
   const [posts, setPosts] = useState([]);
   const [form, setForm] = useState(emptyPost);
   const [coverFile, setCoverFile] = useState(null);
   const [editingId, setEditingId] = useState(null);
   const [existingCover, setExistingCover] = useState("");
+  const [existingUpdatedAt, setExistingUpdatedAt] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
@@ -53,7 +74,15 @@ export default function BlogsAdmin() {
       .order("created_at", { ascending: false });
 
     if (loadError) {
-      setError(loadError.message);
+      setError(
+        loadError.message.includes("seo_title") ||
+          loadError.message.includes("meta_description") ||
+          loadError.message.includes("cover_alt") ||
+          loadError.message.includes("published_at") ||
+          loadError.message.includes("schema cache")
+          ? "Magazine SEO columns missing. Run the latest supabase/schema.sql ALTER statements for blogs in Supabase."
+          : loadError.message
+      );
     } else {
       setPosts(data || []);
       setError("");
@@ -70,6 +99,7 @@ export default function BlogsAdmin() {
     setForm(emptyPost);
     setCoverFile(null);
     setExistingCover("");
+    setExistingUpdatedAt("");
     setShowPreview(false);
   };
 
@@ -81,10 +111,16 @@ export default function BlogsAdmin() {
       category: post.category || "Planning Your Experience",
       lead: post.lead || "",
       content: post.content || "",
+      seo_title: post.seo_title || "",
+      meta_description: post.meta_description || "",
+      cover_alt: post.cover_alt || "",
+      author: post.author || "Courchevel Media",
+      published_at: toDateTimeLocal(post.published_at || post.created_at),
       minutes: post.minutes || 5,
       published: Boolean(post.published),
     });
     setExistingCover(post.cover_image || "");
+    setExistingUpdatedAt(post.updated_at || "");
     setCoverFile(null);
     setMessage("");
     setShowPreview(false);
@@ -163,7 +199,13 @@ export default function BlogsAdmin() {
       data: { publicUrl },
     } = supabase.storage.from("blogs").getPublicUrl(path);
 
-    insertAtCursor(`\n\n![Image](${publicUrl})\n\n`);
+    const alt =
+      window.prompt(
+        "Alt text for this image (SEO / accessibility):",
+        file.name.replace(/\.[^.]+$/, "").replace(/[-_]+/g, " ")
+      ) || "Article image";
+
+    insertAtCursor(`\n\n![${alt}](${publicUrl})\n\n`);
     setMessage("Image uploaded into content.");
   };
 
@@ -204,14 +246,25 @@ export default function BlogsAdmin() {
     }
 
     const slug = form.slug.trim() || slugify(form.title);
+    const isPublished = Boolean(form.published);
+    let publishedAt = fromDateTimeLocal(form.published_at);
+    if (isPublished && !publishedAt) {
+      publishedAt = new Date().toISOString();
+    }
+
     const payload = {
       title: form.title.trim(),
       slug,
       category: form.category.trim() || "Planning Your Experience",
       lead: form.lead.trim(),
       content: form.content.trim(),
+      seo_title: form.seo_title.trim(),
+      meta_description: form.meta_description.trim(),
+      cover_alt: form.cover_alt.trim(),
+      author: form.author.trim() || "Courchevel Media",
       minutes: Number(form.minutes) || 5,
-      published: Boolean(form.published),
+      published: isPublished,
+      published_at: isPublished ? publishedAt : publishedAt,
       cover_image: coverImage,
     };
 
@@ -251,8 +304,12 @@ export default function BlogsAdmin() {
   return (
     <div className="admin-page">
       <header className="admin-page__header">
-        <h1>Blogs</h1>
-        <p>Create and publish any kind of guide or article for the /blogs section.</p>
+        <h1>Magazine articles</h1>
+        <p>
+          Create Magazine posts with separate H1, SEO title, meta description,
+          slug, hero image + alt, author, and publish dates for search and
+          social sharing.
+        </p>
       </header>
 
       {error ? <p className="admin-banner admin-banner--error">{error}</p> : null}
@@ -260,7 +317,7 @@ export default function BlogsAdmin() {
 
       <form className="admin-form" onSubmit={handleSave}>
         <label>
-          <span>Title</span>
+          <span>Article title (H1)</span>
           <input
             value={form.title}
             onChange={(event) => {
@@ -276,9 +333,37 @@ export default function BlogsAdmin() {
           />
         </label>
 
+        <label>
+          <span>SEO title (browser tab / Google / OG title)</span>
+          <input
+            value={form.seo_title}
+            onChange={(event) =>
+              setForm((prev) => ({ ...prev, seo_title: event.target.value }))
+            }
+            placeholder="Leave blank to use the article title"
+            maxLength={70}
+          />
+        </label>
+
+        <label>
+          <span>Meta description (search + OG description)</span>
+          <textarea
+            rows={2}
+            value={form.meta_description}
+            onChange={(event) =>
+              setForm((prev) => ({
+                ...prev,
+                meta_description: event.target.value,
+              }))
+            }
+            placeholder="1–2 sentences for search results and social sharing"
+            maxLength={180}
+          />
+        </label>
+
         <div className="admin-form__row">
           <label>
-            <span>Slug</span>
+            <span>Custom URL slug</span>
             <input
               value={form.slug}
               onChange={(event) =>
@@ -316,8 +401,46 @@ export default function BlogsAdmin() {
           </label>
         </div>
 
+        <div className="admin-form__row">
+          <label>
+            <span>Author</span>
+            <input
+              value={form.author}
+              onChange={(event) =>
+                setForm((prev) => ({ ...prev, author: event.target.value }))
+              }
+              placeholder="Courchevel Media"
+            />
+          </label>
+          <label>
+            <span>Published date</span>
+            <input
+              type="datetime-local"
+              value={form.published_at}
+              onChange={(event) =>
+                setForm((prev) => ({
+                  ...prev,
+                  published_at: event.target.value,
+                }))
+              }
+            />
+          </label>
+          <label>
+            <span>Last updated</span>
+            <input
+              type="text"
+              value={
+                existingUpdatedAt
+                  ? new Date(existingUpdatedAt).toLocaleString()
+                  : "Saved automatically on update"
+              }
+              disabled
+            />
+          </label>
+        </div>
+
         <label>
-          <span>Lead</span>
+          <span>Lead (shown under the H1)</span>
           <textarea
             rows={2}
             value={form.lead}
@@ -348,8 +471,16 @@ export default function BlogsAdmin() {
             <button type="button" onClick={() => insertAtCursor("\n> Quote text\n\n", true)}>
               Quote
             </button>
+            <button
+              type="button"
+              onClick={() =>
+                insertAtCursor("\n[Link text](/magazine/article-slug)\n\n", true)
+              }
+            >
+              Internal link
+            </button>
             <button type="button" onClick={() => insertAtCursor("\n[Link text](https://)\n\n", true)}>
-              Link
+              External link
             </button>
             <button
               type="button"
@@ -415,13 +546,15 @@ You can also paste HTML if you need a fully custom layout.`}
           )}
 
           <p className="admin-editor__hint">
-            Supports headings, bold, lists, quotes, links, uploaded images, and
-            raw HTML for fully custom posts.
+            Supports headings, bold, lists, quotes, internal/external links,
+            uploaded images with alt text, and raw HTML for fully custom posts.
+            Use Internal link for Magazine URLs like{" "}
+            <code>/magazine/your-slug</code>.
           </p>
         </div>
 
         <label>
-          <span>Cover image</span>
+          <span>Hero / cover image (magazine grid + article hero + OG image)</span>
           <input
             type="file"
             accept="image/*"
@@ -430,6 +563,17 @@ You can also paste HTML if you need a fully custom layout.`}
           {existingCover ? (
             <img src={existingCover} alt="" className="admin-form__preview" />
           ) : null}
+        </label>
+
+        <label>
+          <span>Hero image alt text</span>
+          <input
+            value={form.cover_alt}
+            onChange={(event) =>
+              setForm((prev) => ({ ...prev, cover_alt: event.target.value }))
+            }
+            placeholder="Describe the hero photo for SEO and accessibility"
+          />
         </label>
 
         <label className="admin-form__checkbox">

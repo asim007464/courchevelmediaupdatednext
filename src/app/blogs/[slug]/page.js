@@ -5,6 +5,7 @@ export async function generateMetadata({ params }) {
   return {
     title: `${slug.replace(/-/g, " ")} | Courchevel Media`,
     alternates: { canonical: `/magazine/${slug}` },
+    robots: { index: true, follow: true },
   };
 }
 

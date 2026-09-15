@@ -147,7 +147,11 @@ export async function fetchPublishedBlogs() {
     .order("created_at", { ascending: false });
 
   if (error) return [];
-  return data || [];
+  return (data || []).slice().sort((a, b) => {
+    const aTime = new Date(a.published_at || a.created_at || 0).getTime();
+    const bTime = new Date(b.published_at || b.created_at || 0).getTime();
+    return bTime - aTime;
+  });
 }
 
 export async function fetchBlogBySlug(slug) {

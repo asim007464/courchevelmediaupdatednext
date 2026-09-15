@@ -43,11 +43,33 @@ create table if not exists public.blogs (
   lead text not null default '',
   content text not null default '',
   cover_image text,
+  cover_alt text not null default '',
+  seo_title text not null default '',
+  meta_description text not null default '',
+  author text not null default 'Courchevel Media',
   minutes int not null default 5,
   published boolean not null default false,
+  published_at timestamptz,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+-- Magazine SEO fields (safe to re-run)
+alter table public.blogs
+  add column if not exists cover_alt text not null default '';
+
+alter table public.blogs
+  add column if not exists seo_title text not null default '';
+
+alter table public.blogs
+  add column if not exists meta_description text not null default '';
+
+alter table public.blogs
+  add column if not exists author text not null default 'Courchevel Media';
+
+alter table public.blogs
+  add column if not exists published_at timestamptz;
+
 
 create index if not exists pricing_plans_tab_sort_idx on public.pricing_plans (tab, sort_order);
 create index if not exists gallery_images_category_sort_idx on public.gallery_images (category, sort_order);

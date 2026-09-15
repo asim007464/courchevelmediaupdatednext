@@ -217,7 +217,7 @@ export default function DesignArticle({ slug }) {
           <div className="art-hero-img">
             <img
               src={guide.cover || designImage("article-hero")}
-              alt=""
+              alt={guide.coverAlt || guide.title || ""}
               className="design-img"
             />
           </div>

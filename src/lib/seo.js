@@ -16,6 +16,119 @@ export const SEO_KEYWORDS = [
   "cinematic ski video Courchevel",
 ];
 
+function absoluteUrl(pathOrUrl) {
+  if (!pathOrUrl) return undefined;
+  if (/^https?:\/\//i.test(pathOrUrl)) return pathOrUrl;
+  const path = pathOrUrl.startsWith("/") ? pathOrUrl : `/${pathOrUrl}`;
+  return `${SITE_URL}${path}`;
+}
+
+export function buildArticleMetadata(guide) {
+  if (!guide) {
+    return {
+      title: "Article | Courchevel Media Magazine",
+      robots: { index: true, follow: true },
+    };
+  }
+
+  const seoTitle = guide.seoTitle || guide.title;
+  const description =
+    guide.metaDescription ||
+    guide.lead ||
+    guide.description ||
+    "Courchevel Media Magazine";
+  const canonicalPath = `/magazine/${guide.slug}`;
+  const imageUrl = absoluteUrl(guide.cover);
+  const imageAlt = guide.coverAlt || guide.title || SITE_NAME;
+
+  return {
+    title: { absolute: seoTitle },
+    description,
+    authors: [{ name: guide.author || SITE_NAME }],
+    creator: guide.author || SITE_NAME,
+    publisher: SITE_NAME,
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
+    alternates: {
+      canonical: canonicalPath,
+    },
+    openGraph: {
+      type: "article",
+      locale: "en_GB",
+      url: absoluteUrl(canonicalPath),
+      siteName: SITE_NAME,
+      title: seoTitle,
+      description,
+      publishedTime: guide.publishedAt || undefined,
+      modifiedTime: guide.updatedAt || undefined,
+      authors: [guide.author || SITE_NAME],
+      images: imageUrl
+        ? [
+            {
+              url: imageUrl,
+              width: 1200,
+              height: 630,
+              alt: imageAlt,
+            },
+          ]
+        : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: seoTitle,
+      description,
+      images: imageUrl ? [imageUrl] : undefined,
+    },
+  };
+}
+
+export function buildBlogPostingSchema(guide) {
+  if (!guide) return null;
+
+  const url = absoluteUrl(`/magazine/${guide.slug}`);
+  const imageUrl = absoluteUrl(guide.cover);
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: guide.title,
+    name: guide.seoTitle || guide.title,
+    description:
+      guide.metaDescription || guide.lead || guide.description || undefined,
+    image: imageUrl ? [imageUrl] : undefined,
+    author: {
+      "@type": "Person",
+      name: guide.author || SITE_NAME,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      logo: {
+        "@type": "ImageObject",
+        url: `${SITE_URL}/cm-icon-192.png`,
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": url,
+    },
+    url,
+    datePublished: guide.publishedAt || undefined,
+    dateModified: guide.updatedAt || guide.publishedAt || undefined,
+    articleSection: guide.category || undefined,
+    inLanguage: "en",
+  };
+}
+
 export const defaultMetadata = {
   metadataBase: new URL(SITE_URL),
   title: {
